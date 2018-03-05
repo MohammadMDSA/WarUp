@@ -18,7 +18,12 @@ namespace WarUp.Core.Logics
 
 		public void Tick()
 		{
-			Storage
+			var updatables = Storage.GetUpdatables();
+
+			foreach (var item in updatables)
+			{
+				item.Update();
+			}
 		}
 	}
 }

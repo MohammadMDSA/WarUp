@@ -56,6 +56,11 @@ namespace WarUp.Core.Graphics
 			{
 				ds.Clear(Colors.Black);
 				ds.DrawText("Hey " + deltaTime + "\t" + (int)fps, new Vector2((float)Window.Bounds.Width / 2, (float)Window.Bounds.Height / 2), Colors.Red);
+
+				foreach (var item in drawables)
+				{
+					item.Draw(ds);
+				}
 			}
 
 			using (var ds = SwapChainManager.SwapChain.CreateDrawingSession(Colors.CornflowerBlue))

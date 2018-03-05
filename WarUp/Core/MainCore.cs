@@ -19,7 +19,9 @@ namespace WarUp.Core
 
 		public MainCore(CoreWindow window)
 		{
+			Storage = new StorageCore();
 			Renderer = new Renderer(window);
+			Logic = new LogicCore(Storage);
 
 		}
 

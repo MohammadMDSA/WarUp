@@ -16,16 +16,17 @@ namespace WarUp.Core.Storage
 		public StorageCore()
 		{
 			this.Objects = new List<IFrameworkObject>();
+			this.Objects.Add(new GreenTile());
 		}
 
 		public IEnumerable<IDrawable> GetDrawables()
 		{
-			return null;
+			return Objects;
 		}
 
 		public IEnumerable<IUpdatable> GetUpdatables()
 		{
-			return null;
+			return Objects;
 		}
 	}
 }
