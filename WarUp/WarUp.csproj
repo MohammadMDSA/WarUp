@@ -93,9 +93,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Core\Graphics\IDrawable.cs" />
     <Compile Include="Core\Graphics\Renderer.cs" />
     <Compile Include="Core\Graphics\SwapChain\SwapChainManager.cs" />
     <Compile Include="Core\ITickable.cs" />
+    <Compile Include="Core\Logics\LogicCore.cs" />
     <Compile Include="Core\MainCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -122,6 +124,9 @@
     <PackageReference Include="Win2D.uwp">
       <Version>1.21.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Logics\Models\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -30,7 +30,7 @@ namespace WarUp
 			applicationView.Activated += ApplicationView_Activated;
 			CoreApplication.Suspending += CoreApplication_Suspending;
 			CoreApplication.Resuming += CoreApplication_Resuming;
-			
+
 		}
 
 		public void SetWindow(CoreWindow window)
@@ -44,7 +44,15 @@ namespace WarUp
 			displayInfo.DpiChanged += DisplayInfo_DpiChanged;
 			DisplayInformation.DisplayContentsInvalidated += DisplayInformation_DisplayContentsInvalidated;
 
+			window.ResizeStarted += Window_ResizeStarted;
+
+			CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+
 			MainCore = new MainCore(window);
+		}
+
+		private void Window_ResizeStarted(CoreWindow sender, object args)
+		{
 		}
 
 		public void Load(string entryPoint)
@@ -80,11 +88,7 @@ namespace WarUp
 		{
 			SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
 
-			Task.Run(new Action(() =>
-			{
-				MainCore.Suspend();
-				deferral.Complete();
-			}));
+			deferral.Complete();
 		}
 
 		private void CoreApplication_Resuming(object sender, object e)
@@ -99,7 +103,6 @@ namespace WarUp
 
 		private void Window_SizeChanged(CoreWindow sender, WindowSizeChangedEventArgs args)
 		{
-			args.Handled = false;
 		}
 
 		private void Window_VisibilityChanged(CoreWindow sender, VisibilityChangedEventArgs args)
@@ -121,7 +124,7 @@ namespace WarUp
 		{
 			throw new NotImplementedException();
 		}
-
+		
 	}
 
 	sealed class AppSource : IFrameworkViewSource

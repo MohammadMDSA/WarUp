@@ -13,6 +13,7 @@ namespace WarUp.Core
 	{
 		private Renderer Renderer;
 
+
 		public MainCore(CoreWindow window)
 		{
 			Renderer = new Renderer(window);

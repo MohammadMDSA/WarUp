@@ -39,7 +39,7 @@ namespace WarUp.Core.Graphics
 			LastRender = DateTime.Now;
 		}
 
-		public void Render()
+		public void Render(IEnumerable<IDrawable> drawables)
 		{
 			long deltaTime = (DateTime.Now - LastRender).Milliseconds;
 
@@ -74,6 +74,7 @@ namespace WarUp.Core.Graphics
 		private void EnsureCurrentBufferMatchesWindow()
 		{
 			var bounds = Window.Bounds;
+
 			Size windowSize = new Size(bounds.Width, bounds.Height);
 			float dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
 
