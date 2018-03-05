@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
+using WarUp.Core;
+using WarUp.Core.Graphics;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -25,7 +27,7 @@ namespace WarUp
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class MainPage : Page
+	public sealed partial class MainPage : Page, IRenderable
 	{
 		private CanvasSwapChain SwapChain;
 
@@ -37,7 +39,7 @@ namespace WarUp
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			CanvasSwapChainPanel p;
+			MainCore.Core.RenderDevice = this;
 		}
 
 		private void CreateSwapChain()
@@ -47,16 +49,24 @@ namespace WarUp
 			SwapChainCanvas.SwapChain = ss;
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		public void Render()
 		{
-			if (SwapChainCanvas.SwapChain == null)
-				CreateSwapChain();
-			SwapChain = SwapChainCanvas.SwapChain;
-			using (var ds = this.SwapChain.CreateDrawingSession(Colors.Red))
+			Ensurement();
+
+			using (var ds = SwapChain.CreateDrawingSession(Colors.Black))
 			{
-				ds.FillCircle(new Vector2(50, 50), 20, Colors.Black);
+				ds.DrawLine(new Vector2(0, 0), new Vector2(100, 100), Colors.Red);
 			}
+
 			SwapChain.Present();
+		}
+		
+		public void Ensurement()
+		{
+			if (SwapChain == null)
+			{
+				CreateSwapChain();
+			}
 		}
 	}
 }

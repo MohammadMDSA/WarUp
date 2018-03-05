@@ -8,13 +8,10 @@
 	xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<StackPanel Orientation="Vertical">
-			<win2d:CanvasControl Height="100" x:Name="Super">
-				<win2d:CanvasSwapChainPanel Height="100" x:Name="SwapChainCanvas"/>
-				
-			</win2d:CanvasControl>
-		</StackPanel>
-			<Button Click="Button_Click" Content="dfdsfsdf" Margin="656,869,0,98"/>
+	<Grid>
+		<win2d:CanvasControl HorizontalAlignment="Stretch" x:Name="Super">
+			<win2d:CanvasSwapChainPanel Width="1000" Height="1000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="SwapChainCanvas"/>
+
+		</win2d:CanvasControl>
 	</Grid>
 </Page>

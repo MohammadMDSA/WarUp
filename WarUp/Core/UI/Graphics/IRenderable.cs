@@ -9,5 +9,7 @@ namespace WarUp.Core.Graphics
     interface IRenderable
     {
 		void Render();
+
+		void Ensurement();
     }
 }

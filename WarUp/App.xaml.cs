@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using WarUp.Core;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -22,6 +24,8 @@ namespace WarUp
     /// </summary>
     sealed partial class App : Application
     {
+		internal MainCore Core;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -32,6 +36,17 @@ namespace WarUp
             this.Suspending += OnSuspending;
         }
 
+		public void Run()
+		{
+			while (true)
+			{
+				if (Core.ActivePage.Visibility == Visibility.Visible)
+				{
+					Core.Tick();
+				}
+			}
+		}
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
@@ -40,6 +55,8 @@ namespace WarUp
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
+
+			Core = new MainCore();
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -71,6 +88,8 @@ namespace WarUp
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+			Task.Run(new Action(Run));
         }
 
         /// <summary>

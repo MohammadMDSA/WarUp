@@ -95,7 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Graphics\IRenderable.cs" />
+    <Compile Include="Core\UI\Graphics\IRenderable.cs" />
     <Compile Include="Core\ITickable.cs" />
     <Compile Include="Core\MainCore.cs" />
     <Compile Include="MainPage.xaml.cs">
