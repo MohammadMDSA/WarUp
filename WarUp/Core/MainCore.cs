@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WarUp.Core.Graphics;
+using WarUp.Core.Logics;
+using WarUp.Core.Storage;
 using Windows.UI.Core;
 
 namespace WarUp.Core
@@ -12,16 +14,19 @@ namespace WarUp.Core
 	class MainCore : ITickable
 	{
 		private Renderer Renderer;
-
+		private StorageCore Storage;
+		private LogicCore Logic;
 
 		public MainCore(CoreWindow window)
 		{
 			Renderer = new Renderer(window);
+
 		}
 
 		public void Tick()
 		{
-			Renderer.Render();
+			Logic.Tick();
+			Renderer.Render(Storage.GetDrawables());
 		}
 
 		public void Suspend()
