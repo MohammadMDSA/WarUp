@@ -99,6 +99,7 @@
     <Compile Include="Core\ITickable.cs" />
     <Compile Include="Core\Logics\LogicCore.cs" />
     <Compile Include="Core\MainCore.cs" />
+    <Compile Include="Core\Storage\StorageCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
