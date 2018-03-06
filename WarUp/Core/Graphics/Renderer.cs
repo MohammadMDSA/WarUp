@@ -20,6 +20,8 @@ namespace WarUp.Core.Graphics
 		private CoreWindow Window;
 		private CanvasDevice Device;
 		private SwapChainManager SwapChainManager;
+		private int count = 0;
+		float fps = 0;
 
 		CanvasRenderTarget[] AccumulationBuffers = new CanvasRenderTarget[2];
 		private int CurrentBuffer;
@@ -41,11 +43,17 @@ namespace WarUp.Core.Graphics
 
 		public void Render(IEnumerable<IDrawable> drawables)
 		{
+			count = (count + 1) % 20;
+
 			long deltaTime = (DateTime.Now - LastRender).Milliseconds;
 
 			LastRender = DateTime.Now;
 
-			float fps = 1000 / (deltaTime * 1.0f);
+			if (count == 0)
+			{
+				fps = 1000 / (deltaTime * 1.0f);
+
+			}
 
 			SwapChainManager.EnsureMatchesWindow(Window);
 

@@ -21,7 +21,13 @@ namespace WarUp.Core.Storage
 
 		public IEnumerable<IDrawable> GetDrawables()
 		{
-			return Objects;
+			var result = new List<IDrawable>();
+			foreach (var item in Objects)
+			{
+				if (item is IDrawable)
+					result.Add(item as IDrawable);
+			}
+			return result;
 		}
 
 		public IEnumerable<IUpdatable> GetUpdatables()

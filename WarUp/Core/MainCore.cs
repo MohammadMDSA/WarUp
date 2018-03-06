@@ -22,7 +22,6 @@ namespace WarUp.Core
 			Storage = new StorageCore();
 			Renderer = new Renderer(window);
 			Logic = new LogicCore(Storage);
-
 		}
 
 		public void Tick()

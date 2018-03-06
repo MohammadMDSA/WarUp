@@ -32,24 +32,24 @@ namespace WarUp.Core.Logics.Models
 			switch (this.Direction)
 			{
 				case Direction.Up:
-					if (x < 11)
-						Direction = Direction.Right;
-					x -= 10;
-					break;
-				case Direction.Down:
-					if (x > 89)
-						Direction = Direction.Left;
-					x += 10;
-					break;
-				case Direction.Left:
 					if (y < 11)
-						Direction = Direction.Up;
+						Direction = Direction.Right;
 					y -= 10;
 					break;
-				case Direction.Right:
+				case Direction.Down:
 					if (y > 89)
-						Direction = Direction.Down;
+						Direction = Direction.Left;
 					y += 10;
+					break;
+				case Direction.Left:
+					if (x < 11)
+						Direction = Direction.Up;
+					x -= 10;
+					break;
+				case Direction.Right:
+					if (x > 89)
+						Direction = Direction.Down;
+					x += 10;
 					break;
 			}
 		}
