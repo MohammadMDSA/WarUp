@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27406.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarUp", "WarUp\WarUp.csproj", "{AED313FF-0A9E-4031-91CB-3B680DE5E1D3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderingEngine", "RenderingEngine\RenderingEngine.vcxproj", "{3101A9A4-395C-4358-BD42-E46744F72F14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -33,6 +35,18 @@ Global
 		{AED313FF-0A9E-4031-91CB-3B680DE5E1D3}.Release|x86.ActiveCfg = Release|x86
 		{AED313FF-0A9E-4031-91CB-3B680DE5E1D3}.Release|x86.Build.0 = Release|x86
 		{AED313FF-0A9E-4031-91CB-3B680DE5E1D3}.Release|x86.Deploy.0 = Release|x86
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Debug|ARM.ActiveCfg = Debug|ARM
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Debug|ARM.Build.0 = Debug|ARM
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Debug|x64.ActiveCfg = Debug|x64
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Debug|x64.Build.0 = Debug|x64
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Debug|x86.ActiveCfg = Debug|Win32
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Debug|x86.Build.0 = Debug|Win32
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Release|ARM.ActiveCfg = Release|ARM
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Release|ARM.Build.0 = Release|ARM
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Release|x64.ActiveCfg = Release|x64
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Release|x64.Build.0 = Release|x64
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Release|x86.ActiveCfg = Release|Win32
+		{3101A9A4-395C-4358-BD42-E46744F72F14}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

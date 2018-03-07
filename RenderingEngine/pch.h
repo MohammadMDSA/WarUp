@@ -1,8 +1,11 @@
-﻿#pragma once
+﻿// pch.h
+// Header for standard system include files.
+//
 
-#include <collection.h>
-#include <ppltasks.h>
+#pragma once
 
+// Use the C++ standard templated min/max
+#define NOMINMAX
 
 #include <wrl.h>
 

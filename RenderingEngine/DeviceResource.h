@@ -35,6 +35,8 @@ private:
 	int m_outputHeigh;
 	DXGI_MODE_ROTATION m_outputRotation;
 
+	void Render();
+
 	void CreateDevice();
 	void CreateResources();
 
