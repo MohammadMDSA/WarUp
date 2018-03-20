@@ -110,6 +110,11 @@ namespace WarUp.Core.Logics.Models
 		{
 			throw new NotImplementedException();
 		}
+
+		public override bool ShouldBeDrawn()
+		{
+			return true;
+		}
 	}
 
 	enum Direction

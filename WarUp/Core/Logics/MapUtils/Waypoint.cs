@@ -73,5 +73,10 @@ namespace WarUp.Core.Logics.MapUtils
 		public override void Update()
 		{
 		}
+
+		public override bool ShouldBeDrawn()
+		{
+			return ParentRoute == null ? true : false;
+		}
 	}
 }
