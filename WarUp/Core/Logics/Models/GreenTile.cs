@@ -8,6 +8,7 @@ using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Geometry;
 using WarUp.Core.Graphics;
+using WarUp.Core.Logics.Models.Ability;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
@@ -15,11 +16,12 @@ using Windows.UI.Xaml.Shapes;
 
 namespace WarUp.Core.Logics.Models
 {
-	class GreenTile : FrameworkObject
+	class GreenTile : FrameworkObject, IMovable
 	{
 		private Direction Direction;
 		private Vector2 Position;
 		private bool Selected;
+		private float Speed;
 
 		public GreenTile()
 		{
@@ -82,7 +84,7 @@ namespace WarUp.Core.Logics.Models
 
 		public override bool Unselect()
 		{
-			Selected = true;
+			Selected = false;
 			return true;
 		}
 
@@ -90,6 +92,13 @@ namespace WarUp.Core.Logics.Models
 		{
 			return true;
 		}
+
+		public void Move()
+		{
+			throw new NotImplementedException();
+		}
+
+		public float GetSpeed() => this.Speed;
 	}
 
 	enum Direction
