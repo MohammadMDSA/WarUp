@@ -67,7 +67,8 @@ namespace WarUp.Core.Graphics
 
 				foreach (var item in drawables)
 				{
-					item.Draw(ds);
+					if (item.ShouldBeDrawn())
+						item.Draw(ds);
 				}
 			}
 

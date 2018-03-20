@@ -10,7 +10,16 @@ namespace WarUp.Core.Graphics
 {
 	interface IDrawable
 	{
+		/// <summary>
+		/// Draws an object on canvas
+		/// </summary>
+		/// <param name="session">Canvas session of the drawing</param>
 		void Draw(CanvasDrawingSession session);
-        
+
+		/// <summary>
+		/// Determines if object should be drawn
+		/// </summary>
+		/// <returns>Returns true if it should be drawn</returns>
+		bool ShouldBeDrawn();
 	}
 }
