@@ -73,6 +73,21 @@ namespace WarUp.Core.Logics.MapUtils
 		public override void Update()
 		{
 		}
+
+		public void AddWayPoint(Waypoint newWaypoint, Waypoint parent)
+		{
+			var newNode = new WaypointRouteNode(newWaypoint);
+			foreach (var item in Nodes)
+			{
+				if (item.Waypoint == parent)
+				{
+					item.Neighbours.Add(newNode);
+					break;
+				}
+			}
+			this.Nodes.Add(newNode);
+			newWaypoint.ParentRoute = this;
+		}
 	}
 
 	/// <summary>
