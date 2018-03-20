@@ -7,8 +7,10 @@ using WarUp.Core.Graphics;
 
 namespace WarUp.Core.Logics.Models
 {
-	interface IFrameworkObject : IUpdatable
+	public abstract class FrameworkObject : IUpdatable
 	{
-		
-	}
+        public string Name { get; set; }
+
+        public abstract void Update();
+    }
 }
