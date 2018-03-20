@@ -100,7 +100,7 @@
     <Compile Include="Core\Logics\ISelectable.cs" />
     <Compile Include="Core\Logics\IUpdatable.cs" />
     <Compile Include="Core\Logics\LogicCore.cs" />
-    <Compile Include="Core\Logics\MapUtils\GameUtils.cs" />
+    <Compile Include="Core\Logics\MapUtils\GameUtil.cs" />
     <Compile Include="Core\Logics\MapUtils\Waypoint.cs" />
     <Compile Include="Core\Logics\Models\Ability\IAbility.cs" />
     <Compile Include="Core\Logics\Models\Ability\IMovable.cs" />
