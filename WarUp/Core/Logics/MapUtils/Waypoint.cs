@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using WarUp.Core.Graphics;
 
-namespace WarUp.Core.Logics.Models
+namespace WarUp.Core.Logics.MapUtils
 {
-	interface FrameworkObject : IUpdatable
-	{
-	}
+    public class Waypoint
+    {
+        Vector2 Point;
+    }
 }

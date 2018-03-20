@@ -99,10 +99,12 @@
     <Compile Include="Core\ITickable.cs" />
     <Compile Include="Core\Logics\IUpdatable.cs" />
     <Compile Include="Core\Logics\LogicCore.cs" />
+    <Compile Include="Core\Logics\MapUtils\Waypoint.cs" />
     <Compile Include="Core\Logics\Models\Ability\IAbility.cs" />
     <Compile Include="Core\Logics\Models\Ability\IMovable.cs" />
+    <Compile Include="Core\Logics\Models\GameObject.cs" />
     <Compile Include="Core\Logics\Models\GreenTile.cs" />
-    <Compile Include="Core\Logics\Models\IFrameworkObject.cs" />
+    <Compile Include="Core\Logics\FrameworkObject.cs" />
     <Compile Include="Core\MainCore.cs" />
     <Compile Include="Core\Storage\StorageCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,7 +113,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="ClassDiagram1.cd" />
     <None Include="WarUp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

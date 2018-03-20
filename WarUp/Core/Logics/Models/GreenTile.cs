@@ -1,58 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Graphics.Canvas;
+using WarUp.Core.Graphics;
 using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Composition;
+using Windows.UI.Xaml.Shapes;
 
 namespace WarUp.Core.Logics.Models
 {
-	class GreenTile : IFrameworkObject
+	class GreenTile : FrameworkObject, IDrawable
 	{
-		private int x;
-		private int y;
 		private Direction Direction;
+        private Vector2 Position;
 
 		public GreenTile()
 		{
-			x = 0;
-			y = 0;
 			this.Direction = Direction.Right;
-		}
+            Position = new Vector2(0f);
+        }
 
 		public void Draw(CanvasDrawingSession session)
 		{
-			session.FillRectangle(new Rect(x, y, 10, 10), Colors.Green);
+			session.FillRectangle(Position.X, Position.Y, 10, 10, Colors.Green);
+            session.DrawText(Position.X + " " + Position.Y, 500, 500, Colors.Azure);
 		}
 
 		public void Update()
 		{
-			switch (this.Direction)
-			{
-				case Direction.Up:
-					if (y < 11)
-						Direction = Direction.Right;
-					y -= 10;
-					break;
-				case Direction.Down:
-					if (y > 89)
-						Direction = Direction.Left;
-					y += 10;
-					break;
-				case Direction.Left:
-					if (x < 11)
-						Direction = Direction.Up;
-					x -= 10;
-					break;
-				case Direction.Right:
-					if (x > 89)
-						Direction = Direction.Down;
-					x += 10;
-					break;
-			}
-		}
+            switch (this.Direction)
+            {
+                case Direction.Up:
+                    if (Position.Y < 11)
+                        Direction = Direction.Right;
+                    Position.Y -= 10;
+                    break;
+                case Direction.Down:
+                    if (Position.Y > 89)
+                        Direction = Direction.Left;
+                    Position.Y += 10;
+                    break;
+                case Direction.Left:
+                    if (Position.X < 11)
+                        Direction = Direction.Up;
+                    Position.X -= 10;
+                    break;
+                case Direction.Right:
+                    if (Position.X > 89)
+                        Direction = Direction.Down;
+                    Position.X += 10;
+                    break;
+            }
+        }
 
 	}
 

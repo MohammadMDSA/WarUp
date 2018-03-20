@@ -11,11 +11,11 @@ namespace WarUp.Core.Storage
 {
 	class StorageCore
 	{
-		public List<IFrameworkObject> Objects;
+		public List<FrameworkObject> Objects;
 
 		public StorageCore()
 		{
-			this.Objects = new List<IFrameworkObject>();
+			this.Objects = new List<FrameworkObject>();
 			this.Objects.Add(new GreenTile());
 		}
 

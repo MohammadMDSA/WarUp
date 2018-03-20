@@ -8,6 +8,7 @@ using WarUp.Core;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -98,8 +99,12 @@ namespace WarUp
 
             DPI = DisplayInformation.GetForCurrentView().LogicalDpi;
 
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+            //ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
 
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
+            ApplicationView.PreferredLaunchViewSize = new Size(800, 600);
+            ApplicationView.GetForCurrentView().TryResizeView(new Size(800, 600));
 
 			CoreWindow.GetForCurrentThread().Activate();
     
