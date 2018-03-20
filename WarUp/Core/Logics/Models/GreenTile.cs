@@ -8,6 +8,7 @@ using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Geometry;
 using WarUp.Core.Graphics;
+using WarUp.Core.Logics.MapUtils;
 using WarUp.Core.Logics.Models.Ability;
 using Windows.Foundation;
 using Windows.UI;
@@ -92,13 +93,23 @@ namespace WarUp.Core.Logics.Models
 		{
 			return true;
 		}
+		
+		public float GetSpeed() => this.Speed;
 
-		public void Move()
+		public void Move(Vector2 destination)
 		{
 			throw new NotImplementedException();
 		}
 
-		public float GetSpeed() => this.Speed;
+		public void Move(Waypoint destination)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Move(WaypointRoute path)
+		{
+			throw new NotImplementedException();
+		}
 	}
 
 	enum Direction
