@@ -26,9 +26,12 @@ namespace WarUp.Core.Logics.MapUtils
 		/// </summary>
 		private bool Selected;
 
+		public WaypointRoute ParentRoute { get; set; }
+
 		public Waypoint(Vector2 position)
 		{
 			this.Position = position;
+			this.ParentRoute = null;
 		}
 
 		public override void Draw(CanvasDrawingSession session)
