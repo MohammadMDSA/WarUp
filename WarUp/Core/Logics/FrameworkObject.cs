@@ -25,6 +25,7 @@ namespace WarUp.Core.Logics.Models
 		public abstract bool IsAvailable();
 		public abstract bool IsSelected();
 		public abstract bool Select();
+		public abstract bool ShouldBeDrawn();
 		public abstract bool Unselect();
 		public abstract void Update();
     }
