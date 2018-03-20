@@ -135,12 +135,6 @@
   <ItemGroup>
     <Folder Include="Core\Logics\Actions\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RenderingEngine\RenderingEngine.vcxproj">
-      <Project>{3101a9a4-395c-4358-bd42-e46744f72f14}</Project>
-      <Name>RenderingEngine</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

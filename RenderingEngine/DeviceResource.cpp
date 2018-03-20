@@ -2,6 +2,7 @@
 #include "DeviceResource.h"
 
 using namespace DirectX;
+using namespace RenderEngine;
 
 using Microsoft::WRL::ComPtr;
 

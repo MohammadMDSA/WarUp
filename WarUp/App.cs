@@ -6,9 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using WarUp.Core;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Display;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 
 namespace WarUp
 {
@@ -16,6 +18,8 @@ namespace WarUp
 	{
 		private bool WindowVisible;
 		private bool WindowClosed;
+        public float DPI { get; private set; }
+
 
 		private MainCore MainCore;
 
@@ -41,7 +45,7 @@ namespace WarUp
 
 			var displayInfo = DisplayInformation.GetForCurrentView();
 			displayInfo.OrientationChanged += DisplayInfo_OrientationChanged;
-			displayInfo.DpiChanged += DisplayInfo_DpiChanged;
+            displayInfo.DpiChanged += DisplayInfo_DpiChanged;
 			DisplayInformation.DisplayContentsInvalidated += DisplayInformation_DisplayContentsInvalidated;
 
 			window.ResizeStarted += Window_ResizeStarted;
@@ -79,9 +83,26 @@ namespace WarUp
 		{
 		}
 
-		private void ApplicationView_Activated(CoreApplicationView sender, Windows.ApplicationModel.Activation.IActivatedEventArgs args)
+		private void ApplicationView_Activated(CoreApplicationView sender, IActivatedEventArgs args)
 		{
+            if (args.Kind == ActivationKind.Launch)
+            {
+                var launchArgs = (LaunchActivatedEventArgs)args;
+
+                if (launchArgs.PrelaunchActivated)
+                {
+                    CoreApplication.Exit();
+                    return;
+                }
+            }
+
+            DPI = DisplayInformation.GetForCurrentView().LogicalDpi;
+
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+
+
 			CoreWindow.GetForCurrentThread().Activate();
+    
 		}
 
 		private void CoreApplication_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
