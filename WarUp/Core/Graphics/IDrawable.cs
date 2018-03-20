@@ -11,5 +11,6 @@ namespace WarUp.Core.Graphics
 	interface IDrawable
 	{
 		void Draw(CanvasDrawingSession session);
+        
 	}
 }

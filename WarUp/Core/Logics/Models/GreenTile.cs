@@ -24,13 +24,13 @@ namespace WarUp.Core.Logics.Models
             Position = new Vector2(0f);
         }
 
-		public void Draw(CanvasDrawingSession session)
+		public override void Draw(CanvasDrawingSession session)
 		{
 			session.FillRectangle(Position.X, Position.Y, 10, 10, Colors.Green);
             session.DrawText(Position.X + " " + Position.Y, 500, 500, Colors.Azure);
 		}
 
-		public void Update()
+		public override void Update()
 		{
             switch (this.Direction)
             {
