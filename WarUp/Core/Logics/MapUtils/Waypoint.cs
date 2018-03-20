@@ -19,7 +19,7 @@ namespace WarUp.Core.Logics.MapUtils
 		/// <summary>
 		/// Position of Waypoint
 		/// </summary>
-		private Vector2 Position { get; set; }
+		public Vector2 Position { get; set; }
 
 		/// <summary>
 		/// Tells if waypoint is selected or not
