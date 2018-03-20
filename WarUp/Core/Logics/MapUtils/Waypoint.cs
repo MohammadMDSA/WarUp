@@ -14,7 +14,7 @@ namespace WarUp.Core.Logics.MapUtils
 	/// <summary>
 	/// Represents a point on map or a point of a route
 	/// </summary>
-	public class Waypoint : GameUtil
+	public sealed class Waypoint : GameUtil
 	{
 		/// <summary>
 		/// Position of Waypoint
