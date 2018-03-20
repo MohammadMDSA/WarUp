@@ -10,5 +10,7 @@ namespace WarUp.Core.Logics.Models.Ability
 	interface IMovable : IAbility
 	{
         void Move();
+
+		float GetSpeed();
 	}
 }
