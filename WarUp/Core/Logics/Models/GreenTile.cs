@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Geometry;
 using WarUp.Core.Graphics;
 using Windows.Foundation;
 using Windows.UI;
@@ -31,7 +32,7 @@ namespace WarUp.Core.Logics.Models
 		{
 			session.FillRectangle(Position.X, Position.Y, 10, 10, Colors.Green);
 			session.DrawText(Position.X + " " + Position.Y, 500, 500, Colors.Azure);
-			session.DrawGeometry
+
 		}
 
 		public override void Update()
@@ -76,6 +77,18 @@ namespace WarUp.Core.Logics.Models
 		public override bool Select()
 		{
 			Selected = true;
+			return true;
+		}
+
+		public override bool Unselect()
+		{
+			Selected = true;
+			return true;
+		}
+
+		public override bool IsAvailable()
+		{
+			return true;
 		}
 	}
 
