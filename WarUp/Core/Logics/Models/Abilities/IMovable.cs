@@ -12,7 +12,7 @@ namespace WarUp.Core.Logics.Models.Ability
 	/// <summary>
 	/// Represents ability of moving
 	/// </summary>
-	interface IMovable : IAbility
+	public interface IMovable : IAbility
 	{
 		/// <summary>
 		/// Move to a specific location
