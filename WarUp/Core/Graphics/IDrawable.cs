@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Composition;
@@ -21,5 +22,11 @@ namespace WarUp.Core.Graphics
 		/// </summary>
 		/// <returns>Returns true if it should be drawn</returns>
 		bool ShouldBeDrawn();
+
+		/// <summary>
+		/// Size of object being drawn
+		/// </summary>
+		/// <returns>Object size</returns>
+		Vector2 GetSize();
 	}
 }
