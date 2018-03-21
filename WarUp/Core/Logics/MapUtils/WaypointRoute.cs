@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using MathNet.Spatial.Euclidean;
@@ -13,13 +14,37 @@ namespace WarUp.Core.Logics.MapUtils
 	{
 		private HashSet<WaypointRouteNode> Nodes;
 
+		public WaypointRoute(Waypoint start)
+		{
+			this.Nodes = new HashSet<WaypointRouteNode>();
+			this.Nodes.Add(new WaypointRouteNode(start));
+			start.ParentRoute = this;
+		}
+
 		public override void Draw(CanvasDrawingSession session)
 		{
+			Vector2 leftArrow = new Vector2(4, 8);
+			Vector2 rightArrow = new Vector2(-4, 8);
+			double rad;
+
 			foreach (var node in Nodes)
 			{
 				foreach (var neighbour in node.Neighbours)
 				{
-					session.DrawLine(node.Waypoint.Position, neighbour.Waypoint.Position, (node.Waypoint.IsSelected() && neighbour.Waypoint.IsSelected()) ? Colors.Red : Colors.Yellow);
+					var color = (node.Waypoint.IsSelected() && neighbour.Waypoint.IsSelected()) ? Colors.Red : Colors.Yellow;
+					session.DrawLine(node.Waypoint.Position, neighbour.Waypoint.Position, color);
+					Vector2 delta = neighbour.Waypoint.Position - node.Waypoint.Position;
+
+					rad = Math.Atan(delta.Y / delta.X);
+					double sin = -(delta.Y * 1d) / delta.Length();
+					double cos = -(delta.X * 1d) / delta.Length();
+
+					Vector2 left = new Vector2((float)(-leftArrow.X * sin + leftArrow.Y * cos), (float)(leftArrow.X * cos + leftArrow.Y * sin));
+					Vector2 right = new Vector2((float)(-rightArrow.X * sin + rightArrow.Y * cos), (float)(rightArrow.X * cos + rightArrow.Y * sin));
+
+					color = Colors.Red;
+					session.DrawLine(neighbour.Waypoint.Position, neighbour.Waypoint.Position + left, color, 1);
+					session.DrawLine(neighbour.Waypoint.Position, neighbour.Waypoint.Position + right, color, 2);
 				}
 				node.Waypoint.Draw(session);
 			}
