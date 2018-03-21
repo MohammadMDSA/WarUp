@@ -47,7 +47,7 @@ namespace WarUp.Core.Logics.Models
 			instruction = null;
 			if (!Instructions.TryPeek(out current))
 				return false;
-			while (!current.Enabled)
+			while (!current.Enabled || current.Done)
 			{
 				Instructions.Dequeue();
 				if (!Instructions.TryPeek(out current))

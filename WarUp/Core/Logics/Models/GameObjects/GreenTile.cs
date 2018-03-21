@@ -20,50 +20,27 @@ namespace WarUp.Core.Logics.Models
 {
 	class GreenTile : GameObject, IMovable
 	{
-		private Direction Direction;
 		private bool Selected;
 		private float Speed;
 
 		public GreenTile()
 		{
-			this.Direction = Direction.Right;
 			Position = new Vector2(0f);
 			Selected = false;
 			Speed = 5;
+			Size = new Vector2(10f);
 		}
 
 		public override void Draw(CanvasDrawingSession session)
 		{
-			session.FillRectangle(Position.X, Position.Y, 10, 10, Colors.Green);
+			session.FillRectangle(new Rect((Position - Size / 2).ToPoint(), Size.ToSize()), Colors.Green);
 			session.DrawText(Position.X + " " + Position.Y, 500, 500, Colors.Azure);
 
 		}
 
 		public override void Update()
 		{
-			//switch (this.Direction)
-			//{
-			//	case Direction.Up:
-			//		if (Position.Y < 11)
-			//			Direction = Direction.Right;
-			//		Position.Y -= 10f;
-			//		break;
-			//	case Direction.Down:
-			//		if (Position.Y > 89)
-			//			Direction = Direction.Left;
-			//		Position.Y += 10;
-			//		break;
-			//	case Direction.Left:
-			//		if (Position.X < 11)
-			//			Direction = Direction.Up;
-			//		Position.X -= 10;
-			//		break;
-			//	case Direction.Right:
-			//		if (Position.X > 89)
-			//			Direction = Direction.Down;
-			//		Position.X += 10;
-			//		break;
-			//}
+			
 			InstructionSet current;
 
 			if (!GetFirstEnableInstruction(out current)) return;
@@ -120,13 +97,10 @@ namespace WarUp.Core.Logics.Models
 		{
 			return true;
 		}
-	}
 
-	enum Direction
-	{
-		Up = 0,
-		Down,
-		Left,
-		Right
+		public override Vector2 GetSize()
+		{
+			return Size;
+		}
 	}
 }
