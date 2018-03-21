@@ -32,6 +32,10 @@ namespace WarUp.Core.Logics.Models.Ability
 		/// <param name="path">Route of movement</param>
         void Move(WaypointRoute path);
 
+		/// <summary>
+		/// Gets speed of movable object
+		/// </summary>
+		/// <returns>Speed of object</returns>
 		float GetSpeed();
 	}
 }
