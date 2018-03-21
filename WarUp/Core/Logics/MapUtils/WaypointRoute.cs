@@ -112,6 +112,11 @@ namespace WarUp.Core.Logics.MapUtils
 			this.Nodes.Add(newNode);
 			newWaypoint.ParentRoute = this;
 		}
+
+		public override Vector2 GetSize()
+		{
+			return Vector2.Zero;
+		}
 	}
 
 	/// <summary>

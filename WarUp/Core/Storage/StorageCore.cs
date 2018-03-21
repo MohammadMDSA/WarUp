@@ -47,6 +47,7 @@ namespace WarUp.Core.Storage
 			r.AddWayPoint(w8, w2);
 			this.Objects.Add(r);
 			g.AddInstructionSet(new MoveInstructionSet(new MoveTowardWaypointInstruction(g, w2)));
+			g.AddInstructionSet(new MoveInstructionSet(new MoveTowardPointInstruction(g, new Vector2(500, 10))));
 		}
 
 		public IEnumerable<IDrawable> GetDrawables()

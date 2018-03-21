@@ -15,7 +15,8 @@ namespace WarUp.Core.Logics.Models.Instructions.Move
 
 		public override bool CanOverride(InstructionSet other)
 		{
-			return true;
+			// Change to true
+			return false;
 		}
 
 		public override void Tick()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using MathNet.Spatial.Euclidean;
@@ -20,8 +21,14 @@ namespace WarUp.Core.Logics.Models
 		/// </summary>
         public string Name { get; set; }
 
-        public abstract void Draw(CanvasDrawingSession session);
+		/// <summary>
+		/// Size of the object
+		/// </summary>
+		public Vector2 Size { get; protected set; }
+
+		public abstract void Draw(CanvasDrawingSession session);
         public abstract Polygon2D GetSelectPolygon();
+		public abstract Vector2 GetSize();
 		public abstract bool IsAvailable();
 		public abstract bool IsSelected();
 		public abstract bool Select();
