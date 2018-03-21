@@ -8,6 +8,7 @@ using WarUp.Core.Graphics;
 using WarUp.Core.Logics;
 using WarUp.Core.Logics.MapUtils;
 using WarUp.Core.Logics.Models;
+using WarUp.Core.Logics.Models.Instructions.Move;
 
 namespace WarUp.Core.Storage
 {
@@ -17,8 +18,9 @@ namespace WarUp.Core.Storage
 
 		public StorageCore()
 		{
+			var g = new GreenTile();
 			this.Objects = new List<FrameworkObject>();
-			this.Objects.Add(new GreenTile());
+			this.Objects.Add(g);
 			Waypoint w1 = new Waypoint(new Vector2(150, 150));
 			Waypoint w2 = new Waypoint(new Vector2(350, 450));
 			Waypoint w3 = new Waypoint(new Vector2(250, 450));
@@ -44,6 +46,7 @@ namespace WarUp.Core.Storage
 			r.AddWayPoint(w7, w2);
 			r.AddWayPoint(w8, w2);
 			this.Objects.Add(r);
+			g.AddInstructionSet(new MoveInstructionSet(new MoveTowardWaypointInstruction(g, w2)));
 		}
 
 		public IEnumerable<IDrawable> GetDrawables()
