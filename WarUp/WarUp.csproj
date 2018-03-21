@@ -113,6 +113,7 @@
     <Compile Include="Core\Logics\FrameworkObject.cs" />
     <Compile Include="Core\Logics\Models\Instructions\InstructionBase.cs" />
     <Compile Include="Core\Logics\Models\Instructions\InstructionSet.cs" />
+    <Compile Include="Core\Logics\Models\Instructions\Move\MoveAlongWaypointRouteInstruction.cs" />
     <Compile Include="Core\Logics\Models\Instructions\Move\MoveInstructionBase.cs" />
     <Compile Include="Core\Logics\Models\Instructions\Move\MoveInstructionSet.cs" />
     <Compile Include="Core\Logics\Models\Instructions\Move\MoveTowardPointInstruction.cs" />

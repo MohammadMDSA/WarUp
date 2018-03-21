@@ -21,32 +21,50 @@ namespace WarUp.Core.Storage
 			var g = new GreenTile();
 			this.Objects = new List<FrameworkObject>();
 			this.Objects.Add(g);
-			Waypoint w1 = new Waypoint(new Vector2(150, 150));
-			Waypoint w2 = new Waypoint(new Vector2(350, 450));
-			Waypoint w3 = new Waypoint(new Vector2(250, 450));
-			Waypoint w8 = new Waypoint(new Vector2(550, 150));
-			Waypoint w4 = new Waypoint(new Vector2(550, 450));
-			Waypoint w5 = new Waypoint(new Vector2(350, 150));
-			Waypoint w6 = new Waypoint(new Vector2(550, 550));
-			Waypoint w7 = new Waypoint(new Vector2(350, 550));
-			this.Objects.Add(w1);
-			this.Objects.Add(w2);
-			this.Objects.Add(w3);
-			this.Objects.Add(w4);
-			this.Objects.Add(w5);
-			this.Objects.Add(w6);
-			this.Objects.Add(w7);
-			this.Objects.Add(w8);
-			WaypointRoute r = new WaypointRoute(w2);
-			r.AddWayPoint(w1, w2);
-			r.AddWayPoint(w3, w2);
-			r.AddWayPoint(w4, w2);
-			r.AddWayPoint(w5, w2);
-			r.AddWayPoint(w6, w2);
-			r.AddWayPoint(w7, w2);
-			r.AddWayPoint(w8, w2);
+
+			Waypoint[,] net = new Waypoint[3, 3];
+
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					net[i, j] = new Waypoint(new Vector2(150 + j * 100, 200 + i * 100));
+					this.Objects.Add(net[i, j]);
+				}
+			}
+
+			var fin = new Waypoint(new Vector2(700, 550));
+
+			this.Objects.Add(fin);
+			
+			WaypointRoute r = new WaypointRoute(net[1, 1]);
+
+			r.AddWaypoint(net[1, 1], net[0, 0]);
+			r.AddWaypoint(net[1, 1], net[0, 2]);
+			r.AddWaypoint(net[1, 1], net[2, 2]);
+			r.AddWaypoint(net[1, 1], net[2, 0]);
+
+			r.AddWaypoint(net[0, 0], net[0, 1]);
+			r.AddWaypoint(net[0, 2], net[1, 2]);
+			r.AddWaypoint(net[2, 2], net[2, 1]);
+			r.AddWaypoint(net[2, 0], net[1, 0]);
+
+			r.AddWaypoint(net[0, 1], net[1, 1]);
+			r.AddWaypoint(net[1, 2], net[1, 1]);
+			r.AddWaypoint(net[2, 1], net[1, 1]);
+			r.AddWaypoint(net[1, 0], net[1, 1]);
+
+			r.AddWaypoint(net[2, 2], fin);
+
 			this.Objects.Add(r);
-			g.AddInstructionSet(new MoveInstructionSet(new MoveTowardWaypointInstruction(g, w2)));
+			var i1 = new MoveTowardWaypointInstruction(g, net[1, 1]);
+			var m1 = new MoveInstructionSet(i1);
+
+			g.AddInstructionSet(m1);
+			g.AddInstructionSet(new MoveInstructionSet(new MoveTowardPointInstruction(g, new Vector2(500, 10))));
+
+			g.AddInstructionSet(new MoveInstructionSet(new MoveAlongWaypointRouteInstruction(g, r)));
+
 			g.AddInstructionSet(new MoveInstructionSet(new MoveTowardPointInstruction(g, new Vector2(500, 10))));
 		}
 
