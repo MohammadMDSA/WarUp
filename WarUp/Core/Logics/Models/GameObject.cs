@@ -13,5 +13,15 @@ namespace WarUp.Core.Logics.Models
         public Vector2 Position { get; set; }
 
 		public Queue<InstructionSet> Instructions { get; }
+
+		public void AddInstruction(InstructionSet instructionSet)
+		{
+			for (int i = Instructions.Count - 1; instructionSet.CanOverride(Instructions.ElementAt(i)); i--)
+			{
+				Instructions.ElementAt(i).Enabled = false;
+			}
+
+			Instructions.Enqueue(instructionSet);
+		}
     }
 }
