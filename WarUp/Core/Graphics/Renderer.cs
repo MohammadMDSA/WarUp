@@ -63,7 +63,7 @@ namespace WarUp.Core.Graphics
 			using (var ds = FrontBuffer.CreateDrawingSession())
 			{
 				ds.Clear(Colors.Black);
-				ds.DrawText("Hey " + deltaTime + "\t" + (int)fps, new Vector2((float)Window.Bounds.Width / 2, (float)Window.Bounds.Height / 2), Colors.Red);
+				//ds.DrawText("Hey " + deltaTime + "\t" + (int)fps, new Vector2((float)Window.Bounds.Width / 2, (float)Window.Bounds.Height / 2), Colors.Red);
 
 				foreach (var item in drawables)
 				{
