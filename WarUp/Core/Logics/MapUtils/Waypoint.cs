@@ -78,5 +78,10 @@ namespace WarUp.Core.Logics.MapUtils
 		{
 			return ParentRoute == null ? true : false;
 		}
+
+		public override Vector2 GetSize()
+		{
+			return this.Size;
+		}
 	}
 }
