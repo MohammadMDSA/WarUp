@@ -10,6 +10,7 @@ using Microsoft.Graphics.Canvas.Geometry;
 using WarUp.Core.Graphics;
 using WarUp.Core.Logics.MapUtils;
 using WarUp.Core.Logics.Models.Ability;
+using WarUp.Core.Logics.Models.Instructions;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
@@ -17,10 +18,9 @@ using Windows.UI.Xaml.Shapes;
 
 namespace WarUp.Core.Logics.Models
 {
-	class GreenTile : FrameworkObject, IMovable
+	class GreenTile : GameObject, IMovable
 	{
 		private Direction Direction;
-		private Vector2 Position;
 		private bool Selected;
 		private float Speed;
 
@@ -29,6 +29,7 @@ namespace WarUp.Core.Logics.Models
 			this.Direction = Direction.Right;
 			Position = new Vector2(0f);
 			Selected = false;
+			Speed = 5;
 		}
 
 		public override void Draw(CanvasDrawingSession session)
@@ -40,29 +41,33 @@ namespace WarUp.Core.Logics.Models
 
 		public override void Update()
 		{
-			switch (this.Direction)
-			{
-				case Direction.Up:
-					if (Position.Y < 11)
-						Direction = Direction.Right;
-					Position.Y -= 10;
-					break;
-				case Direction.Down:
-					if (Position.Y > 89)
-						Direction = Direction.Left;
-					Position.Y += 10;
-					break;
-				case Direction.Left:
-					if (Position.X < 11)
-						Direction = Direction.Up;
-					Position.X -= 10;
-					break;
-				case Direction.Right:
-					if (Position.X > 89)
-						Direction = Direction.Down;
-					Position.X += 10;
-					break;
-			}
+			//switch (this.Direction)
+			//{
+			//	case Direction.Up:
+			//		if (Position.Y < 11)
+			//			Direction = Direction.Right;
+			//		Position.Y -= 10f;
+			//		break;
+			//	case Direction.Down:
+			//		if (Position.Y > 89)
+			//			Direction = Direction.Left;
+			//		Position.Y += 10;
+			//		break;
+			//	case Direction.Left:
+			//		if (Position.X < 11)
+			//			Direction = Direction.Up;
+			//		Position.X -= 10;
+			//		break;
+			//	case Direction.Right:
+			//		if (Position.X > 89)
+			//			Direction = Direction.Down;
+			//		Position.X += 10;
+			//		break;
+			//}
+			InstructionSet current;
+
+			if (!GetFirstEnableInstruction(out current)) return;
+			current.Tick();
 		}
 
 		public override bool IsSelected() => Selected;
