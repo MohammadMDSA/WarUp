@@ -117,6 +117,17 @@ namespace WarUp.Core.Logics.MapUtils
 		{
 			return Vector2.Zero;
 		}
+
+		public IEnumerable<Waypoint> GetWaypoints()
+		{
+			List<Waypoint> waypoints = new List<Waypoint>();
+			foreach (var node in Nodes)
+			{
+				waypoints.Add(node.Waypoint);
+			}
+
+			return waypoints;
+		}
 	}
 
 	/// <summary>
