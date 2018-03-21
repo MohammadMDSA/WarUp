@@ -23,12 +23,12 @@ namespace WarUp.Core.Logics.Models.Instructions.Move
 			var dist = (TargetObject.Position - destination).Length();
 			if(speed >= dist)
 			{
-				TargetObject.Position = new Vector2(destination.X, destination.Y);
+				TargetObject.SetPosition(destination.X, destination.Y);
 				return true;
 			}
 
 			var NormilizedDirection = (destination - TargetObject.Position) / dist;
-			TargetObject.Position += NormilizedDirection * speed;
+			TargetObject.SetPosition(TargetObject.Position + NormilizedDirection * speed);
 
 			return false;
 		}

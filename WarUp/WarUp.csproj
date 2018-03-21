@@ -114,6 +114,7 @@
     <Compile Include="Core\Logics\Models\Instructions\InstructionBase.cs" />
     <Compile Include="Core\Logics\Models\Instructions\InstructionSet.cs" />
     <Compile Include="Core\Logics\Models\Instructions\Move\MoveInstructionBase.cs" />
+    <Compile Include="Core\Logics\Models\Instructions\Move\MoveInstructionSet.cs" />
     <Compile Include="Core\Logics\Models\Instructions\Move\MoveTowardWaypointInstruction.cs" />
     <Compile Include="Core\Logics\Models\Instructions\IOverridable.cs" />
     <Compile Include="Core\MainCore.cs" />
