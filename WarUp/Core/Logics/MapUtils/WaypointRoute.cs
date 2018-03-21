@@ -98,7 +98,7 @@ namespace WarUp.Core.Logics.MapUtils
 		{
 		}
 
-		public void AddWayPoint(Waypoint newWaypoint, Waypoint parent)
+		public void AddWaypoint(Waypoint parent, Waypoint newWaypoint)
 		{
 			var newNode = new WaypointRouteNode(newWaypoint);
 			foreach (var item in Nodes)
@@ -124,6 +124,33 @@ namespace WarUp.Core.Logics.MapUtils
 			foreach (var node in Nodes)
 			{
 				waypoints.Add(node.Waypoint);
+			}
+
+			return waypoints;
+		}
+		
+		public IEnumerable<Waypoint> GetNeighboursOf(Waypoint waypoint)
+		{
+			WaypointRouteNode tarNode = null;
+			foreach (var node in Nodes)
+			{
+				if(waypoint == node.Waypoint)
+				{
+					tarNode = node;
+					break;
+				}
+			}
+
+			if (tarNode == null)
+			{
+				throw new Exception("Waypoint is not in the route");
+			}
+
+			List<Waypoint> waypoints = new List<Waypoint>();
+
+			foreach (var item in tarNode.Neighbours)
+			{
+				waypoints.Add(item.Waypoint);
 			}
 
 			return waypoints;
