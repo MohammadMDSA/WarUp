@@ -21,7 +21,8 @@ namespace WarUp.Core.Graphics
 		private CanvasDevice Device;
 		private SwapChainManager SwapChainManager;
 		private int count = 0;
-		float fps = 0;
+		public float fps { get; private set; }
+
 
 		CanvasRenderTarget[] AccumulationBuffers = new CanvasRenderTarget[2];
 		private int CurrentBuffer;
@@ -31,6 +32,8 @@ namespace WarUp.Core.Graphics
 
 		public Renderer(CoreWindow window)
 		{
+			fps = 0;
+
 			CurrentBuffer = 0;
 
 			this.Window = window;
