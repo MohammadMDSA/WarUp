@@ -106,11 +106,13 @@
     <Compile Include="Core\Logics\MapUtils\GameUtil.cs" />
     <Compile Include="Core\Logics\MapUtils\Waypoint.cs" />
     <Compile Include="Core\Logics\MapUtils\WaypointRoute.cs" />
-    <Compile Include="Core\Logics\Models\Ability\IAbility.cs" />
-    <Compile Include="Core\Logics\Models\Ability\IMovable.cs" />
+    <Compile Include="Core\Logics\Models\Abilities\IAbility.cs" />
+    <Compile Include="Core\Logics\Models\Abilities\IMovable.cs" />
     <Compile Include="Core\Logics\Models\GameObject.cs" />
     <Compile Include="Core\Logics\Models\GreenTile.cs" />
     <Compile Include="Core\Logics\FrameworkObject.cs" />
+    <Compile Include="Core\Logics\Models\Instructions\InstructionBase.cs" />
+    <Compile Include="Core\Logics\Models\Instructions\InstructionSet.cs" />
     <Compile Include="Core\MainCore.cs" />
     <Compile Include="Core\Storage\StorageCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -144,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Logics\Actions\" />
+    <Folder Include="Core\Logics\Models\Instructions\Move\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
