@@ -42,8 +42,8 @@ namespace WarUp.Core.Logics.MapUtils
 					Vector2 left = new Vector2((float)(-leftArrow.X * sin + leftArrow.Y * cos), (float)(leftArrow.X * cos + leftArrow.Y * sin));
 					Vector2 right = new Vector2((float)(-rightArrow.X * sin + rightArrow.Y * cos), (float)(rightArrow.X * cos + rightArrow.Y * sin));
 
-					session.DrawLine(neighbour.Waypoint.Position, neighbour.Waypoint.Position + left, color, 1);
-					session.DrawLine(neighbour.Waypoint.Position, neighbour.Waypoint.Position + right, color, 2);
+					session.DrawLine(neighbour.Waypoint.Position, neighbour.Waypoint.Position + left, color);
+					session.DrawLine(neighbour.Waypoint.Position, neighbour.Waypoint.Position + right, color);
 				}
 				node.Waypoint.Draw(session);
 			}
