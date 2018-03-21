@@ -14,7 +14,7 @@ namespace WarUp.Core.Logics.Models
 
 		public Queue<InstructionSet> Instructions { get; }
 
-		public void AddInstruction(InstructionSet instructionSet)
+		public void AddInstructionSet(InstructionSet instructionSet)
 		{
 			for (int i = Instructions.Count - 1; instructionSet.CanOverride(Instructions.ElementAt(i)); i--)
 			{

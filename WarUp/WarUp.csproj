@@ -113,6 +113,9 @@
     <Compile Include="Core\Logics\FrameworkObject.cs" />
     <Compile Include="Core\Logics\Models\Instructions\InstructionBase.cs" />
     <Compile Include="Core\Logics\Models\Instructions\InstructionSet.cs" />
+    <Compile Include="Core\Logics\Models\Instructions\Move\MoveInstructionBase.cs" />
+    <Compile Include="Core\Logics\Models\Instructions\Move\MoveTowardWaypointInstruction.cs" />
+    <Compile Include="Core\Logics\Models\Instructions\IOverridable.cs" />
     <Compile Include="Core\MainCore.cs" />
     <Compile Include="Core\Storage\StorageCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,7 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Logics\Actions\" />
-    <Folder Include="Core\Logics\Models\Instructions\Move\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
