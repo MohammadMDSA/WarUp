@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WarUp.Core;
+using WarUp.GraphicEngine;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -53,7 +54,9 @@ namespace WarUp
 
 			CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
-			MainCore = new MainCore(window);
+			SwapChainManager swapChainManager = new SwapChainManager(window, new Microsoft.Graphics.Canvas.CanvasDevice());
+
+			MainCore = new MainCore(swapChainManager);
 		}
 
 		private void Window_ResizeStarted(CoreWindow sender, object args)

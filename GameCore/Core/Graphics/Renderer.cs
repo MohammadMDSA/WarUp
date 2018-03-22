@@ -16,9 +16,7 @@ namespace WarUp.Core.Graphics
 	class Renderer
 	{
 		private DateTime LastRender;
-
-		private CoreWindow Window;
-		private CanvasDevice Device;
+		
 		private SwapChainManager SwapChainManager;
 		private int count = 0;
 		public float fps { get; private set; }
@@ -30,16 +28,17 @@ namespace WarUp.Core.Graphics
 		CanvasRenderTarget FrontBuffer => AccumulationBuffers[CurrentBuffer];
 		CanvasRenderTarget BackBuffer => AccumulationBuffers[(CurrentBuffer + 1) % 2];
 
-		public Renderer(CoreWindow window)
+		public Renderer(SwapChainManager swapChainManager)
 		{
 			fps = 0;
 
 			CurrentBuffer = 0;
 
-			this.Window = window;
+			this.SwapChainManager = swapChainManager;
 
-			this.Device = new CanvasDevice();
-			this.SwapChainManager = new SwapChainManager(device: Device, window: window);
+			//this.Window = window;
+			
+			//this.SwapChainManager = new SwapChainManager(device: Device, window: window);
 
 			LastRender = DateTime.Now;
 		}
@@ -58,10 +57,10 @@ namespace WarUp.Core.Graphics
 
 			}
 
-			SwapChainManager.EnsureMatchesWindow(Window);
+			SwapChainManager.EnsureMatchesWindow();
 
 			SwapAccumulationBuffers();
-			EnsureCurrentBufferMatchesWindow();
+			SwapChainManager.EnsureCurrentBufferMatchesWindow(AccumulationBuffers, CurrentBuffer);
 
 			using (var ds = FrontBuffer.CreateDrawingSession())
 			{
@@ -87,30 +86,9 @@ namespace WarUp.Core.Graphics
 			CurrentBuffer = (CurrentBuffer + 1) % 2;
 		}
 
-		private void EnsureCurrentBufferMatchesWindow()
-		{
-			var bounds = Window.Bounds;
-
-			Size windowSize = new Size(bounds.Width, bounds.Height);
-			float dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
-
-			var buffer = AccumulationBuffers[CurrentBuffer];
-
-			if (buffer == null || !(SwapChainManager.SizeEqualsWithTolerance(buffer.Size, windowSize)) || buffer.Dpi != dpi)
-			{
-				if (buffer != null)
-				{
-					buffer.Dispose();
-				}
-
-				buffer = new CanvasRenderTarget(Device, (float)windowSize.Width, (float)windowSize.Height, dpi);
-				AccumulationBuffers[CurrentBuffer] = buffer;
-			}
-		}
-
 		public void Trim()
 		{
-			Device.Trim();
+			SwapChainManager.Device.Trim();
 		}
 	}
 }

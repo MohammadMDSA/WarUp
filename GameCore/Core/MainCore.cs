@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WarUp.Core.Graphics;
 using WarUp.Core.Logics;
 using WarUp.Core.Storage;
+using WarUp.GraphicEngine;
 using Windows.UI.Core;
 
 namespace WarUp.Core
@@ -17,10 +18,10 @@ namespace WarUp.Core
 		private StorageCore Storage;
 		private LogicCore Logic;
 
-		public MainCore(CoreWindow window)
+		public MainCore(SwapChainManager swapChainManager)
 		{
 			Storage = new StorageCore();
-			Renderer = new Renderer(window);
+			Renderer = new Renderer(swapChainManager);
 			Logic = new LogicCore(Storage);
 		}
 

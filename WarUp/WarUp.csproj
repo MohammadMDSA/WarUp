@@ -124,6 +124,10 @@
       <Project>{f2e4168c-4d5f-47f6-a352-2d973ec410c4}</Project>
       <Name>WarUpCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WarUpGraphicEngine\WarUpGraphicEngine.csproj">
+      <Project>{447C13E7-0D50-4973-B1CF-AC961EBD9933}</Project>
+      <Name>WarUpGraphicEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
