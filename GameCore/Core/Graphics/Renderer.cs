@@ -16,8 +16,7 @@ namespace WarUp.Core.Graphics
 	class Renderer
 	{
 		private DateTime LastRender;
-
-		private CoreWindow Window;
+		
 		private CanvasDevice Device;
 		private SwapChainManager SwapChainManager;
 		private int count = 0;
@@ -30,16 +29,14 @@ namespace WarUp.Core.Graphics
 		CanvasRenderTarget FrontBuffer => AccumulationBuffers[CurrentBuffer];
 		CanvasRenderTarget BackBuffer => AccumulationBuffers[(CurrentBuffer + 1) % 2];
 
-		public Renderer(CoreWindow window)
+		public Renderer(CanvasSwapChain swapChain)
 		{
 			fps = 0;
 
 			CurrentBuffer = 0;
-
-			this.Window = window;
-
+			
 			this.Device = new CanvasDevice();
-			this.SwapChainManager = new SwapChainManager(device: Device, window: window);
+			this.SwapChainManager = new SwapChainManager(swapChain);
 
 			LastRender = DateTime.Now;
 		}
@@ -58,7 +55,7 @@ namespace WarUp.Core.Graphics
 
 			}
 
-			SwapChainManager.EnsureMatchesWindow(Window);
+			//SwapChainManager.EnsureMatchesWindow(Window);
 
 			SwapAccumulationBuffers();
 			EnsureCurrentBufferMatchesWindow();
@@ -89,7 +86,8 @@ namespace WarUp.Core.Graphics
 
 		private void EnsureCurrentBufferMatchesWindow()
 		{
-			var bounds = Window.Bounds;
+			//var bounds = Window.Bounds;
+			var bounds = SwapChainManager.SwapChainSize;
 
 			Size windowSize = new Size(bounds.Width, bounds.Height);
 			float dpi = DisplayInformation.GetForCurrentView().LogicalDpi;

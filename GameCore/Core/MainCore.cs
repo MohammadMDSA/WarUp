@@ -17,10 +17,10 @@ namespace WarUp.Core
 		private StorageCore Storage;
 		private LogicCore Logic;
 
-		public MainCore(CoreWindow window)
+		public MainCore(CanvasSwapChain swapChain)
 		{
 			Storage = new StorageCore();
-			Renderer = new Renderer(window);
+			Renderer = new Renderer(swapChain);
 			Logic = new LogicCore(Storage);
 		}
 
