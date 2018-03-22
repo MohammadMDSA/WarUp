@@ -11,7 +11,7 @@ using Windows.UI.Core;
 
 namespace WarUp.Core
 {
-	class MainCore : ITickable
+	public class MainCore : ITickable
 	{
 		private Renderer Renderer;
 		private StorageCore Storage;
