@@ -5,7 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using WarUp.Core.Graphics.SwapChain;
+using WarUp.GraphicEngine;
 using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.UI;

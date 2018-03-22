@@ -8,7 +8,7 @@ using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.UI.Core;
 
-namespace WarUp.Core.Graphics.SwapChain
+namespace WarUp.GraphicEngine
 {
 	public class SwapChainManager
 	{
