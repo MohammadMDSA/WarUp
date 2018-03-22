@@ -15,51 +15,55 @@ namespace WarUp.GraphicEngine
 	{
 		public CanvasSwapChain SwapChain { get; private set; }
 		public CanvasDevice Device { get; private set; }
-		private CoreWindow Window;
+		public Size RenderSize { get; set; }
+		public Size DisplaySize { get; private set; }
+		public float DPI { get; private set; }
 
 		public SwapChainManager(CoreWindow window, CanvasDevice device)
 		{
-			Device = device;
-			Window = window;
-			float currentDpi = DisplayInformation.GetForCurrentView().LogicalDpi;
-			SwapChain = CanvasSwapChain.CreateForCoreWindow(device, window, currentDpi);
+			ConstructorHelper(device);
+			SwapChain = CanvasSwapChain.CreateForCoreWindow(device, window, DPI);
 		}
 
-		public SwapChainManager(CanvasDevice device, Page page)
+		public SwapChainManager(CanvasDevice device)
 		{
-			SwapChain = new CanvasSwapChain(device, (float)page.DesiredSize.Width, (float)page.DesiredSize.Height, DisplayInformation.GetForCurrentView().LogicalDpi);
+			ConstructorHelper(device);
+			SwapChain = new CanvasSwapChain(device, (float)DisplaySize.Width, (float)DisplaySize.Height, DisplayInformation.GetForCurrentView().LogicalDpi);
+
+		}
+
+		private void ConstructorHelper(CanvasDevice device)
+		{
+			this.Device = device;
+
+			var info = DisplayInformation.GetForCurrentView();
+			DPI = info.LogicalDpi;
+			DisplaySize = new Size(info.ScreenWidthInRawPixels, info.ScreenHeightInRawPixels);
 		}
 
 		public void EnsureMatchesWindow()
 		{
-			var bounds = Window.Bounds;
-			Size windowSize = new Size(bounds.Width, bounds.Height);
-			float dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
 
-			if (!SizeEqualsWithTolerance(windowSize, SwapChain.Size) || dpi != SwapChain.Dpi)
+			if (!SizeEqualsWithTolerance(RenderSize, SwapChain.Size) || DPI != SwapChain.Dpi)
 			{
-				SwapChain.ResizeBuffers((float)windowSize.Width, (float)windowSize.Height, dpi);
+				SwapChain.ResizeBuffers((float)RenderSize.Width, (float)RenderSize.Height, DPI);
 			}
 		}
 
 		public void EnsureCurrentBufferMatchesWindow(CanvasRenderTarget[] accumulationBuffers, int currentBuffer)
 		{
-			var bounds = Window.Bounds;
-
-			Size windowSize = new Size(bounds.Width, bounds.Height);
-			float dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
 
 			var buffer = accumulationBuffers[currentBuffer];
 
-			if (buffer == null || !(SwapChainManager.SizeEqualsWithTolerance(buffer.Size, windowSize)) || buffer.Dpi != dpi)
+			if (buffer == null || !(SwapChainManager.SizeEqualsWithTolerance(buffer.Size, RenderSize)) || buffer.Dpi != DPI)
 			{
 				if (buffer != null)
 				{
 					buffer.Dispose();
 				}
-				var wid = (float)windowSize.Width;
-				var hei = (float)windowSize.Height;
-				buffer = new CanvasRenderTarget(Device, wid, hei, dpi);
+				var wid = (float)RenderSize.Width;
+				var hei = (float)RenderSize.Height;
+				buffer = new CanvasRenderTarget(Device, wid, hei, DPI);
 				accumulationBuffers[currentBuffer] = buffer;
 			}
 		}
