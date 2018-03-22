@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using WarUp.Core;
+using WarUp.GraphicEngine;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,20 +31,28 @@ namespace WarUp
 		private bool WindowClosed;
 
 		private MainCore MainCore;
+		SwapChainManager SwapChainManager;
 
 		public GamePage()
 		{
 			this.InitializeComponent();
 
-			WindowVisible = true;
+			WindowVisible = false;
 			WindowClosed = false;
 
-			
-			this.SwapChainPanel.SwapChain = new CanvasSwapChain(new CanvasDevice(), 500, 500, CanvasControlPanel.Dpi);
+			SwapChainManager = new SwapChainManager(new CanvasDevice());
 
-			MainCore = new MainCore(SwapChainPanel.SwapChain);
+			this.SwapChainPanel.SwapChain = SwapChainManager.SwapChain; 
 
-			Run();
+			MainCore = new MainCore(SwapChainManager);
+			Task.Run(new Action(Run));
+		}
+
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var bound = Window.Current.CoreWindow.Bounds;
+			SwapChainManager.RenderSize = new Size(bound.Width, bound.Height);
+			WindowVisible = true;
 		}
 
 		public void Run()
@@ -61,6 +72,7 @@ namespace WarUp
 
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
+			SwapChainManager.RenderSize = e.NewSize;
 		}
 	}
 }

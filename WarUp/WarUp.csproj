@@ -131,16 +131,20 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameCore\WarUpCore.csproj">
-      <Project>{f2e4168c-4d5f-47f6-a352-2d973ec410c4}</Project>
-      <Name>WarUpCore</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="GamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameCore\WarUpCore.csproj">
+      <Project>{F2E4168C-4D5F-47F6-A352-2D973EC410C4}</Project>
+      <Name>WarUpCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WarUpGraphicEngine\WarUpGraphicEngine.csproj">
+      <Project>{447C13E7-0D50-4973-B1CF-AC961EBD9933}</Project>
+      <Name>WarUpGraphicEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
