@@ -1,0 +1,29 @@
+﻿<Page
+    x:Class="WarUp.GamePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WarUp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    mc:Ignorable="d" SizeChanged="Page_SizeChanged">
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+		<SplitView DisplayMode="Inline" IsPaneOpen="True">
+			<RelativePanel>
+
+				<AppBar x:Name="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+					<AppBarButton Content="&#xE15E;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right"/>
+				</AppBar>
+				<win2d:CanvasControl x:Name="CanvasControlPanel" RelativePanel.Below="AppBar" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+					<win2d:CanvasSwapChainPanel x:Name="SwapChainPanel"/>
+
+				</win2d:CanvasControl>
+			</RelativePanel>
+			<SplitView.Pane>
+				<StackPanel Orientation="Vertical"></StackPanel>
+			</SplitView.Pane>
+		</SplitView>
+	</Grid>
+</Page>
