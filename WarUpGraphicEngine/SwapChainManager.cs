@@ -18,24 +18,26 @@ namespace WarUp.GraphicEngine
 		public Size RenderSize { get; set; }
 		public Size DisplaySize { get; private set; }
 		public float DPI { get; private set; }
+		private bool UseCore { get; }
 
 		public SwapChainManager(CoreWindow window, CanvasDevice device)
 		{
 			ConstructorHelper(device);
 			SwapChain = CanvasSwapChain.CreateForCoreWindow(device, window, DPI);
+			UseCore = true;
 		}
 
 		public SwapChainManager(CanvasDevice device)
 		{
 			ConstructorHelper(device);
 			SwapChain = new CanvasSwapChain(device, (float)DisplaySize.Width, (float)DisplaySize.Height, DisplayInformation.GetForCurrentView().LogicalDpi);
-
+			UseCore = false;
 		}
 
 		private void ConstructorHelper(CanvasDevice device)
 		{
 			this.Device = device;
-			
+
 			var info = DisplayInformation.GetForCurrentView();
 			DPI = info.LogicalDpi;
 			DisplaySize = new Size(info.ScreenWidthInRawPixels, info.ScreenHeightInRawPixels);
@@ -43,7 +45,13 @@ namespace WarUp.GraphicEngine
 
 		public void EnsureMatchesWindow()
 		{
-			
+			if (UseCore)
+			{
+				var window = CoreWindow.GetForCurrentThread();
+				var bound = window.Bounds;
+				RenderSize = new Size(bound.Width, bound.Height);
+
+			}
 			if (!SizeEqualsWithTolerance(RenderSize, SwapChain.Size) || DPI != SwapChain.Dpi)
 			{
 				SwapChain.ResizeBuffers((float)RenderSize.Width, (float)RenderSize.Height, DPI);
@@ -52,7 +60,14 @@ namespace WarUp.GraphicEngine
 
 		public void EnsureCurrentBufferMatchesWindow(CanvasRenderTarget[] accumulationBuffers, int currentBuffer)
 		{
-			
+			if (UseCore)
+			{
+				var window = CoreWindow.GetForCurrentThread();
+				var bound = window.Bounds;
+				RenderSize = new Size(bound.Width, bound.Height);
+
+			}
+
 			var buffer = accumulationBuffers[currentBuffer];
 
 			if (buffer == null || !(SwapChainManager.SizeEqualsWithTolerance(buffer.Size, RenderSize)) || buffer.Dpi != DPI)
