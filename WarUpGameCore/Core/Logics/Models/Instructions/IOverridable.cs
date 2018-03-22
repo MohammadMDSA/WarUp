@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WarUp.Core.Graphics
+namespace WarUp.Core.Logics.Models.Instructions
 {
-    interface IRenderable
-    {
-		void Render();
-
-		void Ensurement();
-    }
+	public interface IOverridable<T>
+	{
+		bool CanOverride(T other);
+	}
 }
