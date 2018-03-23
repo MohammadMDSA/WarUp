@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Input;
 
 namespace WarUp.Utils.Mouse
 {
-    interface IMouseFunction
+    public interface IMouseFunction
     {
 		void Moved(UIElement sender, PointerRoutedEventArgs e);
 		void WheelChanged(UIElement sender, PointerRoutedEventArgs e);
