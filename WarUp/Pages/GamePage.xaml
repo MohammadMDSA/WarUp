@@ -8,21 +8,25 @@
 	xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged">
 
-	<Grid Background="{ThemeResource SystemControlAltLowAcrylicElementBrush}">
+	<Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
 
 		<SplitView x:Name="SidePanel" DisplayMode="Inline" IsPaneOpen="True">
 			<RelativePanel>
+				<win2d:CanvasControl x:Name="CanvasControlPanel" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+					<win2d:CanvasSwapChainPanel x:Name="SwapChainPanel"/>
 
-				<AppBar x:Name="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+				</win2d:CanvasControl>
+				<AppBar x:Name="AppBar" CanDrag="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.Below="CanvasControlPanel" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
 					<RelativePanel>
+						<RelativePanel.ChildrenTransitions>
+							<TransitionCollection>
+								<EntranceThemeTransition FromHorizontalOffset="200" FromVerticalOffset="200"/>
+							</TransitionCollection>
+						</RelativePanel.ChildrenTransitions>
 						<AppBarButton x:Name="PropertiesPanelSwitchButton" RelativePanel.AlignRightWithPanel="True" Content="&#xE15E;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Click="PropertiesPanelSwitchButton_Click"/>
 						<AppBarButton x:Name="ScriptDialogButton" RelativePanel.LeftOf="PropertiesPanelSwitchButton" Content="&#xE943;" FontFamily="Segoe MDL2 Assets" />
 					</RelativePanel>
 				</AppBar>
-				<win2d:CanvasControl x:Name="CanvasControlPanel" RelativePanel.Below="AppBar" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-					<win2d:CanvasSwapChainPanel x:Name="SwapChainPanel"/>
-
-				</win2d:CanvasControl>
 			</RelativePanel>
 			<SplitView.Pane>
 				<StackPanel Background="Transparent" Orientation="Vertical"></StackPanel>
