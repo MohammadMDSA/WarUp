@@ -7,8 +7,11 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using WarUp.Core;
 using WarUp.GraphicEngine;
+using WarUp.Utils;
+using WarUp.Utils.Mouse;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -29,6 +32,7 @@ namespace WarUp
 	{
 		private bool WindowVisible;
 		private bool WindowClosed;
+		private Mouse Mouse;
 
 		private MainCore MainCore;
 		SwapChainManager SwapChainManager;
@@ -45,6 +49,8 @@ namespace WarUp
 			this.SwapChainPanel.SwapChain = SwapChainManager.SwapChain; 
 
 			MainCore = new MainCore(SwapChainManager);
+			Mouse = new Mouse(MainCore.Storage);
+
 			Task.Run(new Action(Run));
 		}
 
@@ -78,6 +84,26 @@ namespace WarUp
 		private void PropertiesPanelSwitchButton_Click(object sender, RoutedEventArgs e)
 		{
 			SidePanel.IsPaneOpen = !SidePanel.IsPaneOpen;
+		}
+		
+		private void SwapChainPanel_PointerPressed(object sender, PointerRoutedEventArgs e)
+		{
+			Mouse.PointerPressed(sender as UIElement, e);
+		}
+		
+		private void SwapChainPanel_PointerReleased(object sender, PointerRoutedEventArgs e)
+		{
+			Mouse.PointerReleased(sender as UIElement, e);
+		}
+
+		private void SwapChainPanel_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+		{
+			Mouse.WheelChanged(sender as UIElement, e);
+		}
+
+		private void SwapChainPanel_PointerMoved(object sender, PointerRoutedEventArgs e)
+		{
+			Mouse.Moved(sender as UIElement, e);
 		}
 	}
 }
