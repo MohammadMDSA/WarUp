@@ -70,18 +70,40 @@ namespace WarUp.Core.Storage
 
 		public IEnumerable<IDrawable> GetDrawables()
 		{
-			var result = new List<IDrawable>();
-			foreach (var item in Objects)
-			{
-				if (item is IDrawable)
-					result.Add(item as IDrawable);
-			}
-			return result;
+			return Objects.AsReadOnly();
 		}
 
 		public IEnumerable<IUpdatable> GetUpdatables()
 		{
-			return Objects;
+			return Objects.AsReadOnly();
+		}
+
+		public IEnumerable<FrameworkObject> GetFrameworkObjects()
+		{
+			return Objects.AsReadOnly();
+		}
+
+		public IEnumerable<GameUtil> GetUtils()
+		{
+			var result = new List<GameUtil>();
+
+			foreach (var item in Objects)
+			{
+				if (item is GameUtil)
+					result.Add(item as GameUtil);
+			}
+			return result;
+		}
+
+		public IEnumerable<GameObject> GetGameObjects()
+		{
+			var result = new List<GameObject>();
+			foreach (var item in Objects)
+			{
+				if (item is GameObject)
+					result.Add(item as GameObject);
+			}
+			return result;
 		}
 	}
 }
