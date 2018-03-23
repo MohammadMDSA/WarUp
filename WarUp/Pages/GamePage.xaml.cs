@@ -74,5 +74,10 @@ namespace WarUp
 		{
 			SwapChainManager.RenderSize = e.NewSize;
 		}
+
+		private void PropertiesPanelSwitchButton_Click(object sender, RoutedEventArgs e)
+		{
+			SidePanel.IsPaneOpen = !SidePanel.IsPaneOpen;
+		}
 	}
 }
