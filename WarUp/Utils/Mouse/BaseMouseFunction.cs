@@ -8,33 +8,18 @@ using Windows.UI.Xaml.Input;
 
 namespace WarUp.Utils.Mouse
 {
-	abstract class BaseMouseFunction : IMouseFunction
+	public abstract class BaseMouseFunction : IMouseFunction
 	{
-		private Mouse Mouse;
+		public readonly Mouse Mouse;
 
 		public BaseMouseFunction(Mouse mouse)
 		{
 			this.Mouse = mouse;
 		}
 
-		void IMouseFunction.Moved(UIElement sender, PointerRoutedEventArgs e)
-		{
-			throw new NotImplementedException();
-		}
-
-		void IMouseFunction.PointerPressed(UIElement sender, PointerRoutedEventArgs e)
-		{
-			throw new NotImplementedException();
-		}
-
-		void IMouseFunction.PointerReleased(UIElement sender, PointerRoutedEventArgs e)
-		{
-			throw new NotImplementedException();
-		}
-
-		void IMouseFunction.WheelChanged(UIElement sender, PointerRoutedEventArgs e)
-		{
-			throw new NotImplementedException();
-		}
+		public abstract void Moved(UIElement sender, PointerRoutedEventArgs e);
+		public abstract void PointerPressed(UIElement sender, PointerRoutedEventArgs e);
+		public abstract void PointerReleased(UIElement sender, PointerRoutedEventArgs e);
+		public abstract void WheelChanged(UIElement sender, PointerRoutedEventArgs e);
 	}
 }
