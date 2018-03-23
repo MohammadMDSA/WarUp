@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarUp.Core.Logics
 {
-	interface IUpdatable
+	public interface IUpdatable
 	{
 		void Update();
 	}

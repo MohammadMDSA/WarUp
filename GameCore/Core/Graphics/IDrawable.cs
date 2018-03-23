@@ -9,7 +9,7 @@ using Windows.UI.Composition;
 
 namespace WarUp.Core.Graphics
 {
-	interface IDrawable
+	public interface IDrawable
 	{
 		/// <summary>
 		/// Draws an object on canvas
