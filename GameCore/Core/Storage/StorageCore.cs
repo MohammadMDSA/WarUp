@@ -12,7 +12,7 @@ using WarUp.Core.Logics.Models.Instructions.Move;
 
 namespace WarUp.Core.Storage
 {
-	class StorageCore
+	public class StorageCore
 	{
 		public List<FrameworkObject> Objects;
 
