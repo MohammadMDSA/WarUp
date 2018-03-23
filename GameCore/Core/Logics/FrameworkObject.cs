@@ -16,10 +16,16 @@ namespace WarUp.Core.Logics.Models
 	/// </summary>
     public abstract class FrameworkObject : IUpdatable, IDrawable, ISelectable
     {
+
+		/// <summary>
+		/// Position of Waypoint
+		/// </summary>
+		public Vector2 Position { get; set; }
+
 		/// <summary>
 		/// Name of object to access
 		/// </summary>
-        public string Name { get; set; }
+		public string Name { get; set; }
 
 		/// <summary>
 		/// Size of the object

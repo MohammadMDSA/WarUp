@@ -17,11 +17,6 @@ namespace WarUp.Core.Logics.MapUtils
 	public sealed class Waypoint : GameUtil
 	{
 		/// <summary>
-		/// Position of Waypoint
-		/// </summary>
-		public Vector2 Position { get; set; }
-
-		/// <summary>
 		/// Tells if waypoint is selected or not
 		/// </summary>
 		private bool Selected;

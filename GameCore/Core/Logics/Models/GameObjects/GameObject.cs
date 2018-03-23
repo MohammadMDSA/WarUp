@@ -10,8 +10,6 @@ namespace WarUp.Core.Logics.Models
 {
     public abstract class GameObject : FrameworkObject
     {
-		public Vector2 Position { get; protected set; }
-
 		public Queue<InstructionSet> Instructions { get; }
 
 		public GameObject()
