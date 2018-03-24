@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using WarUp.Core;
 using WarUp.GraphicEngine;
@@ -33,6 +34,9 @@ namespace WarUp
 		private bool WindowVisible;
 		private bool WindowClosed;
 		private Mouse Mouse;
+		private Task GameThread;
+		private bool GameRunning;
+		private bool GamePaused;
 
 		private MainCore MainCore;
 		SwapChainManager SwapChainManager;
@@ -46,12 +50,13 @@ namespace WarUp
 
 			SwapChainManager = new SwapChainManager(new CanvasDevice());
 
-			this.SwapChainPanel.SwapChain = SwapChainManager.SwapChain; 
+			this.SwapChainPanel.SwapChain = SwapChainManager.SwapChain;
 
 			MainCore = new MainCore(SwapChainManager);
-			Mouse = new Mouse(MainCore.Storage);
+			Mouse = new Mouse(MainCore.Storage, SwapChainManager);
 
-			Task.Run(new Action(Run));
+			GamePaused = false;
+			GameRunning = false;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -59,13 +64,15 @@ namespace WarUp
 			var bound = Window.Current.CoreWindow.Bounds;
 			SwapChainManager.RenderSize = new Size(bound.Width, bound.Height);
 			WindowVisible = true;
+
+			MainCore.Tick();
 		}
 
 		public void Run()
 		{
-			while (!WindowClosed)
+			while (!WindowClosed && GameRunning)
 			{
-				if (WindowVisible)
+				if (WindowVisible && !GamePaused)
 				{
 					MainCore.Tick();
 				}
@@ -85,12 +92,12 @@ namespace WarUp
 		{
 			SidePanel.IsPaneOpen = !SidePanel.IsPaneOpen;
 		}
-		
+
 		private void SwapChainPanel_PointerPressed(object sender, PointerRoutedEventArgs e)
 		{
 			Mouse.PointerPressed(sender as UIElement, e);
 		}
-		
+
 		private void SwapChainPanel_PointerReleased(object sender, PointerRoutedEventArgs e)
 		{
 			Mouse.PointerReleased(sender as UIElement, e);
@@ -104,6 +111,43 @@ namespace WarUp
 		private void SwapChainPanel_PointerMoved(object sender, PointerRoutedEventArgs e)
 		{
 			Mouse.Moved(sender as UIElement, e);
+		}
+
+		private void GamePlayPauseButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (!GameRunning)
+			{
+				GameResetButton.IsEnabled = true;
+				GamePaused = false;
+				GameRunning = true;
+				GameThread = Task.Run(new Action(Run));
+			}
+			else
+			{
+				GamePaused = !GamePaused;
+			}
+
+			GamePlayPauseButton.Icon = new SymbolIcon(!GamePaused ? Symbol.Pause : Symbol.Play);
+			GamePlayPauseButton.Label = !GamePaused ? "Pause" : "Play";
+			
+		}
+
+		private void ResetButton_Click(object sender, RoutedEventArgs e)
+		{
+			GameResetButton.IsEnabled = false;
+
+			GamePaused = false;
+			GameRunning = false;
+
+			Task.WaitAll(GameThread);
+			GameThread.Dispose();
+
+			MainCore.Restart();
+
+			GamePlayPauseButton.Icon = new SymbolIcon(Symbol.Play);
+			GamePlayPauseButton.Label = "Play";
+
+			MainCore.Tick();
 		}
 	}
 }
