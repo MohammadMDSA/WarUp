@@ -18,59 +18,59 @@ namespace WarUp.Core.Storage
 
 		public StorageCore()
 		{
-			var g = new GreenTile();
-			this.Objects = new List<FrameworkObject>();
-			this.Objects.Add(g);
-
-			//Waypoint[,] net = new Waypoint[3, 3];
-
-			//for (int i = 0; i < 3; i++)
-			//{
-			//	for (int j = 0; j < 3; j++)
-			//	{
-			//		net[i, j] = new Waypoint(new Vector2(150 + j * 100, 200 + i * 100));
-			//		this.Objects.Add(net[i, j]);
-			//	}
-			//}
-
-			//var fin = new Waypoint(new Vector2(700, 550));
-
-			//this.Objects.Add(fin);
-			
-			//WaypointRoute r = new WaypointRoute(net[1, 1]);
-
-			//r.AddWaypoint(net[1, 1], net[0, 0]);
-			//r.AddWaypoint(net[1, 1], net[0, 2]);
-			//r.AddWaypoint(net[1, 1], net[2, 2]);
-			//r.AddWaypoint(net[1, 1], net[2, 0]);
-
-			//r.AddWaypoint(net[0, 0], net[0, 1]);
-			//r.AddWaypoint(net[0, 2], net[1, 2]);
-			//r.AddWaypoint(net[2, 2], net[2, 1]);
-			//r.AddWaypoint(net[2, 0], net[1, 0]);
-
-			//r.AddWaypoint(net[0, 1], net[1, 1]);
-			//r.AddWaypoint(net[1, 2], net[1, 1]);
-			//r.AddWaypoint(net[2, 1], net[1, 1]);
-			//r.AddWaypoint(net[1, 0], net[1, 1]);
-
-			//r.AddWaypoint(net[2, 2], fin);
-
-			//this.Objects.Add(r);
-			//var i1 = new MoveTowardWaypointInstruction(g, net[1, 1]);
-			//var m1 = new MoveInstructionSet(i1);
-
-			//g.AddInstructionSet(m1);
-			//g.AddInstructionSet(new MoveInstructionSet(new MoveTowardPointInstruction(g, new Vector2(500, 10))));
-
-			//g.AddInstructionSet(new MoveInstructionSet(new MoveAlongWaypointRouteInstruction(g, r)));
-
-			//g.AddInstructionSet(new MoveInstructionSet(new MoveTowardPointInstruction(g, new Vector2(500, 10))));
+			Reset();
 		}
 
 		public void Reset()
 		{
+			var g = new GreenTile();
 			this.Objects = new List<FrameworkObject>();
+			this.Objects.Add(g);
+
+			Waypoint[,] net = new Waypoint[3, 3];
+
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					net[i, j] = new Waypoint(new Vector2(150 + j * 100, 200 + i * 100));
+					this.Objects.Add(net[i, j]);
+				}
+			}
+
+			var fin = new Waypoint(new Vector2(700, 550));
+
+			this.Objects.Add(fin);
+
+			WaypointRoute r = new WaypointRoute(net[1, 1]);
+
+			r.AddWaypoint(net[1, 1], net[0, 0]);
+			r.AddWaypoint(net[1, 1], net[0, 2]);
+			r.AddWaypoint(net[1, 1], net[2, 2]);
+			r.AddWaypoint(net[1, 1], net[2, 0]);
+
+			r.AddWaypoint(net[0, 0], net[0, 1]);
+			r.AddWaypoint(net[0, 2], net[1, 2]);
+			r.AddWaypoint(net[2, 2], net[2, 1]);
+			r.AddWaypoint(net[2, 0], net[1, 0]);
+
+			r.AddWaypoint(net[0, 1], net[1, 1]);
+			r.AddWaypoint(net[1, 2], net[1, 1]);
+			r.AddWaypoint(net[2, 1], net[1, 1]);
+			r.AddWaypoint(net[1, 0], net[1, 1]);
+
+			r.AddWaypoint(net[2, 2], fin);
+
+			this.Objects.Add(r);
+			var i1 = new MoveTowardWaypointInstruction(g, net[1, 1]);
+			var m1 = new MoveInstructionSet(i1);
+
+			g.AddInstructionSet(m1);
+			g.AddInstructionSet(new MoveInstructionSet(new MoveTowardPointInstruction(g, new Vector2(500, 10))));
+
+			g.AddInstructionSet(new MoveInstructionSet(new MoveAlongWaypointRouteInstruction(g, r)));
+
+			g.AddInstructionSet(new MoveInstructionSet(new MoveTowardPointInstruction(g, new Vector2(500, 10))));
 		}
 
 		public void AddObject(FrameworkObject @object)
