@@ -41,7 +41,7 @@ namespace WarUp
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-			ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+			//ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
 			ApplicationView.PreferredLaunchViewSize = new Size(800, 600);
 			ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
 			CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
