@@ -10,7 +10,7 @@ using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace WarUp.Utils.Mouse
+namespace WarUp.Utils.Mouse.Functions
 {
 	public class MouseSelectHandler : BaseMouseFunction
     {
@@ -21,10 +21,17 @@ namespace WarUp.Utils.Mouse
 
 		public MouseSelectHandler(Mouse mouse) : base(mouse)
 		{
+			Reset();
+		}
+
+		public override void Reset()
+		{
+			Mouse.RenderManager.SelectionRect = new Rect();
 			this.ActivePressedObject = null;
 			Dragging = false;
 			LastLeftPressPoint = Vector2.Zero;
 			LastRightPressPoint = Vector2.Zero;
+			Mouse.ClearSelectedObjects();
 		}
 
 		public override void Moved(UIElement sender, PointerRoutedEventArgs e)
@@ -78,7 +85,10 @@ namespace WarUp.Utils.Mouse
 			if (!Mouse.IsLeftPressed && prop.IsLeftButtonPressed)
 				LastLeftPressPoint = Mouse.Position;
 			if (!Mouse.IsRightPressed && prop.IsRightButtonPressed)
+			{
 				LastRightPressPoint = Mouse.Position;
+				return;
+			}
 
 
 			Dragging = false;
@@ -86,6 +96,7 @@ namespace WarUp.Utils.Mouse
 			var objects = Mouse.Storage.GetFrameworkObjects();
 			Point2D point = new Point2D(Mouse.Position.X, Mouse.Position.Y);
 
+			// Find the object under pointer
 			foreach (var item in objects)
 			{
 				var p = item.GetSelectPolygon();
@@ -96,12 +107,14 @@ namespace WarUp.Utils.Mouse
 				}
 			}
 
+			// Mouse in on no object
 			if (ActivePressedObject == null)
 			{
 				Mouse.ClearSelectedObjects();
 				return;
 			}
 
+			// Mouse is on an unselected object
 			if (!Mouse.GetSelected().Contains(ActivePressedObject))
 			{
 				Mouse.ClearSelectedObjects();
@@ -133,11 +146,7 @@ namespace WarUp.Utils.Mouse
 
 		private void LeftClick(UIElement sender, PointerRoutedEventArgs e)
 		{
-			//var tile = new GreenTile();
-			//var rect = e.GetCurrentPoint(sender).Properties.ContactRect;
-			//tile.Position = new Vector2((float)rect.X, (float)rect.Y);
-
-			//Mouse.Storage.AddObject(tile);
+			
 		}
 
 		private void RightClick(UIElement sender, PointerRoutedEventArgs e)

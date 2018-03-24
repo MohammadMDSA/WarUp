@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace WarUp.Utils.Mouse
+namespace WarUp.Utils.Mouse.Functions
 {
     public interface IMouseFunction
     {
