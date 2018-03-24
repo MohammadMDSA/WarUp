@@ -8,7 +8,7 @@
 	xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged">
 
-	<SplitView x:Name="SidePanel" DisplayMode="Inline" IsPaneOpen="True">
+	<SplitView x:Name="SidePanel" Background="Transparent" DisplayMode="Inline" IsPaneOpen="True">
 		<RelativePanel>
 			<win2d:CanvasSwapChainPanel x:Name="SwapChainPanel"
 					RelativePanel.AlignBottomWithPanel="True" RelativePanel.Below="AppBar" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"
@@ -28,7 +28,7 @@
 			</AppBar>
 		</RelativePanel>
 		<SplitView.Pane>
-			<StackPanel Background="Transparent" Orientation="Vertical">
+			<StackPanel Orientation="Vertical"  Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 				<TextBlock x:Name="Block"/>
 			</StackPanel>
 		</SplitView.Pane>
