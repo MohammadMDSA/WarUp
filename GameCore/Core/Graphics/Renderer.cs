@@ -18,7 +18,6 @@ namespace WarUp.Core.Graphics
 	class Renderer
 	{
 		private DateTime LastRender;
-		private Color AccentColor;
 		
 		private SwapChainManager SwapChainManager;
 		private int count = 0;
