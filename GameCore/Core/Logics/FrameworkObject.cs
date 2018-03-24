@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
 using WarUp.Core.Graphics;
+using Windows.Foundation;
 
 namespace WarUp.Core.Logics.Models
 {
@@ -33,7 +34,8 @@ namespace WarUp.Core.Logics.Models
 		public Vector2 Size { get; protected set; }
 
 		public abstract void Draw(CanvasDrawingSession session);
-        public abstract Polygon2D GetSelectPolygon();
+		public abstract Rect GetBound();
+		public abstract Polygon2D GetSelectPolygon();
 		public abstract Vector2 GetSize();
 		public abstract bool IsAvailable();
 		public abstract bool IsSelected();
