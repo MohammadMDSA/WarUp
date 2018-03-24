@@ -20,8 +20,8 @@
 
 				<AppBarSeparator/>
 
-				<AppBarButton x:Name="WaypointToggleButton" Icon="Directions" Label="Waypoint"/>
-				<AppBarButton x:Name="PointerToggleButton" Icon="TouchPointer" Label="Select"/>
+				<AppBarButton x:Name="WaypointToggleButton" Icon="Directions" Label="Waypoint" Click="WaypointToggleButton_Click"/>
+				<AppBarButton x:Name="PointerToggleButton" Icon="TouchPointer" Label="Select" Click="PointerToggleButton_Click"/>
 				
 				
 				<AppBarSeparator/>
