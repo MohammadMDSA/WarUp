@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
+using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml.Shapes;
 
@@ -77,6 +78,11 @@ namespace WarUp.Core.Logics.MapUtils
 		public override Vector2 GetSize()
 		{
 			return this.Size;
+		}
+		
+		public override Rect GetBound()
+		{
+			return new Rect(Position.X, Position.Y, 5, 5);
 		}
 	}
 }
