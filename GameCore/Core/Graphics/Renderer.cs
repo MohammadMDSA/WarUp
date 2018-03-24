@@ -6,16 +6,19 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using WarUp.GraphicEngine;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 
 namespace WarUp.Core.Graphics
 {
 	class Renderer
 	{
 		private DateTime LastRender;
+		private Color AccentColor;
 		
 		private SwapChainManager SwapChainManager;
 		private int count = 0;
@@ -71,6 +74,9 @@ namespace WarUp.Core.Graphics
 					if (item.ShouldBeDrawn())
 						item.Draw(ds);
 				}
+
+				ds.FillRectangle(SwapChainManager.SelectionRect, Color.FromArgb(127, 0, 127, 255));
+				ds.DrawRectangle(SwapChainManager.SelectionRect, Colors.Blue);
 			}
 
 			using (var ds = SwapChainManager.SwapChain.CreateDrawingSession(Colors.CornflowerBlue))
