@@ -17,10 +17,10 @@ namespace WarUp.Utils.Mouse
 		public bool IsLeftPressed { get; private set; }
 		public bool IsRightPressed { get; private set; }
 		private List<FrameworkObject> SelectedObjects;
-		private StorageCore Storage;
+		public StorageCore Storage { get; }
 		public FunctionType Type { get; private set; }
 		public IMouseFunction ActiveFunction { get; private set; }
-		public MouseDragHandler DragHandler { get; }
+		public MouseSelectHandler SelectHandler { get; }
 
 		public Mouse(StorageCore storage)
 		{
@@ -28,6 +28,10 @@ namespace WarUp.Utils.Mouse
 			IsLeftPressed = IsRightPressed = false;
 			SelectedObjects = new List<FrameworkObject>();
 			this.Storage = storage;
+
+			this.SelectHandler = new MouseSelectHandler(this);
+
+			this.ActiveFunction = SelectHandler;
 		}
 		
 		public void AddSelected(FrameworkObject fObject)
@@ -53,10 +57,10 @@ namespace WarUp.Utils.Mouse
 
 		public void Moved(UIElement sender, PointerRoutedEventArgs e)
 		{
+			ActiveFunction.Moved(sender, e);
+		
 			var rect = e.GetCurrentPoint(sender).Properties.ContactRect;
 			Position = new Vector2((float)rect.X, (float)rect.Y);
-		
-			ActiveFunction.Moved(sender, e);
 		}
 
 		public void WheelChanged(UIElement sender, PointerRoutedEventArgs e)
@@ -66,20 +70,20 @@ namespace WarUp.Utils.Mouse
 
 		public void PointerPressed(UIElement sender, PointerRoutedEventArgs e)
 		{
-			var properties = e.GetCurrentPoint(sender).Properties;
-			IsRightPressed = properties.IsXButton2Pressed;
-			IsLeftPressed = properties.IsXButton1Pressed;
-
 			ActiveFunction.PointerPressed(sender, e);
+
+			var properties = e.GetCurrentPoint(sender).Properties;
+			IsRightPressed = properties.IsRightButtonPressed;
+			IsLeftPressed = properties.IsLeftButtonPressed;
 		}
 
 		public void PointerReleased(UIElement sender, PointerRoutedEventArgs e)
 		{
-			var properties = e.GetCurrentPoint(sender).Properties;
-			IsRightPressed = properties.IsXButton2Pressed;
-			IsLeftPressed = properties.IsXButton1Pressed;
-
 			ActiveFunction.PointerReleased(sender, e);
+
+			var properties = e.GetCurrentPoint(sender).Properties;
+			IsRightPressed = properties.IsRightButtonPressed;
+			IsLeftPressed = properties.IsLeftButtonPressed;
 		}
 
 		public enum FunctionType
