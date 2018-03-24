@@ -115,5 +115,16 @@ namespace WarUp.Core.Storage
 			}
 			return result;
 		}
+
+		public IEnumerable<Waypoint> GetWaypoints()
+		{
+			var result = new List<Waypoint>();
+			foreach (var item in Objects)
+			{
+				if (item is Waypoint)
+					result.Add(item as Waypoint);
+			}
+			return result;
+		}
 	}
 }
