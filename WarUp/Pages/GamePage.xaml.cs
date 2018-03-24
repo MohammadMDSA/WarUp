@@ -149,5 +149,18 @@ namespace WarUp
 
 			MainCore.Tick();
 		}
+
+		private void FullScreenSwitchButton_Click(object sender, RoutedEventArgs e)
+		{
+			var view = ApplicationView.GetForCurrentView();
+			if(!view.IsFullScreenMode)
+			{
+				view.TryEnterFullScreenMode();
+			}
+			else
+			{
+				view.ExitFullScreenMode();
+			}
+		}
 	}
 }
