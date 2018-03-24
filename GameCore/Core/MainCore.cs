@@ -35,6 +35,11 @@ namespace WarUp.Core
 		{
 			Renderer.Trim();
 		}
+
+		public void Restart()
+		{
+
+		}
 		
 	}
 }
