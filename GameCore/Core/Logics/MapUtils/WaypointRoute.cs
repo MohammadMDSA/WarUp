@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
+using Windows.Foundation;
 using Windows.UI;
 
 namespace WarUp.Core.Logics.MapUtils
@@ -51,7 +52,11 @@ namespace WarUp.Core.Logics.MapUtils
 
 		public override Polygon2D GetSelectPolygon()
 		{
-			return new Polygon2D(new List<Point2D>());
+			var l = new List<Point2D>();
+			l.Add(new Point2D());
+			l.Add(new Point2D());
+
+			return new Polygon2D(l);
 		}
 
 		public override bool IsAvailable()
@@ -154,6 +159,11 @@ namespace WarUp.Core.Logics.MapUtils
 			}
 
 			return waypoints;
+		}
+		
+		public override Rect GetBound()
+		{
+			return new Rect();
 		}
 	}
 
