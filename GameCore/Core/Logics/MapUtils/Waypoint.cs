@@ -33,6 +33,7 @@ namespace WarUp.Core.Logics.MapUtils
 		public override void Draw(CanvasDrawingSession session)
 		{
 			session.DrawEllipse(Position, 5, 5, Selected ? Colors.Red : Colors.Yellow);
+
 		}
 
 		public override Polygon2D GetSelectPolygon()
@@ -42,7 +43,7 @@ namespace WarUp.Core.Logics.MapUtils
 			{
 				var sin = Math.Sin((Math.PI * i * 2) / 50);
 				var cos = Math.Cos((Math.PI * i * 2) / 50);
-				list.Add(new Point2D(Position.X + cos, Position.Y + sin));
+				list.Add(new Point2D(Position.X + cos * 5, Position.Y + sin * 5));
 			}
 			return new Polygon2D(list);
 		}
