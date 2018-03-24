@@ -16,15 +16,25 @@
 					PointerWheelChanged="SwapChainPanel_PointerWheelChanged" PointerMoved="SwapChainPanel_PointerMoved"/>
 
 			<CommandBar x:Name="AppBar" CanDrag="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+				<AppBarButton x:Name="FullScreenSwitchButton" Icon="FullScreen" Label="Full Screen" Click="FullScreenSwitchButton_Click"/>
 
+				<AppBarSeparator/>
+
+				<AppBarButton x:Name="WaypointToggleButton" Icon="Directions" Label="Waypoint"/>
+				<AppBarButton x:Name="PointerToggleButton" Icon="TouchPointer" Label="Select"/>
+				
+				
+				<AppBarSeparator/>
+				
+				
 				<AppBarButton x:Name="GameResetButton" Style="{ThemeResource AppBarButtonRevealStyle}" IsEnabled="False" Label="Reset" Icon="Refresh" Click="ResetButton_Click"/>
 				<AppBarButton x:Name="GamePlayPauseButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Play" Label="Play" Click="GamePlayPauseButton_Click" HorizontalAlignment="Left"/>
+
+
 				<AppBarSeparator/>
-				<AppBarButton x:Name="PropertiesPanelSwitchButton" Style="{ThemeResource AppBarButtonRevealStyle}" Label="Properties" Click="PropertiesPanelSwitchButton_Click">
-					<AppBarButton.Icon>
-						<FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEBD2;"/>
-					</AppBarButton.Icon>
-				</AppBarButton>
+				
+				
+				<AppBarButton x:Name="PropertiesPanelSwitchButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Repair" Label="Properties" Click="PropertiesPanelSwitchButton_Click"/>
 				<AppBarButton x:Name="ScriptDialogButton" Style="{ThemeResource AppBarButtonRevealStyle}" Label="Script">
 					<AppBarButton.Icon>
 						<FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE943;"/>
