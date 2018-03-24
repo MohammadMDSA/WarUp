@@ -15,18 +15,55 @@ namespace WarUp.Utils.Mouse
 	public class MouseSelectHandler : BaseMouseFunction
     {
 		private FrameworkObject ActivePressedObject;
+		private bool Dragging;
+		private Vector2 LastLeftPressPoint;
+		private Vector2 LastRightPressPoint;
 
 		public MouseSelectHandler(Mouse mouse) : base(mouse)
 		{
 			this.ActivePressedObject = null;
+			Dragging = false;
+			LastLeftPressPoint = Vector2.Zero;
+			LastRightPressPoint = Vector2.Zero;
 		}
 
 		public override void Moved(UIElement sender, PointerRoutedEventArgs e)
 		{
+			var contactRect = e.GetCurrentPoint(sender).Properties.ContactRect;
+			var currentPosition = new Vector2((float)contactRect.X, (float)contactRect.Y);
+
+			var delta = currentPosition - Mouse.Position;
+
+			if (Dragging)
+			{
+				var objects = Mouse.GetSelected();
+
+				foreach (var item in objects)
+				{
+					item.Position += delta;
+				}
+			}
+
+			if (Mouse.IsLeftPressed)
+			{
+				var selectionRect = Mouse.RenderManager.SelectionRect;
+
+				Mouse.RenderManager.SelectionRect = new Rect(currentPosition.ToPoint(), LastLeftPressPoint.ToPoint());
+			}
 		}
 
 		public override void PointerPressed(UIElement sender, PointerRoutedEventArgs e)
 		{
+			var prop = e.GetCurrentPoint(sender).Properties;
+
+			if (!Mouse.IsLeftPressed && prop.IsLeftButtonPressed)
+				LastLeftPressPoint = Mouse.Position;
+			if (!Mouse.IsRightPressed && prop.IsRightButtonPressed)
+				LastRightPressPoint = Mouse.Position;
+
+
+			Dragging = false;
+
 			var objects = Mouse.Storage.GetFrameworkObjects();
 			Point2D point = new Point2D(Mouse.Position.X, Mouse.Position.Y);
 
@@ -39,10 +76,31 @@ namespace WarUp.Utils.Mouse
 					break;
 				}
 			}
+
+			if (ActivePressedObject == null)
+			{
+				Mouse.ClearSelectedObjects();
+				return;
+			}
+
+			if (!Mouse.GetSelected().Contains(ActivePressedObject))
+			{
+				Mouse.ClearSelectedObjects();
+				Mouse.AddSelected(ActivePressedObject);
+
+			}
+
+			Dragging = true;
+			Mouse.RenderManager.SelectionRect = new Rect(Mouse.Position.X, Mouse.Position.Y, 0, 0);
 		}
 
 		public override void PointerReleased(UIElement sender, PointerRoutedEventArgs e)
 		{
+			ActivePressedObject = null;
+			Dragging = false;
+
+			Mouse.RenderManager.SelectionRect = new Rect();
+
 			var prop = e.GetCurrentPoint(sender).Properties;
 			if (Mouse.IsLeftPressed && !prop.IsLeftButtonPressed)
 				LeftClick(sender, e);
