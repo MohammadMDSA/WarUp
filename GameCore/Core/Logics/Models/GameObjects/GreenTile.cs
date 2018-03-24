@@ -29,7 +29,7 @@ namespace WarUp.Core.Logics.Models
 		{
 			Position = new Vector2(0f);
 			Selected = false;
-			Speed = 5;
+			Speed = 1;
 			Size = new Vector2(10f);
 		}
 
