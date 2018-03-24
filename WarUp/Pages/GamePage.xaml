@@ -15,17 +15,22 @@
 					PointerPressed="SwapChainPanel_PointerPressed" PointerReleased="SwapChainPanel_PointerReleased"
 					PointerWheelChanged="SwapChainPanel_PointerWheelChanged" PointerMoved="SwapChainPanel_PointerMoved"/>
 
-			<AppBar x:Name="AppBar" IsOpen="True" CanDrag="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-				<RelativePanel>
-					<RelativePanel.ChildrenTransitions>
-						<TransitionCollection>
-							<EntranceThemeTransition FromHorizontalOffset="200" FromVerticalOffset="200"/>
-						</TransitionCollection>
-					</RelativePanel.ChildrenTransitions>
-					<AppBarButton x:Name="PropertiesPanelSwitchButton" RelativePanel.AlignRightWithPanel="True" Content="&#xE15E;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Click="PropertiesPanelSwitchButton_Click"/>
-					<AppBarButton x:Name="ScriptDialogButton" RelativePanel.LeftOf="PropertiesPanelSwitchButton" Content="&#xE943;" FontFamily="Segoe MDL2 Assets" />
-				</RelativePanel>
-			</AppBar>
+			<CommandBar x:Name="AppBar" CanDrag="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+
+				<AppBarButton x:Name="GameResetButton" Style="{ThemeResource AppBarButtonRevealStyle}" IsEnabled="False" Label="Reset" Icon="Refresh" Click="ResetButton_Click"/>
+				<AppBarButton x:Name="GamePlayPauseButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Play" Label="Play" Click="GamePlayPauseButton_Click" HorizontalAlignment="Left"/>
+				<AppBarSeparator/>
+				<AppBarButton x:Name="PropertiesPanelSwitchButton" Style="{ThemeResource AppBarButtonRevealStyle}" Label="Properties" Click="PropertiesPanelSwitchButton_Click">
+					<AppBarButton.Icon>
+						<FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEBD2;"/>
+					</AppBarButton.Icon>
+				</AppBarButton>
+				<AppBarButton x:Name="ScriptDialogButton" Style="{ThemeResource AppBarButtonRevealStyle}" Label="Script">
+					<AppBarButton.Icon>
+						<FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE943;"/>
+					</AppBarButton.Icon>
+				</AppBarButton>
+			</CommandBar>
 		</RelativePanel>
 		<SplitView.Pane>
 			<StackPanel Orientation="Vertical"  Background="{ThemeResource SystemControlAcrylicWindowBrush}">
