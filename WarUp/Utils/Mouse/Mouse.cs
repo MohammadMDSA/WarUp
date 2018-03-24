@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WarUp.Core.Logics.Models;
 using WarUp.Core.Storage;
+using WarUp.GraphicEngine;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
@@ -21,9 +22,11 @@ namespace WarUp.Utils.Mouse
 		public FunctionType Type { get; private set; }
 		public IMouseFunction ActiveFunction { get; private set; }
 		public MouseSelectHandler SelectHandler { get; }
+		public SwapChainManager RenderManager { get; }
 
-		public Mouse(StorageCore storage)
+		public Mouse(StorageCore storage, SwapChainManager manager)
 		{
+			this.RenderManager = manager;
 			Position = Vector2.Zero;
 			IsLeftPressed = IsRightPressed = false;
 			SelectedObjects = new List<FrameworkObject>();
@@ -36,17 +39,30 @@ namespace WarUp.Utils.Mouse
 		
 		public void AddSelected(FrameworkObject fObject)
 		{
+			fObject.Select();
 			this.SelectedObjects.Add(fObject);
 		}
 
 		public bool RemoveFromSelected(FrameworkObject fObject)
 		{
-			return SelectedObjects.Remove(fObject);
+			var res = SelectedObjects.Remove(fObject);
+			if (res)
+				fObject.Unselect();
+			return res;
 		}
 
 		public void ClearSelectedObjects()
 		{
+			foreach (var item in SelectedObjects)
+			{
+				item.Unselect();
+			}
 			SelectedObjects.Clear();
+		}
+
+		public IEnumerable<FrameworkObject> GetSelected()
+		{
+			return SelectedObjects.AsReadOnly();
 		}
 
 		public bool SetFunctionType(FunctionType type)
