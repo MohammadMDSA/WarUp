@@ -99,10 +99,11 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Mouse\BaseMouseFunction.cs" />
-    <Compile Include="Utils\Mouse\IMouseFunction.cs" />
+    <Compile Include="Utils\Mouse\Functions\BaseMouseFunction.cs" />
+    <Compile Include="Utils\Mouse\Functions\IMouseFunction.cs" />
+    <Compile Include="Utils\Mouse\Functions\MouseWaypointHandler.cs" />
     <Compile Include="Utils\Mouse\Mouse.cs" />
-    <Compile Include="Utils\Mouse\MouseSelectHandler.cs" />
+    <Compile Include="Utils\Mouse\Functions\MouseSelectHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

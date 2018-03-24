@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WarUp.Core.Logics.Models;
 using WarUp.Core.Storage;
 using WarUp.GraphicEngine;
+using WarUp.Utils.Mouse.Functions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
@@ -19,10 +20,12 @@ namespace WarUp.Utils.Mouse
 		public bool IsRightPressed { get; private set; }
 		private List<FrameworkObject> SelectedObjects;
 		public StorageCore Storage { get; }
-		public FunctionType Type { get; private set; }
-		public IMouseFunction ActiveFunction { get; private set; }
-		public MouseSelectHandler SelectHandler { get; }
 		public SwapChainManager RenderManager { get; }
+
+		public MouseWaypointHandler WaypointHandler { get; }
+		public MouseSelectHandler SelectHandler { get; }
+		public FunctionType Type { get; private set; }
+		public BaseMouseFunction ActiveFunction { get; private set; }
 
 		public Mouse(StorageCore storage, SwapChainManager manager)
 		{
@@ -33,6 +36,7 @@ namespace WarUp.Utils.Mouse
 			this.Storage = storage;
 
 			this.SelectHandler = new MouseSelectHandler(this);
+			this.WaypointHandler = new MouseWaypointHandler(this);
 
 			this.ActiveFunction = SelectHandler;
 		}
@@ -67,7 +71,20 @@ namespace WarUp.Utils.Mouse
 
 		public bool SetFunctionType(FunctionType type)
 		{
+			ActiveFunction.Reset();
 			this.Type = type;
+			switch (type)
+			{
+				case FunctionType.Select:
+					ActiveFunction = SelectHandler;
+					break;
+				case FunctionType.Waypoint:
+					ActiveFunction = WaypointHandler;
+					break;
+				default:
+					break;
+			}
+
 			return true;
 		}
 
