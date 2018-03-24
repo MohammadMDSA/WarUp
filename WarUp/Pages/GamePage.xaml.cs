@@ -162,5 +162,15 @@ namespace WarUp
 				view.ExitFullScreenMode();
 			}
 		}
+
+		private void WaypointToggleButton_Click(object sender, RoutedEventArgs e)
+		{
+			Mouse.SetFunctionType(Mouse.FunctionType.Waypoint);
+		}
+
+		private void PointerToggleButton_Click(object sender, RoutedEventArgs e)
+		{
+			Mouse.SetFunctionType(Mouse.FunctionType.Select);
+		}
 	}
 }
