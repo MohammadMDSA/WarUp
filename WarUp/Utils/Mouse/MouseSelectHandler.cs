@@ -42,13 +42,32 @@ namespace WarUp.Utils.Mouse
 				{
 					item.Position += delta;
 				}
+				return;
 			}
 
-			if (Mouse.IsLeftPressed)
-			{
-				var selectionRect = Mouse.RenderManager.SelectionRect;
 
-				Mouse.RenderManager.SelectionRect = new Rect(currentPosition.ToPoint(), LastLeftPressPoint.ToPoint());
+			// Drag select
+			if (Mouse.IsLeftPressed && !Dragging)
+			{
+				Mouse.ClearSelectedObjects();
+
+				var newRect = new Rect(currentPosition.ToPoint(), LastLeftPressPoint.ToPoint());
+				Mouse.RenderManager.SelectionRect = newRect;
+
+				var list = new List<Point2D>();
+				list.Add(new Point2D(newRect.Left, newRect.Bottom));
+				list.Add(new Point2D(newRect.Right, newRect.Bottom));
+				list.Add(new Point2D(newRect.Right, newRect.Top));
+				list.Add(new Point2D(newRect.Left, newRect.Top));
+				var RectPolygon = new Polygon2D(list);
+
+				foreach (var item in Mouse.Storage.GetFrameworkObjects())
+				{
+					if (Polygon2D.ArePolygonVerticesColliding(RectPolygon, item.GetSelectPolygon()))
+					{
+						Mouse.AddSelected(item);
+					}
+				}
 			}
 		}
 
