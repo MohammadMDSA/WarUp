@@ -38,7 +38,7 @@ namespace WarUp.Core
 
 		public void Restart()
 		{
-
+			Storage.Reset();
 		}
 		
 	}
