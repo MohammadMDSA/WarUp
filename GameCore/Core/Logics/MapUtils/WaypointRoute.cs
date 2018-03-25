@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using GameCore.Core.Utils;
 using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
 using Windows.Foundation;
@@ -14,10 +16,14 @@ namespace WarUp.Core.Logics.MapUtils
 	public sealed class WaypointRoute : GameUtil
 	{
 		private HashSet<WaypointRouteNode> Nodes;
+		private ConcurrentQueue<Waypoint> RemoveWaypoints;
+		private ConcurrentQueue<Tuple<Waypoint, Waypoint>> AddWaypoints;
 
 		public WaypointRoute(Waypoint start)
 		{
 			this.Nodes = new HashSet<WaypointRouteNode>();
+			this.AddWaypoints = new ConcurrentQueue<Tuple<Waypoint, Waypoint>>();
+			this.RemoveWaypoints = new ConcurrentQueue<Waypoint>();
 			this.Nodes.Add(new WaypointRouteNode(start));
 			start.ParentRoute = this;
 		}
@@ -101,9 +107,20 @@ namespace WarUp.Core.Logics.MapUtils
 
 		public override void Update()
 		{
+			foreach (var item in AddWaypoints)
+			{
+				_AddWaypoint(item.Item1, item.Item2);
+			}
+			AddWaypoints.Clear();
+
+			foreach (var item in RemoveWaypoints)
+			{
+				_RemoveWaypoint(item);
+			}
+			RemoveWaypoints.Clear();
 		}
 
-		public void AddWaypoint(Waypoint parent, Waypoint newWaypoint)
+		private void _AddWaypoint(Waypoint parent, Waypoint newWaypoint)
 		{
 			var newNode = new WaypointRouteNode(newWaypoint);
 			foreach (var item in Nodes)
@@ -116,6 +133,11 @@ namespace WarUp.Core.Logics.MapUtils
 			}
 			this.Nodes.Add(newNode);
 			newWaypoint.ParentRoute = this;
+		}
+
+		public void AddWaypoint(Waypoint parent, Waypoint newWaypoint)
+		{
+			this.AddWaypoints.Enqueue(new Tuple<Waypoint, Waypoint>(parent, newWaypoint));
 		}
 
 		public override Vector2 GetSize()
@@ -164,6 +186,39 @@ namespace WarUp.Core.Logics.MapUtils
 		public override Rect GetBound()
 		{
 			return new Rect();
+		}
+
+		private bool _RemoveWaypoint(Waypoint waypoint)
+		{
+			if (waypoint.ParentRoute != this)
+			{
+				return false;
+			}
+
+			WaypointRouteNode node = null;
+			foreach (var item in Nodes)
+			{
+				if(item.Waypoint == waypoint)
+				{
+					node = item;
+					break;
+				}
+			}
+
+			foreach (var item in Nodes)
+			{
+				item.Neighbours.Remove(node);
+			}
+
+			Nodes.Remove(node);
+
+			waypoint.ParentRoute = null;
+			return true;
+		}
+
+		public void RemoveWaypoint(Waypoint waypoint)
+		{
+			this.RemoveWaypoints.Enqueue(waypoint);
 		}
 	}
 
