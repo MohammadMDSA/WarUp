@@ -44,7 +44,7 @@ namespace WarUp.Core.Logics.MapUtils
 			{
 				var sin = Math.Sin((Math.PI * i * 2) / 50);
 				var cos = Math.Cos((Math.PI * i * 2) / 50);
-				list.Add(new Point2D(Position.X + cos * 5, Position.Y + sin * 5));
+				list.Add(new Point2D(Position.X + cos * 15, Position.Y + sin * 15));
 			}
 			return new Polygon2D(list);
 		}
