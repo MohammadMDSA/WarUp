@@ -43,7 +43,13 @@
 		</RelativePanel>
 		<SplitView.Pane>
 			<StackPanel Orientation="Vertical"  Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-				<TextBlock x:Name="Block"/>
+				<ListBox x:Name="GameItems" ScrollViewer.VerticalScrollBarVisibility="Auto">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}"/>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 			</StackPanel>
 		</SplitView.Pane>
 	</SplitView>
