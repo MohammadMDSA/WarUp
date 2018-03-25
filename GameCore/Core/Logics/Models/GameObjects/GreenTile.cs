@@ -53,10 +53,10 @@ namespace WarUp.Core.Logics.Models
 		public override Polygon2D GetSelectPolygon()
 		{
 			var list = new List<Point2D>();
-			list.Add(new Point2D(Position.X - 5, Position.Y - 5));
-			list.Add(new Point2D(Position.X - 5, Position.Y + 5));
-			list.Add(new Point2D(Position.X + 5, Position.Y + 5));
-			list.Add(new Point2D(Position.X + 5, Position.Y - 5));
+			list.Add(new Point2D(Position.X - 10, Position.Y - 10));
+			list.Add(new Point2D(Position.X - 10, Position.Y + 10));
+			list.Add(new Point2D(Position.X + 10, Position.Y + 10));
+			list.Add(new Point2D(Position.X + 10, Position.Y - 10));
 			return new Polygon2D(list);
 		}
 
