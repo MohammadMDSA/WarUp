@@ -8,6 +8,9 @@
 	xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged">
 
+	<Page.Resources>
+	</Page.Resources>
+
 	<SplitView x:Name="SidePanel" Background="Transparent" DisplayMode="Inline" IsPaneOpen="True">
 		<RelativePanel>
 			<win2d:CanvasSwapChainPanel x:Name="SwapChainPanel"
@@ -15,25 +18,21 @@
 					PointerPressed="SwapChainPanel_PointerPressed" PointerReleased="SwapChainPanel_PointerReleased"
 					PointerWheelChanged="SwapChainPanel_PointerWheelChanged" PointerMoved="SwapChainPanel_PointerMoved"/>
 
-			<CommandBar x:Name="AppBar" CanDrag="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-				<AppBarButton x:Name="FullScreenSwitchButton" Icon="FullScreen" Label="Full Screen" Click="FullScreenSwitchButton_Click"/>
+			<CommandBar x:Name="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+				<AppBarButton x:Name="FullScreenSwitchButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="FullScreen" Label="Full Screen" Click="FullScreenSwitchButton_Click"/>
 
 				<AppBarSeparator/>
 
-				<AppBarButton x:Name="WaypointToggleButton" Icon="Directions" Label="Waypoint" Click="WaypointToggleButton_Click"/>
-				<AppBarButton x:Name="PointerToggleButton" Icon="TouchPointer" Label="Select" Click="PointerToggleButton_Click"/>
-				
+				<AppBarButton x:Name="WaypointToggleButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Directions" Label="Waypoint" Click="WaypointToggleButton_Click"/>
+				<AppBarButton x:Name="PointerToggleButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="TouchPointer" Label="Select" Click="PointerToggleButton_Click"/>
 				
 				<AppBarSeparator/>
-				
-				
+
 				<AppBarButton x:Name="GameResetButton" Style="{ThemeResource AppBarButtonRevealStyle}" IsEnabled="False" Label="Reset" Icon="Refresh" Click="ResetButton_Click"/>
 				<AppBarButton x:Name="GamePlayPauseButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Play" Label="Play" Click="GamePlayPauseButton_Click" HorizontalAlignment="Left"/>
 
-
 				<AppBarSeparator/>
-				
-				
+
 				<AppBarButton x:Name="PropertiesPanelSwitchButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Repair" Label="Properties" Click="PropertiesPanelSwitchButton_Click"/>
 				<AppBarButton x:Name="ScriptDialogButton" Style="{ThemeResource AppBarButtonRevealStyle}" Label="Script">
 					<AppBarButton.Icon>
