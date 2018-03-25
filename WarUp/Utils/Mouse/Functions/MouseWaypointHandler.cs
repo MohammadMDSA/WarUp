@@ -39,8 +39,7 @@ namespace WarUp.Utils.Mouse.Functions
 
 			var delta = currentPosition - Mouse.Position;
 
-			if (NewWaypoint != null)
-				NewWaypoint.Position += delta;
+			NewWaypoint.Position += delta;
 		}
 
 		public override void PointerPressed(UIElement sender, PointerRoutedEventArgs e)
@@ -49,7 +48,7 @@ namespace WarUp.Utils.Mouse.Functions
 
 			var prop = e.GetCurrentPoint(sender).Properties;
 
-			if(!Mouse.IsRightPressed && prop.IsRightButtonPressed)
+			if (!Mouse.IsRightPressed && prop.IsRightButtonPressed)
 			{
 				return;
 			}
@@ -57,9 +56,10 @@ namespace WarUp.Utils.Mouse.Functions
 			var objects = Mouse.Storage.GetWaypoints();
 			Point2D point = new Point2D(Mouse.Position.X, Mouse.Position.Y);
 
+			// Find out if mouse is on a waypoint
 			foreach (var item in objects)
 			{
-				if(Polygon2D.IsPointInPolygon(point, item.GetSelectPolygon()))
+				if (Polygon2D.IsPointInPolygon(point, item.GetSelectPolygon()))
 				{
 					ActivePressedWaypoint = item;
 					Expanding = true;
@@ -67,20 +67,27 @@ namespace WarUp.Utils.Mouse.Functions
 				}
 			}
 
-			var NewWaypoint = new Waypoint(Mouse.Position);
+			NewWaypoint = new Waypoint(Mouse.Position);
 
 
 			if (Expanding)
 			{
 				var route = ActivePressedWaypoint.ParentRoute;
+				Mouse.Storage.AddObject(NewWaypoint);
 				route.AddWaypoint(ActivePressedWaypoint, NewWaypoint);
+
+				return;
 			}
-			else
-			{
-				var newRoute = new WaypointRoute(NewWaypoint);
-				Mouse.Storage.AddObject(newRoute);
-			}
+
+			// Not expandig
+			var newWaypoint = new Waypoint(Mouse.Position);
+			Mouse.Storage.AddObject(newWaypoint);
+			var newRoute = new WaypointRoute(newWaypoint);
+			Mouse.Storage.AddObject(newRoute);
 			Mouse.Storage.AddObject(NewWaypoint);
+
+			newRoute.AddWaypoint(newWaypoint, NewWaypoint);
+
 
 		}
 
@@ -93,7 +100,7 @@ namespace WarUp.Utils.Mouse.Functions
 
 		public override void WheelChanged(UIElement sender, PointerRoutedEventArgs e)
 		{
-			
+
 		}
 	}
 }
