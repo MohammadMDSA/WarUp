@@ -34,7 +34,7 @@ namespace WarUp.Core.Storage
 			this.RemoveObjects = new ConcurrentQueue<FrameworkObject>();
 
 			this.Objects.Add(g);
-			
+
 
 			Waypoint[,] net = new Waypoint[3, 3];
 
@@ -94,53 +94,59 @@ namespace WarUp.Core.Storage
 
 		public IEnumerable<IDrawable> GetDrawables()
 		{
-			return Objects.AsReadOnly();
+			return Objects.ToList();
 		}
 
 		public IEnumerable<IUpdatable> GetUpdatables()
 		{
-			return Objects.AsReadOnly();
+			return Objects.ToList();
 		}
 
 		public IEnumerable<FrameworkObject> GetFrameworkObjects()
 		{
-			return Objects.AsReadOnly();
+			return Objects.ToList();
 		}
 
 		public IEnumerable<GameUtil> GetUtils()
 		{
 			var result = new List<GameUtil>();
 
-			foreach (var item in Objects)
+
+			foreach (var item in Objects.ToList())
 			{
 				if (item is GameUtil)
 					result.Add(item as GameUtil);
 			}
+
 			return result;
 		}
 
 		public IEnumerable<GameObject> GetGameObjects()
 		{
 			var result = new List<GameObject>();
-			foreach (var item in Objects)
+
+			foreach (var item in Objects.ToList())
 			{
 				if (item is GameObject)
 					result.Add(item as GameObject);
 			}
+
 			return result;
 		}
 
 		public IEnumerable<Waypoint> GetWaypoints()
 		{
 			var result = new List<Waypoint>();
-			foreach (var item in Objects)
+
+			foreach (var item in Objects.ToList())
 			{
 				if (item is Waypoint)
 					result.Add(item as Waypoint);
 			}
+
 			return result;
 		}
-		
+
 		public void Tick()
 		{
 			foreach (var item in AddObjects)
