@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WarUp.Core.Graphics;
 using WarUp.Core.Logics;
 using WarUp.Core.Storage;
+using WarUp.Core.Utils;
 using WarUp.GraphicEngine;
 using Windows.UI.Core;
 
@@ -27,6 +28,7 @@ namespace WarUp.Core
 
 		public void Tick()
 		{
+			Storage.Tick();
 			Logic.Tick();
 			Renderer.Render(Storage.GetDrawables());
 		}
