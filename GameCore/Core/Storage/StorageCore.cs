@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameCore.Core.Utils;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -9,12 +11,15 @@ using WarUp.Core.Logics;
 using WarUp.Core.Logics.MapUtils;
 using WarUp.Core.Logics.Models;
 using WarUp.Core.Logics.Models.Instructions.Move;
+using WarUp.Core.Utils;
 
 namespace WarUp.Core.Storage
 {
-	public class StorageCore
+	public class StorageCore : ITickable, ICollectionSynchronizedModifier<FrameworkObject>
 	{
 		private List<FrameworkObject> Objects;
+		private ConcurrentQueue<FrameworkObject> AddObjects;
+		private ConcurrentQueue<FrameworkObject> RemoveObjects;
 
 		public StorageCore()
 		{
@@ -25,7 +30,11 @@ namespace WarUp.Core.Storage
 		{
 			var g = new GreenTile();
 			this.Objects = new List<FrameworkObject>();
+			this.AddObjects = new ConcurrentQueue<FrameworkObject>();
+			this.RemoveObjects = new ConcurrentQueue<FrameworkObject>();
+
 			this.Objects.Add(g);
+			
 
 			Waypoint[,] net = new Waypoint[3, 3];
 
@@ -75,7 +84,12 @@ namespace WarUp.Core.Storage
 
 		public void AddObject(FrameworkObject @object)
 		{
-			Objects.Add(@object);
+			AddObjects.Enqueue(@object);
+		}
+
+		public void RemoveObject(FrameworkObject @object)
+		{
+			RemoveObjects.Enqueue(@object);
 		}
 
 		public IEnumerable<IDrawable> GetDrawables()
@@ -125,6 +139,21 @@ namespace WarUp.Core.Storage
 					result.Add(item as Waypoint);
 			}
 			return result;
+		}
+		
+		public void Tick()
+		{
+			foreach (var item in AddObjects)
+			{
+				Objects.Add(item);
+			}
+			AddObjects.Clear();
+
+			foreach (var item in RemoveObjects)
+			{
+				Objects.Remove(item);
+			}
+			RemoveObjects.Clear();
 		}
 	}
 }
