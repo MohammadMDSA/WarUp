@@ -28,6 +28,7 @@ namespace WarUp.Core.Logics.MapUtils
 		{
 			this.Position = position;
 			this.ParentRoute = null;
+			Size = new Vector2(10f);
 		}
 
 		public override void Draw(CanvasDrawingSession session)
