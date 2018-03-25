@@ -16,6 +16,9 @@ namespace WarUp.Utils.Mouse.Functions
 		private Waypoint ActivePressedWaypoint;
 		private bool Expanding;
 		private Waypoint NewWaypoint;
+		private WaypointRoute ActiveWaypointRoute;
+		private Waypoint LastOnTarget;
+		private bool IsNewAdded;
 
 		public MouseWaypointHandler(Mouse mouse) : base(mouse)
 		{
@@ -27,23 +30,86 @@ namespace WarUp.Utils.Mouse.Functions
 			ActivePressedWaypoint = null;
 			Expanding = false;
 			NewWaypoint = null;
+			ActiveWaypointRoute = null;
+			LastOnTarget = null;
+			IsNewAdded = false;
 		}
 
 		public override void Moved(UIElement sender, PointerRoutedEventArgs e)
 		{
 			if (!Mouse.IsLeftPressed)
 				return;
+			
+			// Find out mouse is on a waypoint
+			var objects = Mouse.Storage.GetWaypoints();
+			Point2D point = new Point2D(Mouse.Position.X, Mouse.Position.Y);
+			Waypoint pointerOnWaypoint = null;
+			foreach (var item in objects)
+			{
+				if (Polygon2D.IsPointInPolygon(point, item.GetSelectPolygon()))
+				{
+					pointerOnWaypoint = item;
+					break;
+				}
+			}
 
-			var contactRect = e.GetCurrentPoint(sender).Properties.ContactRect;
-			var currentPosition = new Vector2((float)contactRect.X, (float)contactRect.Y);
 
-			var delta = currentPosition - Mouse.Position;
 
-			NewWaypoint.Position += delta;
+
+			if (pointerOnWaypoint != null)
+			{
+				// Remove new waypoint
+				RemoveFromActiveRoute(NewWaypoint, true);
+				IsNewAdded = false;
+
+				// Finish job if active waypoint is the first waypoint to put on click operation
+				if (pointerOnWaypoint == ActivePressedWaypoint)
+				{
+					RemoveFromActiveRoute(LastOnTarget, false);
+					return;
+				}
+
+				// Destination alreadywaypoint exist in game
+
+				// Check if new target waypoint is the same with last registered
+				if (pointerOnWaypoint == LastOnTarget)
+				{
+					// Add to route if it doesn't already exist in route
+					if (ActiveWaypointRoute != LastOnTarget.ParentRoute)
+						ActiveWaypointRoute.AddWaypoint(ActivePressedWaypoint, LastOnTarget);
+					return;
+				}
+				else
+				{
+					RemoveFromActiveRoute(LastOnTarget, false);
+					LastOnTarget = pointerOnWaypoint;
+					if (ActiveWaypointRoute != LastOnTarget.ParentRoute)
+						ActiveWaypointRoute.AddWaypoint(ActivePressedWaypoint, LastOnTarget);
+					return;
+				}
+
+			}
+
+			// Remove existing ontarget
+			RemoveFromActiveRoute(LastOnTarget, false);
+
+			// Add a new waypoint
+			if (!IsNewAdded)
+			{
+				IsNewAdded = true;
+				Mouse.Storage.AddObject(NewWaypoint);
+				ActiveWaypointRoute.AddWaypoint(ActivePressedWaypoint, NewWaypoint);
+			}
+
+
+
+			NewWaypoint.Position = Mouse.Position;
 		}
 
 		public override void PointerPressed(UIElement sender, PointerRoutedEventArgs e)
 		{
+			IsNewAdded = false;
+			LastOnTarget = null;
 			Expanding = false;
 
 			var prop = e.GetCurrentPoint(sender).Properties;
@@ -72,23 +138,15 @@ namespace WarUp.Utils.Mouse.Functions
 
 			if (Expanding)
 			{
-				var route = ActivePressedWaypoint.ParentRoute;
-				Mouse.Storage.AddObject(NewWaypoint);
-				route.AddWaypoint(ActivePressedWaypoint, NewWaypoint);
-
+				ActiveWaypointRoute = ActivePressedWaypoint.ParentRoute;
 				return;
 			}
 
 			// Not expandig
-			var newWaypoint = new Waypoint(Mouse.Position);
-			Mouse.Storage.AddObject(newWaypoint);
-			var newRoute = new WaypointRoute(newWaypoint);
-			Mouse.Storage.AddObject(newRoute);
-			Mouse.Storage.AddObject(NewWaypoint);
-
-			newRoute.AddWaypoint(newWaypoint, NewWaypoint);
-
-
+			ActivePressedWaypoint = new Waypoint(Mouse.Position);
+			Mouse.Storage.AddObject(ActivePressedWaypoint);
+			ActiveWaypointRoute = new WaypointRoute(ActivePressedWaypoint);
+			Mouse.Storage.AddObject(ActiveWaypointRoute);
 		}
 
 		public override void PointerReleased(UIElement sender, PointerRoutedEventArgs e)
@@ -96,11 +154,28 @@ namespace WarUp.Utils.Mouse.Functions
 			ActivePressedWaypoint = null;
 			Expanding = false;
 			NewWaypoint = null;
+			LastOnTarget = null;
+			ActiveWaypointRoute = null;
+			IsNewAdded = false;
 		}
 
 		public override void WheelChanged(UIElement sender, PointerRoutedEventArgs e)
 		{
 
+		}
+
+		private void RemoveFromActiveRoute(Waypoint waypoint, bool removeFromGame)
+		{
+			if (waypoint == null)
+				return;
+
+			if (waypoint.ParentRoute == ActiveWaypointRoute)
+			{
+				ActiveWaypointRoute.RemoveWaypoint(waypoint);
+			}
+
+			if (removeFromGame)
+				Mouse.Storage.RemoveObject(waypoint);
 		}
 	}
 }
