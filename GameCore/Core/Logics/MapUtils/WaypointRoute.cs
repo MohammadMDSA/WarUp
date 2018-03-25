@@ -155,13 +155,13 @@ namespace WarUp.Core.Logics.MapUtils
 
 			return waypoints;
 		}
-		
+
 		public IEnumerable<Waypoint> GetNeighboursOf(Waypoint waypoint)
 		{
 			WaypointRouteNode tarNode = null;
 			foreach (var node in Nodes)
 			{
-				if(waypoint == node.Waypoint)
+				if (waypoint == node.Waypoint)
 				{
 					tarNode = node;
 					break;
@@ -182,7 +182,7 @@ namespace WarUp.Core.Logics.MapUtils
 
 			return waypoints;
 		}
-		
+
 		public override Rect GetBound()
 		{
 			return new Rect();
@@ -198,7 +198,7 @@ namespace WarUp.Core.Logics.MapUtils
 			WaypointRouteNode node = null;
 			foreach (var item in Nodes)
 			{
-				if(item.Waypoint == waypoint)
+				if (item.Waypoint == waypoint)
 				{
 					node = item;
 					break;
@@ -241,6 +241,20 @@ namespace WarUp.Core.Logics.MapUtils
 		{
 			this.Waypoint = waypoint;
 			this.Neighbours = new HashSet<WaypointRouteNode>();
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (!(obj is WaypointRouteNode))
+				return false;
+			if (((WaypointRouteNode)obj).Waypoint == this.Waypoint)
+				return true;
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return (int)(Waypoint.Position.X * 13 + Waypoint.Position.Y * 2);
 		}
 	}
 
