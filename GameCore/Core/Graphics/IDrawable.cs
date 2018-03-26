@@ -5,11 +5,12 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.UI.Composition;
 
 namespace WarUp.Core.Graphics
 {
-	interface IDrawable
+	public interface IDrawable
 	{
 		/// <summary>
 		/// Draws an object on canvas
@@ -28,5 +29,11 @@ namespace WarUp.Core.Graphics
 		/// </summary>
 		/// <returns>Object size</returns>
 		Vector2 GetSize();
+		
+		/// <summary>
+		/// Gives the rectangle bound of object
+		/// </summary>
+		/// <returns>Rectangle bound</returns>
+		Rect GetBound();
 	}
 }

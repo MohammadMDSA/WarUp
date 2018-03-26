@@ -108,7 +108,8 @@
   <ItemGroup>
     <Compile Include="Core\Graphics\IDrawable.cs" />
     <Compile Include="Core\Graphics\Renderer.cs" />
-    <Compile Include="Core\ITickable.cs" />
+    <Compile Include="Core\Utils\ICollectionSynchronizedModifier.cs" />
+    <Compile Include="Core\Utils\ITickable.cs" />
     <Compile Include="Core\Logics\FrameworkObject.cs" />
     <Compile Include="Core\Logics\ISelectable.cs" />
     <Compile Include="Core\Logics\IUpdatable.cs" />

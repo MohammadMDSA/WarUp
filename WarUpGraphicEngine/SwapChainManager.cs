@@ -19,6 +19,7 @@ namespace WarUp.GraphicEngine
 		public Size DisplaySize { get; private set; }
 		public float DPI { get; private set; }
 		private bool UseCore { get; }
+		public Rect SelectionRect { get; set; }
 
 		public SwapChainManager(CoreWindow window, CanvasDevice device)
 		{
@@ -41,6 +42,8 @@ namespace WarUp.GraphicEngine
 			var info = DisplayInformation.GetForCurrentView();
 			DPI = info.LogicalDpi;
 			DisplaySize = new Size(info.ScreenWidthInRawPixels, info.ScreenHeightInRawPixels);
+
+			SelectionRect = new Rect();
 		}
 
 		public void EnsureMatchesWindow()
@@ -60,7 +63,7 @@ namespace WarUp.GraphicEngine
 
 		public void EnsureCurrentBufferMatchesWindow(CanvasRenderTarget[] accumulationBuffers, int currentBuffer)
 		{
-			if(UseCore)
+			if (UseCore)
 			{
 				var window = CoreWindow.GetForCurrentThread();
 				var bound = window.Bounds;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameCore.Core.Utils;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -9,18 +11,30 @@ using WarUp.Core.Logics;
 using WarUp.Core.Logics.MapUtils;
 using WarUp.Core.Logics.Models;
 using WarUp.Core.Logics.Models.Instructions.Move;
+using WarUp.Core.Utils;
 
 namespace WarUp.Core.Storage
 {
-	class StorageCore
+	public class StorageCore : ITickable, ICollectionSynchronizedModifier<FrameworkObject>
 	{
-		public List<FrameworkObject> Objects;
+		private List<FrameworkObject> Objects;
+		private ConcurrentQueue<FrameworkObject> AddObjects;
+		private ConcurrentQueue<FrameworkObject> RemoveObjects;
 
 		public StorageCore()
 		{
+			Reset();
+		}
+
+		public void Reset()
+		{
 			var g = new GreenTile();
 			this.Objects = new List<FrameworkObject>();
+			this.AddObjects = new ConcurrentQueue<FrameworkObject>();
+			this.RemoveObjects = new ConcurrentQueue<FrameworkObject>();
+
 			this.Objects.Add(g);
+
 
 			Waypoint[,] net = new Waypoint[3, 3];
 
@@ -36,7 +50,7 @@ namespace WarUp.Core.Storage
 			var fin = new Waypoint(new Vector2(700, 550));
 
 			this.Objects.Add(fin);
-			
+
 			WaypointRoute r = new WaypointRoute(net[1, 1]);
 
 			r.AddWaypoint(net[1, 1], net[0, 0]);
@@ -68,20 +82,84 @@ namespace WarUp.Core.Storage
 			g.AddInstructionSet(new MoveInstructionSet(new MoveTowardPointInstruction(g, new Vector2(500, 10))));
 		}
 
+		public void AddObject(FrameworkObject @object)
+		{
+			AddObjects.Enqueue(@object);
+		}
+
+		public void RemoveObject(FrameworkObject @object)
+		{
+			RemoveObjects.Enqueue(@object);
+		}
+
 		public IEnumerable<IDrawable> GetDrawables()
 		{
-			var result = new List<IDrawable>();
-			foreach (var item in Objects)
-			{
-				if (item is IDrawable)
-					result.Add(item as IDrawable);
-			}
-			return result;
+			return Objects.ToList();
 		}
 
 		public IEnumerable<IUpdatable> GetUpdatables()
 		{
-			return Objects;
+			return Objects.ToList();
+		}
+
+		public IEnumerable<FrameworkObject> GetFrameworkObjects()
+		{
+			return Objects.ToList();
+		}
+
+		public IEnumerable<GameUtil> GetUtils()
+		{
+			var result = new List<GameUtil>();
+
+
+			foreach (var item in Objects.ToList())
+			{
+				if (item is GameUtil)
+					result.Add(item as GameUtil);
+			}
+
+			return result;
+		}
+
+		public IEnumerable<GameObject> GetGameObjects()
+		{
+			var result = new List<GameObject>();
+
+			foreach (var item in Objects.ToList())
+			{
+				if (item is GameObject)
+					result.Add(item as GameObject);
+			}
+
+			return result;
+		}
+
+		public IEnumerable<Waypoint> GetWaypoints()
+		{
+			var result = new List<Waypoint>();
+
+			foreach (var item in Objects.ToList())
+			{
+				if (item is Waypoint)
+					result.Add(item as Waypoint);
+			}
+
+			return result;
+		}
+
+		public void Tick()
+		{
+			foreach (var item in AddObjects)
+			{
+				Objects.Add(item);
+			}
+			AddObjects.Clear();
+
+			foreach (var item in RemoveObjects)
+			{
+				Objects.Remove(item);
+			}
+			RemoveObjects.Clear();
 		}
 	}
 }

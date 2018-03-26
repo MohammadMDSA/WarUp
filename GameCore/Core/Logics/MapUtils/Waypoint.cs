@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
+using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml.Shapes;
 
@@ -17,11 +18,6 @@ namespace WarUp.Core.Logics.MapUtils
 	public sealed class Waypoint : GameUtil
 	{
 		/// <summary>
-		/// Position of Waypoint
-		/// </summary>
-		public Vector2 Position { get; set; }
-
-		/// <summary>
 		/// Tells if waypoint is selected or not
 		/// </summary>
 		private bool Selected;
@@ -32,11 +28,13 @@ namespace WarUp.Core.Logics.MapUtils
 		{
 			this.Position = position;
 			this.ParentRoute = null;
+			Size = new Vector2(10f);
 		}
 
 		public override void Draw(CanvasDrawingSession session)
 		{
 			session.DrawEllipse(Position, 5, 5, Selected ? Colors.Red : Colors.Yellow);
+
 		}
 
 		public override Polygon2D GetSelectPolygon()
@@ -46,7 +44,7 @@ namespace WarUp.Core.Logics.MapUtils
 			{
 				var sin = Math.Sin((Math.PI * i * 2) / 50);
 				var cos = Math.Cos((Math.PI * i * 2) / 50);
-				list.Add(new Point2D(Position.X + cos, Position.Y + sin));
+				list.Add(new Point2D(Position.X + cos * 15, Position.Y + sin * 15));
 			}
 			return new Polygon2D(list);
 		}
@@ -82,6 +80,11 @@ namespace WarUp.Core.Logics.MapUtils
 		public override Vector2 GetSize()
 		{
 			return this.Size;
+		}
+		
+		public override Rect GetBound()
+		{
+			return new Rect(Position.X, Position.Y, 5, 5);
 		}
 	}
 }

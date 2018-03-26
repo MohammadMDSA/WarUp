@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="WarUp.GamePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WarUp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    mc:Ignorable="d" SizeChanged="Page_SizeChanged">
+
+	<Page.Resources>
+	</Page.Resources>
+
+	<SplitView x:Name="SidePanel" Background="Transparent" DisplayMode="Inline" IsPaneOpen="True">
+		<RelativePanel>
+			<win2d:CanvasSwapChainPanel x:Name="SwapChainPanel"
+					RelativePanel.AlignBottomWithPanel="True" RelativePanel.Below="AppBar" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"
+					PointerPressed="SwapChainPanel_PointerPressed" PointerReleased="SwapChainPanel_PointerReleased"
+					PointerWheelChanged="SwapChainPanel_PointerWheelChanged" PointerMoved="SwapChainPanel_PointerMoved"/>
+
+			<CommandBar x:Name="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+				<AppBarButton x:Name="FullScreenSwitchButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="FullScreen" Label="Full Screen" Click="FullScreenSwitchButton_Click"/>
+
+				<AppBarSeparator/>
+
+				<AppBarButton x:Name="WaypointToggleButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Directions" Label="Waypoint" Click="WaypointToggleButton_Click"/>
+				<AppBarButton x:Name="PointerToggleButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="TouchPointer" Label="Select" Click="PointerToggleButton_Click"/>
+				
+				<AppBarSeparator/>
+
+				<AppBarButton x:Name="GameResetButton" Style="{ThemeResource AppBarButtonRevealStyle}" IsEnabled="False" Label="Reset" Icon="Refresh" Click="ResetButton_Click"/>
+				<AppBarButton x:Name="GamePlayPauseButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Play" Label="Play" Click="GamePlayPauseButton_Click" HorizontalAlignment="Left"/>
+
+				<AppBarSeparator/>
+
+				<AppBarButton x:Name="PropertiesPanelSwitchButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Repair" Label="Properties" Click="PropertiesPanelSwitchButton_Click"/>
+				<AppBarButton x:Name="ScriptDialogButton" Style="{ThemeResource AppBarButtonRevealStyle}" Label="Script">
+					<AppBarButton.Icon>
+						<FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE943;"/>
+					</AppBarButton.Icon>
+				</AppBarButton>
+			</CommandBar>
+		</RelativePanel>
+		<SplitView.Pane>
+			<StackPanel Orientation="Vertical"  Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+				<ListBox x:Name="GameItems" ScrollViewer.VerticalScrollBarVisibility="Auto">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}"/>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</SplitView.Pane>
+	</SplitView>
+</Page>

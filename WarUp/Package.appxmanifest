@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="8d07df14-9b6c-465c-b937-550b66babb49"
-    Publisher="CN=Sami"
+    Name="0348c662-8e9a-4e6e-8199-958ce568291e"
+    Publisher="CN=SamiMD"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="8d07df14-9b6c-465c-b937-550b66babb49" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="0348c662-8e9a-4e6e-8199-958ce568291e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>WarUp</DisplayName>
-    <PublisherDisplayName>Sami</PublisherDisplayName>
+    <PublisherDisplayName>SamiMD</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

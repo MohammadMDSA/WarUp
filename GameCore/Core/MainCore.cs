@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WarUp.Core.Graphics;
 using WarUp.Core.Logics;
 using WarUp.Core.Storage;
+using WarUp.Core.Utils;
 using WarUp.GraphicEngine;
 using Windows.UI.Core;
 
@@ -15,7 +16,7 @@ namespace WarUp.Core
 	public class MainCore : ITickable
 	{
 		private Renderer Renderer;
-		private StorageCore Storage;
+		public StorageCore Storage { get; }
 		private LogicCore Logic;
 
 		public MainCore(SwapChainManager swapChainManager)
@@ -27,6 +28,7 @@ namespace WarUp.Core
 
 		public void Tick()
 		{
+			Storage.Tick();
 			Logic.Tick();
 			Renderer.Render(Storage.GetDrawables());
 		}
@@ -34,6 +36,11 @@ namespace WarUp.Core
 		public void Suspend()
 		{
 			Renderer.Trim();
+		}
+
+		public void Restart()
+		{
+			Storage.Reset();
 		}
 		
 	}
