@@ -5,18 +5,40 @@
     xmlns:local="using:WarUp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:canvases="using:WarUp.Canvases"
 	xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
-    mc:Ignorable="d" SizeChanged="Page_SizeChanged">
-
-	<Page.Resources>
-	</Page.Resources>
+	xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded">
 
 	<SplitView x:Name="SidePanel" Background="Transparent" DisplayMode="Inline" IsPaneOpen="True">
 		<RelativePanel>
-			<win2d:CanvasSwapChainPanel x:Name="SwapChainPanel"
-					RelativePanel.AlignBottomWithPanel="True" RelativePanel.Below="AppBar" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"
-					PointerPressed="SwapChainPanel_PointerPressed" PointerReleased="SwapChainPanel_PointerReleased"
-					PointerWheelChanged="SwapChainPanel_PointerWheelChanged" PointerMoved="SwapChainPanel_PointerMoved"/>
+			<Grid x:Name="SwapChainGrid"
+					RelativePanel.AlignBottomWithPanel="True" RelativePanel.Below="AppBar" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition Height="11"/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+
+				<canvases:GameSwapChain x:Name="GameSwapChain" Grid.Row="2" SizeChanged="GameSwapChain_SizeChanged"/>
+
+				<controls:GridSplitter
+						Grid.Row="1"
+						Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
+						HorizontalAlignment="Stretch">
+					<controls:GridSplitter.Element>
+						<Grid>
+							<TextBlock HorizontalAlignment="Center"
+									IsHitTestVisible="False"
+									VerticalAlignment="Center"
+									Text="&#xE76F;"
+									Foreground="White"
+									FontFamily="Segoe MDL2 Assets"/>
+						</Grid>
+					</controls:GridSplitter.Element>
+				</controls:GridSplitter>
+					
+			</Grid>
 
 			<CommandBar x:Name="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
 				<AppBarButton x:Name="FullScreenSwitchButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="FullScreen" Label="Full Screen" Click="FullScreenSwitchButton_Click"/>
@@ -25,7 +47,7 @@
 
 				<AppBarButton x:Name="WaypointToggleButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Directions" Label="Waypoint" Click="WaypointToggleButton_Click"/>
 				<AppBarButton x:Name="PointerToggleButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="TouchPointer" Label="Select" Click="PointerToggleButton_Click"/>
-				
+
 				<AppBarSeparator/>
 
 				<AppBarButton x:Name="GameResetButton" Style="{ThemeResource AppBarButtonRevealStyle}" IsEnabled="False" Label="Reset" Icon="Refresh" Click="ResetButton_Click"/>

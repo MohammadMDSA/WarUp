@@ -50,10 +50,12 @@ namespace WarUp
 
 			SwapChainManager = new SwapChainManager(new CanvasDevice());
 
-			this.SwapChainPanel.SwapChain = SwapChainManager.SwapChain;
+			this.GameSwapChain.SwapChain = SwapChainManager.SwapChain;
 
 			MainCore = new MainCore(SwapChainManager);
 			Mouse = new Mouse(MainCore.Storage, SwapChainManager);
+
+			GameSwapChain.Mouse = Mouse;
 
 			GamePaused = false;
 			GameRunning = false;
@@ -62,10 +64,8 @@ namespace WarUp
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			var bound = Window.Current.CoreWindow.Bounds;
-			SwapChainManager.RenderSize = new Size(bound.Width, bound.Height);
 			WindowVisible = true;
 
-			MainCore.Tick();
 		}
 
 		public void Run()
@@ -78,39 +78,19 @@ namespace WarUp
 				}
 				else
 				{
-
+					Task.Delay(1000);
 				}
 			}
 		}
 
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			SwapChainManager.RenderSize = e.NewSize;
+			
 		}
 
 		private void PropertiesPanelSwitchButton_Click(object sender, RoutedEventArgs e)
 		{
 			SidePanel.IsPaneOpen = !SidePanel.IsPaneOpen;
-		}
-
-		private void SwapChainPanel_PointerPressed(object sender, PointerRoutedEventArgs e)
-		{
-			Mouse.PointerPressed(sender as UIElement, e);
-		}
-
-		private void SwapChainPanel_PointerReleased(object sender, PointerRoutedEventArgs e)
-		{
-			Mouse.PointerReleased(sender as UIElement, e);
-		}
-
-		private void SwapChainPanel_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
-		{
-			Mouse.WheelChanged(sender as UIElement, e);
-		}
-
-		private void SwapChainPanel_PointerMoved(object sender, PointerRoutedEventArgs e)
-		{
-			Mouse.Moved(sender as UIElement, e);
 		}
 
 		private void GamePlayPauseButton_Click(object sender, RoutedEventArgs e)
@@ -171,6 +151,18 @@ namespace WarUp
 		private void PointerToggleButton_Click(object sender, RoutedEventArgs e)
 		{
 			Mouse.SetFunctionType(Mouse.FunctionType.Select);
+		}
+		
+
+		private void Page_Loaded(object sender, RoutedEventArgs e)
+		{
+			SwapChainManager.RenderSize = new Size(GameSwapChain.ActualWidth, GameSwapChain.ActualHeight);
+			MainCore.Tick();
+		}
+
+		private void GameSwapChain_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			SwapChainManager.RenderSize = e.NewSize;
 		}
 	}
 }
