@@ -76,7 +76,7 @@ namespace WarUp
 
 		public async void Run()
 		{
-			MainCore = new MainCore(SwapChainManager, GameLoadedStorage);
+			MainCore = new MainCore(SwapChainManager, Storage);
 
 			while (!WindowClosed && GameRunning)
 			{
@@ -108,6 +108,7 @@ namespace WarUp
 				GameResetButton.IsEnabled = true;
 				GamePaused = false;
 				GameRunning = true;
+				EditorCanvas.IsEnabled = false;
 				GameThread = Task.Run(new Action(Run));
 			}
 			else
@@ -124,6 +125,8 @@ namespace WarUp
 		{
 			GameResetButton.IsEnabled = false;
 
+			EditorCanvas.IsEnabled = true;
+
 			GamePaused = false;
 			GameRunning = false;
 
@@ -131,11 +134,10 @@ namespace WarUp
 			GameThread.Dispose();
 
 			MainCore.Restart();
+			MainCore.Tick();
 
 			GamePlayPauseButton.Icon = new SymbolIcon(Symbol.Play);
 			GamePlayPauseButton.Label = "Play";
-
-			MainCore.Tick();
 		}
 
 		private void FullScreenSwitchButton_Click(object sender, RoutedEventArgs e)
