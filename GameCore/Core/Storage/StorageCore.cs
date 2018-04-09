@@ -15,11 +15,9 @@ using WarUp.Core.Utils;
 
 namespace WarUp.Core.Storage
 {
-	public class StorageCore : ITickable, ICollectionSynchronizedModifier<FrameworkObject>
+	public class StorageCore : ICloneable
 	{
-		private List<FrameworkObject> Objects;
-		private ConcurrentQueue<FrameworkObject> AddObjects;
-		private ConcurrentQueue<FrameworkObject> RemoveObjects;
+		private HashSet<FrameworkObject> Objects;
 
 		public StorageCore()
 		{
@@ -29,9 +27,7 @@ namespace WarUp.Core.Storage
 		public void Reset()
 		{
 			var g = new GreenTile();
-			this.Objects = new List<FrameworkObject>();
-			this.AddObjects = new ConcurrentQueue<FrameworkObject>();
-			this.RemoveObjects = new ConcurrentQueue<FrameworkObject>();
+			this.Objects = new HashSet<FrameworkObject>();
 
 			this.Objects.Add(g);
 
@@ -84,12 +80,17 @@ namespace WarUp.Core.Storage
 
 		public void AddObject(FrameworkObject @object)
 		{
-			AddObjects.Enqueue(@object);
+			Objects.Add(@object);
 		}
 
 		public void RemoveObject(FrameworkObject @object)
 		{
-			RemoveObjects.Enqueue(@object);
+			Objects.Add(@object);
+		}
+
+		public void RemoveAll()
+		{
+			Objects.Clear();
 		}
 
 		public IEnumerable<IDrawable> GetDrawables()
@@ -112,7 +113,7 @@ namespace WarUp.Core.Storage
 			var result = new List<GameUtil>();
 
 
-			foreach (var item in Objects.ToList())
+			foreach (var item in Objects)
 			{
 				if (item is GameUtil)
 					result.Add(item as GameUtil);
@@ -125,7 +126,7 @@ namespace WarUp.Core.Storage
 		{
 			var result = new List<GameObject>();
 
-			foreach (var item in Objects.ToList())
+			foreach (var item in Objects)
 			{
 				if (item is GameObject)
 					result.Add(item as GameObject);
@@ -138,7 +139,7 @@ namespace WarUp.Core.Storage
 		{
 			var result = new List<Waypoint>();
 
-			foreach (var item in Objects.ToList())
+			foreach (var item in Objects)
 			{
 				if (item is Waypoint)
 					result.Add(item as Waypoint);
@@ -147,19 +148,16 @@ namespace WarUp.Core.Storage
 			return result;
 		}
 
-		public void Tick()
+		public object Clone()
 		{
-			foreach (var item in AddObjects)
+			StorageCore res = new StorageCore();
+			res.RemoveAll();
+			foreach (var item in Objects)
 			{
-				Objects.Add(item);
+				res.AddObject(item.Clone() as FrameworkObject);
 			}
-			AddObjects.Clear();
 
-			foreach (var item in RemoveObjects)
-			{
-				Objects.Remove(item);
-			}
-			RemoveObjects.Clear();
+			return res;
 		}
 	}
 }

@@ -73,9 +73,7 @@ namespace WarUp.Core.Graphics
 					if (item.ShouldBeDrawn())
 						item.Draw(ds);
 				}
-
-				ds.FillRectangle(SwapChainManager.SelectionRect, Color.FromArgb(127, 0, 127, 255));
-				ds.DrawRectangle(SwapChainManager.SelectionRect, Colors.Blue);
+				
 			}
 
 			using (var ds = SwapChainManager.SwapChain.CreateDrawingSession(Colors.CornflowerBlue))

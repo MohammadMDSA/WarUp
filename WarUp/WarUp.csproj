@@ -95,6 +95,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Canvases\EditorCanvas.xaml.cs">
+      <DependentUpon>EditorCanvas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Canvases\GameSwapChain.xaml.cs">
       <DependentUpon>GameSwapChain.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,7 @@
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\File\SaveLoadGame.cs" />
     <Compile Include="Utils\Mouse\Functions\BaseMouseFunction.cs" />
     <Compile Include="Utils\Mouse\Functions\IMouseFunction.cs" />
     <Compile Include="Utils\Mouse\Functions\MouseWaypointHandler.cs" />
@@ -148,6 +152,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Canvases\EditorCanvas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Canvases\GameSwapChain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

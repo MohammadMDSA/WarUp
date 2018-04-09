@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using WarUp.Canvases;
 using WarUp.Core.Logics.Models;
 using WarUp.Core.Storage;
 using WarUp.GraphicEngine;
@@ -20,16 +21,16 @@ namespace WarUp.Utils.Mouse
 		public bool IsRightPressed { get; private set; }
 		private List<FrameworkObject> SelectedObjects;
 		public StorageCore Storage { get; }
-		public SwapChainManager RenderManager { get; }
+		public EditorCanvas Editor { get; }
 
 		public MouseWaypointHandler WaypointHandler { get; }
 		public MouseSelectHandler SelectHandler { get; }
 		public FunctionType Type { get; private set; }
 		public BaseMouseFunction ActiveFunction { get; private set; }
 
-		public Mouse(StorageCore storage, SwapChainManager manager)
+		public Mouse(StorageCore storage, EditorCanvas editor)
 		{
-			this.RenderManager = manager;
+			this.Editor = editor;
 			Position = Vector2.Zero;
 			IsLeftPressed = IsRightPressed = false;
 			SelectedObjects = new List<FrameworkObject>();

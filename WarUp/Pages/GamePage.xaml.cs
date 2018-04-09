@@ -7,8 +7,10 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
 using WarUp.Core;
+using WarUp.Core.Storage;
 using WarUp.GraphicEngine;
 using WarUp.Utils;
+using WarUp.Utils.File;
 using WarUp.Utils.Mouse;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -38,8 +40,10 @@ namespace WarUp
 		private bool GameRunning;
 		private bool GamePaused;
 
+		private StorageCore GameLoadedStorage;
+		private StorageCore Storage;
 		private MainCore MainCore;
-		SwapChainManager SwapChainManager;
+		private SwapChainManager SwapChainManager;
 
 		public GamePage()
 		{
@@ -52,10 +56,12 @@ namespace WarUp
 
 			this.GameSwapChain.SwapChain = SwapChainManager.SwapChain;
 
-			MainCore = new MainCore(SwapChainManager);
-			Mouse = new Mouse(MainCore.Storage, SwapChainManager);
+			Storage = new StorageCore();
 
-			GameSwapChain.Mouse = Mouse;
+			Mouse = new Mouse(Storage, EditorCanvas);
+
+			EditorCanvas.Mouse = Mouse;
+			EditorCanvas.Storage = Storage;
 
 			GamePaused = false;
 			GameRunning = false;
@@ -68,8 +74,10 @@ namespace WarUp
 
 		}
 
-		public void Run()
+		public async void Run()
 		{
+			MainCore = new MainCore(SwapChainManager, GameLoadedStorage);
+
 			while (!WindowClosed && GameRunning)
 			{
 				if (WindowVisible && !GamePaused)
@@ -78,7 +86,7 @@ namespace WarUp
 				}
 				else
 				{
-					Task.Delay(1000);
+					await Task.Delay(1000);
 				}
 			}
 		}
@@ -157,12 +165,28 @@ namespace WarUp
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
 			SwapChainManager.RenderSize = new Size(GameSwapChain.ActualWidth, GameSwapChain.ActualHeight);
-			MainCore.Tick();
+
+			EditorCanvas.ReDraw();
 		}
 
 		private void GameSwapChain_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			SwapChainManager.RenderSize = e.NewSize;
+		}
+
+		private void EditorCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+
+		}
+
+		private async void SaveButton_Click(object sender, RoutedEventArgs e)
+		{
+			await SaveLoadGame.Save(Storage, typeof(StorageCore));
+		}
+
+		private async void LoadButton_Click(object sender, RoutedEventArgs e)
+		{
+			GameLoadedStorage = await SaveLoadGame.Load<StorageCore>();
 		}
 	}
 }

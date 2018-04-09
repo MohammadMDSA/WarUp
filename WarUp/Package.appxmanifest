@@ -14,36 +14,37 @@
   <mp:PhoneIdentity PhoneProductId="0348c662-8e9a-4e6e-8199-958ce568291e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>WarUp</DisplayName>
-    <PublisherDisplayName>SamiMD</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+	<DisplayName>WarUp</DisplayName>
+	<PublisherDisplayName>SamiMD</PublisherDisplayName>
+	<Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+	<TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
 
   <Resources>
-    <Resource Language="x-generate"/>
+	<Resource Language="x-generate"/>
   </Resources>
 
   <Applications>
-    <Application Id="App"
+	<Application Id="App"
       Executable="$targetnametoken$.exe"
       EntryPoint="WarUp.App">
-      <uap:VisualElements
+	  <uap:VisualElements
         DisplayName="WarUp"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="WarUp"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
-      </uap:VisualElements>
-    </Application>
+		<uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+		<uap:SplashScreen Image="Assets\SplashScreen.png" />
+	  </uap:VisualElements>
+	</Application>
   </Applications>
 
   <Capabilities>
-    <Capability Name="internetClient" />
+	<Capability Name="internetClient" />
+	<uap:Capability Name="documentsLibrary"/>
   </Capabilities>
 </Package>

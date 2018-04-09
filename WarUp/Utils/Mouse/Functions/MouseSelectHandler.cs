@@ -26,7 +26,7 @@ namespace WarUp.Utils.Mouse.Functions
 
 		public override void Reset()
 		{
-			Mouse.RenderManager.SelectionRect = new Rect();
+			Mouse.Editor.SelectionRect = new Rect();
 			this.ActivePressedObject = null;
 			Dragging = false;
 			LastLeftPressPoint = Vector2.Zero;
@@ -59,7 +59,7 @@ namespace WarUp.Utils.Mouse.Functions
 				Mouse.ClearSelectedObjects();
 
 				var newRect = new Rect(currentPosition.ToPoint(), LastLeftPressPoint.ToPoint());
-				Mouse.RenderManager.SelectionRect = newRect;
+				Mouse.Editor.SelectionRect = newRect;
 
 				var list = new List<Point2D>();
 				list.Add(new Point2D(newRect.Left, newRect.Bottom));
@@ -123,7 +123,7 @@ namespace WarUp.Utils.Mouse.Functions
 			}
 
 			Dragging = true;
-			Mouse.RenderManager.SelectionRect = new Rect(Mouse.Position.X, Mouse.Position.Y, 0, 0);
+			Mouse.Editor.SelectionRect = new Rect(Mouse.Position.X, Mouse.Position.Y, 0, 0);
 		}
 
 		public override void PointerReleased(UIElement sender, PointerRoutedEventArgs e)
@@ -131,7 +131,7 @@ namespace WarUp.Utils.Mouse.Functions
 			ActivePressedObject = null;
 			Dragging = false;
 
-			Mouse.RenderManager.SelectionRect = new Rect();
+			Mouse.Editor.SelectionRect = new Rect();
 
 			var prop = e.GetCurrentPoint(sender).Properties;
 			if (Mouse.IsLeftPressed && !prop.IsLeftButtonPressed)

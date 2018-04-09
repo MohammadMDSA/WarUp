@@ -15,7 +15,8 @@ namespace WarUp.Core.Logics.Models
 	/// <summary>
 	/// Represents a framework object
 	/// </summary>
-    public abstract class FrameworkObject : IUpdatable, IDrawable, ISelectable
+	[Serializable]
+	public abstract class FrameworkObject : IUpdatable, IDrawable, ISelectable
     {
 
 		/// <summary>

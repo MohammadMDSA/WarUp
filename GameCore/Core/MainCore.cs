@@ -19,16 +19,19 @@ namespace WarUp.Core
 		public StorageCore Storage { get; }
 		private LogicCore Logic;
 
-		public MainCore(SwapChainManager swapChainManager)
+		public MainCore(SwapChainManager swapChainManager) : this(swapChainManager, new StorageCore())
 		{
-			Storage = new StorageCore();
+		}
+
+		public MainCore(SwapChainManager swapChainManager, StorageCore storage)
+		{
+			Storage = storage;
 			Renderer = new Renderer(swapChainManager);
 			Logic = new LogicCore(Storage);
 		}
 
 		public void Tick()
 		{
-			Storage.Tick();
 			Logic.Tick();
 			Renderer.Render(Storage.GetDrawables());
 		}

@@ -20,6 +20,8 @@
 					<RowDefinition/>
 				</Grid.RowDefinitions>
 
+				<canvases:EditorCanvas x:Name="EditorCanvas" Grid.Row="0" SizeChanged="EditorCanvas_SizeChanged"/>
+
 				<canvases:GameSwapChain x:Name="GameSwapChain" Grid.Row="2" SizeChanged="GameSwapChain_SizeChanged"/>
 
 				<controls:GridSplitter
@@ -41,6 +43,11 @@
 			</Grid>
 
 			<CommandBar x:Name="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+				<AppBarButton x:Name="LoadButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Read" Label="Load" Click="LoadButton_Click"/>
+				<AppBarButton x:Name="SaveButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Save" Label="Save" Click="SaveButton_Click"/>
+
+				<AppBarSeparator/>
+
 				<AppBarButton x:Name="FullScreenSwitchButton" Style="{ThemeResource AppBarButtonRevealStyle}" Icon="FullScreen" Label="Full Screen" Click="FullScreenSwitchButton_Click"/>
 
 				<AppBarSeparator/>
