@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using WarUp.Core;
 using WarUp.Core.Storage;
 using WarUp.GraphicEngine;
+using WarUp.Logic;
+using WarUp.Logic.Input;
 using WarUp.Utils;
 using WarUp.Utils.File;
 using WarUp.Utils.Mouse;
@@ -33,17 +35,11 @@ namespace WarUp
 	/// </summary>
 	public sealed partial class GamePage : Page
 	{
-		private bool WindowVisible;
-		private bool WindowClosed;
-		private Mouse Mouse;
-		private Task GameThread;
-		private bool GameRunning;
-		private bool GamePaused;
+		public bool WindowVisible { get; private set; }
+		public bool WindowClosed { get; private set; }
 
-		private StorageCore GameLoadedStorage;
-		private StorageCore Storage;
-		private MainCore MainCore;
-		private SwapChainManager SwapChainManager;
+		public SwapChainManager SwapChainManager { get; }
+		private LogicCore LogicCore;
 
 		public GamePage()
 		{
@@ -56,15 +52,7 @@ namespace WarUp
 
 			this.GameSwapChain.SwapChain = SwapChainManager.SwapChain;
 
-			Storage = new StorageCore();
-
-			Mouse = new Mouse(Storage, EditorCanvas);
-
-			EditorCanvas.Mouse = Mouse;
-			EditorCanvas.Storage = Storage;
-
-			GamePaused = false;
-			GameRunning = false;
+			LogicCore = new LogicCore(this, EditorCanvas);
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -72,23 +60,6 @@ namespace WarUp
 			var bound = Window.Current.CoreWindow.Bounds;
 			WindowVisible = true;
 
-		}
-
-		public async void Run()
-		{
-			MainCore = new MainCore(SwapChainManager, Storage);
-
-			while (!WindowClosed && GameRunning)
-			{
-				if (WindowVisible && !GamePaused)
-				{
-					MainCore.Tick();
-				}
-				else
-				{
-					await Task.Delay(1000);
-				}
-			}
 		}
 
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -103,21 +74,20 @@ namespace WarUp
 
 		private void GamePlayPauseButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (!GameRunning)
+			if (!LogicCore.GameRunning)
 			{
 				GameResetButton.IsEnabled = true;
-				GamePaused = false;
-				GameRunning = true;
 				EditorCanvas.IsEnabled = false;
-				GameThread = Task.Run(new Action(Run));
+
+				LogicCore.Start();
 			}
 			else
 			{
-				GamePaused = !GamePaused;
+				LogicCore.Pause_Resume();
 			}
 
-			GamePlayPauseButton.Icon = new SymbolIcon(!GamePaused ? Symbol.Pause : Symbol.Play);
-			GamePlayPauseButton.Label = !GamePaused ? "Pause" : "Play";
+			GamePlayPauseButton.Icon = new SymbolIcon(!LogicCore.GamePaused ? Symbol.Pause : Symbol.Play);
+			GamePlayPauseButton.Label = !LogicCore.GamePaused ? "Pause" : "Play";
 			
 		}
 
@@ -127,15 +97,8 @@ namespace WarUp
 
 			EditorCanvas.IsEnabled = true;
 
-			GamePaused = false;
-			GameRunning = false;
-
-			Task.WaitAll(GameThread);
-			GameThread.Dispose();
-
-			MainCore.Restart();
-			MainCore.Tick();
-
+			LogicCore.Reset();
+			
 			GamePlayPauseButton.Icon = new SymbolIcon(Symbol.Play);
 			GamePlayPauseButton.Label = "Play";
 		}
@@ -155,12 +118,12 @@ namespace WarUp
 
 		private void WaypointToggleButton_Click(object sender, RoutedEventArgs e)
 		{
-			Mouse.SetFunctionType(Mouse.FunctionType.Waypoint);
+			Input.Mouse.SetFunctionType(Mouse.FunctionType.Waypoint);
 		}
 
 		private void PointerToggleButton_Click(object sender, RoutedEventArgs e)
 		{
-			Mouse.SetFunctionType(Mouse.FunctionType.Select);
+			Input.Mouse.SetFunctionType(Mouse.FunctionType.Select);
 		}
 		
 
@@ -183,12 +146,12 @@ namespace WarUp
 
 		private async void SaveButton_Click(object sender, RoutedEventArgs e)
 		{
-			await SaveLoadGame.Save(Storage, typeof(StorageCore));
+			//await SaveLoadGame.Save(Storage, typeof(StorageCore));
 		}
 
 		private async void LoadButton_Click(object sender, RoutedEventArgs e)
 		{
-			GameLoadedStorage = await SaveLoadGame.Load<StorageCore>();
+			//GameLoadedStorage = await SaveLoadGame.Load<StorageCore>();
 		}
 	}
 }
