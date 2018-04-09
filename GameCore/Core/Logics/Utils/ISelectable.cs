@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WarUp.Core.Logics
+namespace WarUp.Core.Logics.Utils
 {
 	/// <summary>
 	/// Makes a framwork object selectable
