@@ -4,9 +4,11 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using GameCore.Core.Logics.Utils;
 using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
 using WarUp.Core.Graphics;
+using WarUp.Core.Logics.Utils;
 using Windows.Foundation;
 
 namespace WarUp.Core.Logics.Models
@@ -16,7 +18,7 @@ namespace WarUp.Core.Logics.Models
 	/// Represents a framework object
 	/// </summary>
 	[Serializable]
-	public abstract class FrameworkObject : IUpdatable, IDrawable, ISelectable
+	public abstract class FrameworkObject : IUpdatable, IDrawable, ISelectable, INameSuggester
     {
 
 		/// <summary>
@@ -40,8 +42,10 @@ namespace WarUp.Core.Logics.Models
 		public abstract Vector2 GetSize();
 		public abstract bool IsAvailable();
 		public abstract bool IsSelected();
+		public abstract bool RequiresName();
 		public abstract bool Select();
 		public abstract bool ShouldBeDrawn();
+		public abstract string SuggestName(IEnumerable<string> existings);
 		public abstract bool Unselect();
 		public abstract void Update();
     }
