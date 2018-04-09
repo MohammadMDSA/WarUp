@@ -108,5 +108,21 @@ namespace WarUp.Core.Logics.Models
 		{
 			return new Rect((Position - Size / 2).ToPoint(), Size.ToSize());
 		}
+
+		public override bool RequiresName()
+		{
+			return true;
+		}
+
+		public override string SuggestName(IEnumerable<string> existings)
+		{
+			string prefix = "Green Tile ";
+			int postfix = 1;
+			while (existings.Contains(prefix + postfix))
+			{
+				postfix++;
+			}
+			return prefix + postfix;
+		}
 	}
 }

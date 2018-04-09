@@ -80,6 +80,10 @@ namespace WarUp.Core.Storage
 
 		public void AddObject(FrameworkObject @object)
 		{
+			if (@object.Name == string.Empty)
+			{
+				@object.SetName(@object.SuggestName(this.GetNamesList()));
+			}
 			Objects.Add(@object);
 		}
 

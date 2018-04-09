@@ -29,12 +29,21 @@ namespace WarUp.Core.Logics.Models
 		/// <summary>
 		/// Name of object to access
 		/// </summary>
-		public string Name { get; set; }
+		public string Name { get; protected set; }
 
 		/// <summary>
 		/// Size of the object
 		/// </summary>
 		public Vector2 Size { get; protected set; }
+
+		public bool SetName(string name)
+		{
+			var existings = MainCore.Storage.GetNamesList();
+			if (existings.Contains(name))
+				return false;
+			this.Name = name;
+			return true;
+		}
 
 		public abstract void Draw(CanvasDrawingSession session);
 		public abstract Rect GetBound();

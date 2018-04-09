@@ -5,7 +5,6 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using GameCore.Core.Utils;
 using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
 using Windows.Foundation;
@@ -197,6 +196,22 @@ namespace WarUp.Core.Logics.MapUtils
 			return true;
 		}
 
+		public override bool RequiresName()
+		{
+			return true;
+		}
+
+		public override string SuggestName(IEnumerable<string> existings)
+		{
+			string prefix = "Waypoint Route ";
+			int postfix = 1;
+			while(existings.Contains(prefix + postfix))
+			{
+				postfix++;
+			}
+
+			return prefix + postfix;
+		}
 	}
 
 	/// <summary>

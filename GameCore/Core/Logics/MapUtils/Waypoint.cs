@@ -87,5 +87,22 @@ namespace WarUp.Core.Logics.MapUtils
 		{
 			return new Rect(Position.X, Position.Y, 5, 5);
 		}
+		
+		public override bool RequiresName()
+		{
+			return true;
+		}
+
+		public override string SuggestName(IEnumerable<string> existings)
+		{
+			string prefix = "Waypoint ";
+			int postfix = 1;
+			while (existings.Contains(prefix + postfix))
+			{
+				postfix++;
+			}
+
+			return prefix + postfix;
+		}
 	}
 }

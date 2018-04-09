@@ -16,7 +16,7 @@ namespace WarUp.Core
 	public class MainCore : ITickable
 	{
 		private Renderer Renderer;
-		public StorageCore Storage { get; }
+		public static StorageCore Storage { get; private set; }
 		private LogicCore Logic;
 
 		public MainCore(SwapChainManager swapChainManager) : this(swapChainManager, new StorageCore())
