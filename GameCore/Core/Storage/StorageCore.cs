@@ -1,5 +1,4 @@
-﻿using GameCore.Core.Utils;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +10,12 @@ using WarUp.Core.Logics;
 using WarUp.Core.Logics.MapUtils;
 using WarUp.Core.Logics.Models;
 using WarUp.Core.Logics.Models.Instructions.Move;
+using WarUp.Core.Logics.Utils;
 using WarUp.Core.Utils;
 
 namespace WarUp.Core.Storage
 {
-	public class StorageCore : ICloneable
+	public class StorageCore
 	{
 		private HashSet<FrameworkObject> Objects;
 
@@ -148,16 +148,14 @@ namespace WarUp.Core.Storage
 			return result;
 		}
 
-		public object Clone()
+		public IEnumerable<string> GetNamesList()
 		{
-			StorageCore res = new StorageCore();
-			res.RemoveAll();
+			var result = new List<string>();
 			foreach (var item in Objects)
 			{
-				res.AddObject(item.Clone() as FrameworkObject);
+				result.Add(item.Name);
 			}
-
-			return res;
+			return result;
 		}
 	}
 }

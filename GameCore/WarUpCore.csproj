@@ -108,11 +108,11 @@
   <ItemGroup>
     <Compile Include="Core\Graphics\IDrawable.cs" />
     <Compile Include="Core\Graphics\Renderer.cs" />
-    <Compile Include="Core\Utils\ICollectionSynchronizedModifier.cs" />
+    <Compile Include="Core\Logics\Utils\INameSuggester.cs" />
     <Compile Include="Core\Utils\ITickable.cs" />
     <Compile Include="Core\Logics\FrameworkObject.cs" />
-    <Compile Include="Core\Logics\ISelectable.cs" />
-    <Compile Include="Core\Logics\IUpdatable.cs" />
+    <Compile Include="Core\Logics\Utils\ISelectable.cs" />
+    <Compile Include="Core\Logics\Utils\IUpdatable.cs" />
     <Compile Include="Core\Logics\LogicCore.cs" />
     <Compile Include="Core\Logics\MapUtils\GameUtil.cs" />
     <Compile Include="Core\Logics\MapUtils\Waypoint.cs" />
