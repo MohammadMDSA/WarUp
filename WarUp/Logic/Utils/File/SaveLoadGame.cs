@@ -8,16 +8,24 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Newtonsoft.Json;
 
 namespace WarUp.Utils.File
 {
-	class SaveLoadGame
+	public static class SaveLoadGame
 	{
+		private static JsonSerializerSettings Setting;
+
+		static SaveLoadGame()
+		{
+			Setting = new JsonSerializerSettings();
+			Setting.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+			Setting.TypeNameHandling = TypeNameHandling.All;
+			Setting.MaxDepth = int.MaxValue;
+		}
+
 		public static async Task<bool> Save(object @object, Type type)
 		{
-			//XmlSerializer write = new XmlSerializer(type);
-			var binWriter = new BinaryFormatter();
-
 			StorageFile file = null;
 
 			FileSavePicker picker = new FileSavePicker();
@@ -29,20 +37,21 @@ namespace WarUp.Utils.File
 			{
 				file = await picker.PickSaveFileAsync();
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				return false;
 			}
+			
+			var formatter = new BinaryFormatter();
 
 			try
 			{
 				using (var stream = await file.OpenStreamForWriteAsync())
 				{
-					//write.Serialize(stream, @object);
-					binWriter.Serialize(stream, @object);
+					formatter.Serialize(stream, @object);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				return false;
 			}
@@ -65,7 +74,7 @@ namespace WarUp.Utils.File
 				if (file == null)
 					return default(T);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 
 				return default(T);
@@ -80,7 +89,7 @@ namespace WarUp.Utils.File
 					return res;
 				}
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				return default(T);
 			}
