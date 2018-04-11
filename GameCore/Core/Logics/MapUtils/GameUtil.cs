@@ -7,6 +7,7 @@ using WarUp.Core.Logics.Models;
 
 namespace WarUp.Core.Logics.MapUtils
 {
+	[Serializable]
 	public abstract class GameUtil : FrameworkObject
     {
     }

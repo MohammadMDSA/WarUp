@@ -15,6 +15,7 @@ using WarUp.Core.Utils;
 
 namespace WarUp.Core.Storage
 {
+	[Serializable]
 	public class StorageCore
 	{
 		private HashSet<FrameworkObject> Objects;
@@ -80,7 +81,7 @@ namespace WarUp.Core.Storage
 
 		public void AddObject(FrameworkObject @object)
 		{
-			if (@object.Name == string.Empty)
+			if (@object.Name == null ||@object.Name == string.Empty)
 			{
 				@object.SetName(@object.SuggestName(this.GetNamesList()));
 			}

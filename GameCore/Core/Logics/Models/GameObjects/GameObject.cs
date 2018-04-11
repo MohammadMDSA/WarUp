@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using WarUp.Core.Logics.Models.Instructions;
 
 namespace WarUp.Core.Logics.Models
 {
-    public abstract class GameObject : FrameworkObject
-    {
+	[Serializable]
+	public abstract class GameObject : FrameworkObject
+	{
 		public Queue<InstructionSet> Instructions { get; }
 
 		public GameObject()
@@ -55,5 +57,6 @@ namespace WarUp.Core.Logics.Models
 			instruction = current;
 			return true;
 		}
+		
 	}
 }

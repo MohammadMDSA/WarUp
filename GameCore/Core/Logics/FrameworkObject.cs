@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using GameCore.Core.Logics.Utils;
@@ -24,7 +25,10 @@ namespace WarUp.Core.Logics.Models
 		/// <summary>
 		/// Position of Waypoint
 		/// </summary>
-		public Vector2 Position { get; set; }
+		[NonSerialized]
+		private Vector2 _Position;
+		public Vector2 Position { get => _Position; set => _Position = value; }
+		private float _PositionX, _PositionY;
 
 		/// <summary>
 		/// Name of object to access
@@ -34,7 +38,10 @@ namespace WarUp.Core.Logics.Models
 		/// <summary>
 		/// Size of the object
 		/// </summary>
-		public Vector2 Size { get; protected set; }
+		[NonSerialized]
+		private Vector2 _Size;
+		public Vector2 Size { get => _Size; protected set => _Size = value; }
+		private float _SizeX, _SizeY;
 
 		public bool SetName(string name)
 		{
@@ -44,7 +51,7 @@ namespace WarUp.Core.Logics.Models
 			this.Name = name;
 			return true;
 		}
-
+		
 		public abstract void Draw(CanvasDrawingSession session);
 		public abstract Rect GetBound();
 		public abstract Polygon2D GetSelectPolygon();
@@ -57,5 +64,23 @@ namespace WarUp.Core.Logics.Models
 		public abstract string SuggestName(IEnumerable<string> existings);
 		public abstract bool Unselect();
 		public abstract void Update();
-    }
+		
+		[OnSerializing]
+		private void OnSerializing(StreamingContext context)
+		{
+			_PositionX = _Position.X;
+			_PositionY = _Position.Y;
+
+			_SizeX = _Size.X;
+			_SizeY = _Size.Y;
+		}
+
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
+		{
+			_Position = new Vector2(_PositionX, _PositionY);
+
+			_Size = new Vector2(_SizeX, _SizeY);
+		}
+	}
 }

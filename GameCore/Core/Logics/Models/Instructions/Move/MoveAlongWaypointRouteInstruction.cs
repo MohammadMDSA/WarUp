@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using WarUp.Core.Logics.MapUtils;
@@ -8,12 +9,13 @@ using WarUp.Core.Logics.Models.Ability;
 
 namespace WarUp.Core.Logics.Models.Instructions.Move
 {
+	[Serializable]
 	class MoveAlongWaypointRouteInstruction : MoveInstructionBase
 	{
 		private WaypointRoute Route;
 		private bool OnRoute;
 		private Waypoint StartPoint;
-		private Random NextDestinationRandom;
+		[NonSerialized] private Random NextDestinationRandom;
 
 		private Waypoint LastPoint;
 		private Waypoint NextDestination;
@@ -89,6 +91,12 @@ namespace WarUp.Core.Logics.Models.Instructions.Move
 
 			res = neighboursArray[NextDestinationRandom.Next(neighboursArray.Length)];
 			return res;
+		}
+
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
+		{
+			NextDestinationRandom = new Random();
 		}
 	}
 }

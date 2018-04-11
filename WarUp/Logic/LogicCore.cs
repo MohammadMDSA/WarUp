@@ -19,7 +19,7 @@ namespace WarUp.Logic
 
 		private Mouse Mouse;
 
-		private StorageCore Storage;
+		public StorageCore Storage { get; }
 		private MainCore MainCore;
 
 		private GamePage GamePage;

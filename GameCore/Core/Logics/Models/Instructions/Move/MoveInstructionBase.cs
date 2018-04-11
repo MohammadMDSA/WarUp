@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using WarUp.Core.Logics.Models.Ability;
 
 namespace WarUp.Core.Logics.Models.Instructions.Move
 {
+	[Serializable]
 	public abstract class MoveInstructionBase : InstructionBase
 	{
 		public IMovable MovableTarget => TargetObject as IMovable;
@@ -32,5 +34,6 @@ namespace WarUp.Core.Logics.Models.Instructions.Move
 
 			return false;
 		}
+		
 	}
 }

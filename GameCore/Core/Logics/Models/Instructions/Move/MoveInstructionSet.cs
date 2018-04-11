@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarUp.Core.Logics.Models.Instructions.Move
 {
+	[Serializable]
 	public class MoveInstructionSet : InstructionSet
 	{
 		public MoveInstructionSet(MoveInstructionBase moveInstruction)

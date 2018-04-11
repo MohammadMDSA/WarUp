@@ -7,6 +7,7 @@ using WarUp.Core.Utils;
 
 namespace WarUp.Core.Logics.Models.Instructions
 {
+	[Serializable]
 	public abstract class InstructionSet : IOverridable<InstructionSet>, ITickable
 	{
 		protected Queue<InstructionBase> Instructions;

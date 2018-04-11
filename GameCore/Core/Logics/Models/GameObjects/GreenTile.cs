@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using MathNet.Spatial.Euclidean;
@@ -19,6 +20,7 @@ using Windows.UI.Xaml.Shapes;
 
 namespace WarUp.Core.Logics.Models
 {
+	[Serializable]
 	public class GreenTile : GameObject, IMovable
 	{
 		private bool Selected;
@@ -124,5 +126,6 @@ namespace WarUp.Core.Logics.Models
 			}
 			return prefix + postfix;
 		}
+		
 	}
 }

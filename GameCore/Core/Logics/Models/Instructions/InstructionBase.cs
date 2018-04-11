@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using WarUp.Core.Utils;
 
 namespace WarUp.Core.Logics.Models.Instructions
 {
+	[Serializable]
 	public abstract class InstructionBase : ITickable
 	{
 		public readonly GameObject TargetObject;
@@ -26,6 +28,6 @@ namespace WarUp.Core.Logics.Models.Instructions
 		}
 
 		public abstract void Tick();
-
+		
 	}
 }
