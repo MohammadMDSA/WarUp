@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
 using WarUp.Core;
+using WarUp.Core.Logics.Models;
 using WarUp.Core.Storage;
 using WarUp.GraphicEngine;
 using WarUp.Logic;
@@ -53,6 +54,8 @@ namespace WarUp
 			this.GameSwapChain.SwapChain = SwapChainManager.SwapChain;
 
 			LogicCore = new LogicCore(this, EditorCanvas);
+
+			EditorCanvas.Storage = LogicCore.Storage;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -146,12 +149,24 @@ namespace WarUp
 
 		private async void SaveButton_Click(object sender, RoutedEventArgs e)
 		{
-			//await SaveLoadGame.Save(Storage, typeof(StorageCore));
+			//GreenTile t = null;
+
+			//foreach (var item in LogicCore.Storage.GetGameObjects())
+			//{
+			//	if (item is GreenTile)
+			//	{
+			//		t = item as GreenTile;
+			//		break;
+			//	}
+			//}
+
+			await SaveLoadGame.Save(LogicCore.Storage, typeof(StorageCore));
+			//await SaveLoadGame.Save(t, typeof(GreenTile));
 		}
 
 		private async void LoadButton_Click(object sender, RoutedEventArgs e)
 		{
-			//GameLoadedStorage = await SaveLoadGame.Load<StorageCore>();
+			GreenTile t = await SaveLoadGame.Load<GreenTile>();
 		}
 	}
 }
