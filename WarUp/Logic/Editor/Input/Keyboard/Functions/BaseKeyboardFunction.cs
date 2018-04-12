@@ -19,5 +19,6 @@ namespace WarUp.Logic.Editor.Input.Keyboard.Functions
 
 		public abstract void KeyDown(UIElement sender, KeyRoutedEventArgs e);
 		public abstract void KeyUp(UIElement sender, KeyRoutedEventArgs e);
+		public abstract void Reset();
 	}
 }
