@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using WarUp.Core.Storage;
+using WarUp.Logic.Editor.Input.Keyboard;
 using WarUp.Logic.Editor.Input.Mouse;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -24,6 +25,8 @@ namespace WarUp.Canvases
 	public sealed partial class EditorCanvas : UserControl
 	{
 		public EditorMouse Mouse { get; set; }
+		public EditorKeyboard Keyboard { get; set; }
+
 		public StorageCore Storage { get; set; }
 		public Rect SelectionRect { get; set; }
 
@@ -55,34 +58,45 @@ namespace WarUp.Canvases
 		{
 			Mouse.PointerPressed(sender as UIElement, e);
 
-			Canvas.Invalidate();
+			ReDraw();
 		}
 
 		private void SwapChainPanel_PointerReleased(object sender, PointerRoutedEventArgs e)
 		{
 			Mouse.PointerReleased(sender as UIElement, e);
 
-			Canvas.Invalidate();
+			ReDraw();
 		}
 
 		private void SwapChainPanel_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
 		{
 			Mouse.WheelChanged(sender as UIElement, e);
 
-			Canvas.Invalidate();
+			ReDraw();
 		}
 
 		private void SwapChainPanel_PointerMoved(object sender, PointerRoutedEventArgs e)
 		{
 			Mouse.Moved(sender as UIElement, e);
 
-			Canvas.Invalidate();
+			ReDraw();
 		}
 
 		public void ReDraw()
 		{
-			Canvas.Invalidate();
+			ReDraw();
 		}
 
+		private void Canvas_KeyDown(object sender, KeyRoutedEventArgs e)
+		{
+
+			ReDraw();
+		}
+
+		private void Canvas_KeyUp(object sender, KeyRoutedEventArgs e)
+		{
+
+			ReDraw();
+		}
 	}
 }

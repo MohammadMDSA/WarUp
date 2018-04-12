@@ -13,6 +13,7 @@
     <Grid>
 		<canvas:CanvasControl x:Name="Canvas" Draw="Canvas_Draw"
 				PointerPressed="SwapChainPanel_PointerPressed" PointerReleased="SwapChainPanel_PointerReleased"
-				PointerWheelChanged="SwapChainPanel_PointerWheelChanged" PointerMoved="SwapChainPanel_PointerMoved"/>
+				PointerWheelChanged="SwapChainPanel_PointerWheelChanged" PointerMoved="SwapChainPanel_PointerMoved"
+				 KeyDown="Canvas_KeyDown" KeyUp="Canvas_KeyUp"/>
 	</Grid>
 </UserControl>
