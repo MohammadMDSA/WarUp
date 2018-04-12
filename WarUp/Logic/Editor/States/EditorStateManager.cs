@@ -23,7 +23,17 @@ namespace WarUp.Logic.Editor.States
 
 		public void SetState(State state)
 		{
-
+			switch (state)
+			{
+				case State.Select:
+					Mouse.SetFunctionType(EditorMouse.FunctionType.Select);
+					break;
+				case State.Waypoint:
+					Mouse.SetFunctionType(EditorMouse.FunctionType.Waypoint);
+					break;
+				default:
+					break;
+			}
 		}
 
 		public enum State

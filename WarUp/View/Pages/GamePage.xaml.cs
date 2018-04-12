@@ -110,14 +110,14 @@ namespace WarUp
 
 		private void WaypointToggleButton_Click(object sender, RoutedEventArgs e)
 		{
-			EditorInput.Mouse.SetFunctionType(EditorMouse.FunctionType.Waypoint);
+			EditorCore.StateManager.SetState(Logic.Editor.States.EditorStateManager.State.Waypoint);
 		}
 
 		private void PointerToggleButton_Click(object sender, RoutedEventArgs e)
 		{
-			EditorInput.Mouse.SetFunctionType(EditorMouse.FunctionType.Select);
+			EditorCore.StateManager.SetState(Logic.Editor.States.EditorStateManager.State.Select);
 		}
-		
+
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
