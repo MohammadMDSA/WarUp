@@ -96,6 +96,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\Editor\Input\Input.cs" />
+    <Compile Include="Logic\Editor\States\BaseEditorState.cs" />
+    <Compile Include="Logic\Editor\States\EditorSelectState.cs" />
     <Compile Include="Logic\LogicCore.cs" />
     <Compile Include="Logic\Editor\EditorCore.cs" />
     <Compile Include="View\Canvases\EditorCanvas.xaml.cs">
