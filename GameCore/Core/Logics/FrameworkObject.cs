@@ -5,7 +5,6 @@ using System.Numerics;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using GameCore.Core.Logics.Utils;
 using MathNet.Spatial.Euclidean;
 using Microsoft.Graphics.Canvas;
 using WarUp.Core.Graphics;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameCore.Core.Logics.Utils
+namespace WarUp.Core.Logics.Utils
 {
 	interface INameSuggester
 	{

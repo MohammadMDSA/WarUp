@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameCore.Core.Utils
+namespace WarUp.Core.Utils
 {
 	interface IClonable<T>
 	{
