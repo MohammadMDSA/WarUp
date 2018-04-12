@@ -4,6 +4,7 @@ using WarUp.Canvases;
 using WarUp.Core.Logics.Models;
 using WarUp.Core.Storage;
 using WarUp.Logic.Editor.Input.Mouse.Functions;
+using WarUp.Logic.Editor.States;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using static WarUp.Logic.Editor.States.EditorStateManager;
@@ -21,7 +22,7 @@ namespace WarUp.Logic.Editor.Input.Mouse
 
 		private MouseWaypointHandler WaypointHandler;
 		private MouseSelectHandler SelectHandler;
-		public State State { get; private set; }
+		public State State { get => EditorStateManager.StateManager.CurrentState; }
 		public BaseMouseFunction ActiveFunction { get; private set; }
 
 		public EditorMouse(StorageCore storage, EditorCanvas editor)
@@ -69,7 +70,6 @@ namespace WarUp.Logic.Editor.Input.Mouse
 		public bool SetState(State state)
 		{
 			ActiveFunction.Reset();
-			this.State = State;
 			switch (state)
 			{
 				case State.Select:
