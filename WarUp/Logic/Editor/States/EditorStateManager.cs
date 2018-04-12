@@ -10,22 +10,24 @@ namespace WarUp.Logic.Editor.States
 {
 	public class EditorStateManager
 	{
+		public static EditorStateManager StateManager { get; private set; }
+
 		public State CurrentState { get; private set; }
 		public EditorMouse Mouse { get; }
-		public EditorKeyboard keyboard { get; }
+		public EditorKeyboard Keyboard { get; }
 
 		public EditorStateManager(EditorMouse mouse, EditorKeyboard keyboard)
 		{
 			this.Mouse = mouse;
-			this.keyboard = keyboard;
-
+			this.Keyboard = keyboard;
+			StateManager = this;
 		}
 
 		public void SetState(State state)
 		{
 			this.CurrentState = state;
 			Mouse.SetState(state);
-			keyboard.SetState(state);
+			Keyboard.SetState(state);
 		}
 
 		public enum State
