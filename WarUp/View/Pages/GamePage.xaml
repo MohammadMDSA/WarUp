@@ -8,7 +8,8 @@
 	xmlns:canvases="using:WarUp.Canvases"
 	xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
 	xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded">
+    mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded"
+	PointerPressed="Page_PointerPressed">
 
 	<SplitView x:Name="SidePanel" Background="Transparent" DisplayMode="Inline" IsPaneOpen="True">
 		<RelativePanel>
@@ -72,13 +73,7 @@
 		</RelativePanel>
 		<SplitView.Pane>
 			<StackPanel Orientation="Vertical"  Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-				<ListBox x:Name="GameItems" ScrollViewer.VerticalScrollBarVisibility="Auto">
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<TextBlock Text="{Binding}"/>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
+				<TextBlock x:Name="Focus">HEY</TextBlock>
 			</StackPanel>
 		</SplitView.Pane>
 	</SplitView>

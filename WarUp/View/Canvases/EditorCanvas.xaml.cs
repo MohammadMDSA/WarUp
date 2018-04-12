@@ -84,19 +84,24 @@ namespace WarUp.Canvases
 
 		public void ReDraw()
 		{
-			ReDraw();
+			Canvas.Invalidate();
 		}
 
 		private void Canvas_KeyDown(object sender, KeyRoutedEventArgs e)
 		{
-
+			Keyboard.KeyDown(sender as UIElement, e);
 			ReDraw();
 		}
 
 		private void Canvas_KeyUp(object sender, KeyRoutedEventArgs e)
 		{
-
+			Keyboard.KeyUp(sender as UIElement, e);
 			ReDraw();
+		}
+
+		public void Focus()
+		{
+
 		}
 	}
 }

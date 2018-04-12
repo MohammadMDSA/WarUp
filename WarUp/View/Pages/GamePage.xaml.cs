@@ -1,4 +1,5 @@
 ﻿using Microsoft.Graphics.Canvas;
+using System.Threading.Tasks;
 using WarUp.Core.Logics.Models;
 using WarUp.Core.Storage;
 using WarUp.GraphicEngine;
@@ -11,6 +12,7 @@ using Windows.Foundation;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -42,11 +44,11 @@ namespace WarUp
 			this.GameSwapChain.SwapChain = SwapChainManager.SwapChain;
 
 			EditorCore = new EditorCore(EditorCanvas);
-			
-			LogicCore = new LogicCore(this);
-			
-		}
 
+			LogicCore = new LogicCore(this);
+
+		}
+		
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			var bound = Window.Current.CoreWindow.Bounds;
@@ -56,7 +58,7 @@ namespace WarUp
 
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			
+
 		}
 
 		private void PropertiesPanelSwitchButton_Click(object sender, RoutedEventArgs e)
@@ -80,7 +82,7 @@ namespace WarUp
 
 			GamePlayPauseButton.Icon = new SymbolIcon(!LogicCore.GamePaused ? Symbol.Pause : Symbol.Play);
 			GamePlayPauseButton.Label = !LogicCore.GamePaused ? "Pause" : "Play";
-			
+
 		}
 
 		private void ResetButton_Click(object sender, RoutedEventArgs e)
@@ -90,7 +92,7 @@ namespace WarUp
 			EditorCanvas.IsEnabled = true;
 
 			LogicCore.Reset();
-			
+
 			GamePlayPauseButton.Icon = new SymbolIcon(Symbol.Play);
 			GamePlayPauseButton.Label = "Play";
 		}
@@ -98,7 +100,7 @@ namespace WarUp
 		private void FullScreenSwitchButton_Click(object sender, RoutedEventArgs e)
 		{
 			var view = ApplicationView.GetForCurrentView();
-			if(!view.IsFullScreenMode)
+			if (!view.IsFullScreenMode)
 			{
 				view.TryEnterFullScreenMode();
 			}
@@ -138,24 +140,18 @@ namespace WarUp
 
 		private async void SaveButton_Click(object sender, RoutedEventArgs e)
 		{
-			//GreenTile t = null;
-
-			//foreach (var item in LogicCore.Storage.GetGameObjects())
-			//{
-			//	if (item is GreenTile)
-			//	{
-			//		t = item as GreenTile;
-			//		break;
-			//	}
-			//}
-
 			await SaveLoadGame.Save(LogicCore.Storage, typeof(StorageCore));
-			//await SaveLoadGame.Save(t, typeof(GreenTile));
 		}
 
 		private async void LoadButton_Click(object sender, RoutedEventArgs e)
 		{
 			GreenTile t = await SaveLoadGame.Load<GreenTile>();
+		}
+		
+		private void Page_PointerPressed(object sender, PointerRoutedEventArgs e)
+		{
+			EditorCanvas.Focus(FocusState.Pointer);
+			EditorCanvas.Focus();
 		}
 	}
 }
