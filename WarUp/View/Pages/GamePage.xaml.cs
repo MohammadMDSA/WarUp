@@ -1,30 +1,16 @@
 ﻿using Microsoft.Graphics.Canvas;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
-using System.Threading.Tasks;
-using WarUp.Core;
 using WarUp.Core.Logics.Models;
 using WarUp.Core.Storage;
 using WarUp.GraphicEngine;
 using WarUp.Logic;
-using WarUp.Logic.Input;
-using WarUp.Utils;
+using WarUp.Logic.Editor;
+using WarUp.Logic.Editor.Input;
+using WarUp.Logic.Editor.Input.Mouse;
 using WarUp.Utils.File;
-using WarUp.Utils.Mouse;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -40,6 +26,8 @@ namespace WarUp
 		public bool WindowClosed { get; private set; }
 
 		public SwapChainManager SwapChainManager { get; }
+
+		private EditorCore EditorCore;
 		private LogicCore LogicCore;
 
 		public GamePage()
@@ -53,9 +41,10 @@ namespace WarUp
 
 			this.GameSwapChain.SwapChain = SwapChainManager.SwapChain;
 
-			LogicCore = new LogicCore(this, EditorCanvas);
-
-			EditorCanvas.Storage = LogicCore.Storage;
+			EditorCore = new EditorCore(EditorCanvas);
+			
+			LogicCore = new LogicCore(this);
+			
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -82,7 +71,7 @@ namespace WarUp
 				GameResetButton.IsEnabled = true;
 				EditorCanvas.IsEnabled = false;
 
-				LogicCore.Start();
+				LogicCore.Start(EditorCore.Storage.Clone());
 			}
 			else
 			{
@@ -121,12 +110,12 @@ namespace WarUp
 
 		private void WaypointToggleButton_Click(object sender, RoutedEventArgs e)
 		{
-			Input.Mouse.SetFunctionType(Mouse.FunctionType.Waypoint);
+			EditorInput.Mouse.SetFunctionType(EditorMouse.FunctionType.Waypoint);
 		}
 
 		private void PointerToggleButton_Click(object sender, RoutedEventArgs e)
 		{
-			Input.Mouse.SetFunctionType(Mouse.FunctionType.Select);
+			EditorInput.Mouse.SetFunctionType(EditorMouse.FunctionType.Select);
 		}
 		
 

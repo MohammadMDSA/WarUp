@@ -7,7 +7,6 @@ using WarUp.Canvases;
 using WarUp.Core;
 using WarUp.Core.Storage;
 using WarUp.GraphicEngine;
-using WarUp.Utils.Mouse;
 
 namespace WarUp.Logic
 {
@@ -16,26 +15,16 @@ namespace WarUp.Logic
 		private Task GameThread;
 		public bool GameRunning { get; private set; }
 		public bool GamePaused { get; private set; }
-
-		private Mouse Mouse;
-
-		public StorageCore Storage { get; }
+		
+		public StorageCore Storage { get; private set; }
 		private MainCore MainCore;
 
 		private GamePage GamePage;
 
-		public LogicCore(GamePage gamePage, EditorCanvas editor)
+		public LogicCore(GamePage gamePage)
 		{
 			this.GamePage = gamePage;
-
-			Storage = new StorageCore();
-
-			Mouse = new Mouse(Storage, editor);
-			Input.Input.Mouse = Mouse;
-
-			editor.Mouse = Mouse;
-			editor.Storage = Storage;
-
+			
 			GamePaused = false;
 			GameRunning = false;
 		}
@@ -56,8 +45,9 @@ namespace WarUp.Logic
 			}
 		}
 
-		public void Start()
+		public void Start(StorageCore storage)
 		{
+			this.Storage = storage;
 			GamePaused = false;
 			GameRunning = true;
 			GameThread = Task.Run(new Action(Run));

@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using WarUp.Core.Storage;
-using WarUp.Utils.Mouse;
+using WarUp.Logic.Editor.Input.Mouse;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -23,7 +23,7 @@ namespace WarUp.Canvases
 {
 	public sealed partial class EditorCanvas : UserControl
 	{
-		public Mouse Mouse { get; set; }
+		public EditorMouse Mouse { get; set; }
 		public StorageCore Storage { get; set; }
 		public Rect SelectionRect { get; set; }
 
