@@ -26,7 +26,7 @@ namespace WarUp.Logic.Editor
 
 			this.Storage = new StorageCore();
 			EditorInput.Mouse = this.Mouse = new EditorMouse(Storage, EditorCanvas);
-			EditorInput.Keyboard = this.Keyboard = new EditorKeyboard(EditorCanvas);
+			EditorInput.Keyboard = this.Keyboard = new EditorKeyboard(Storage, EditorCanvas);
 
 			EditorCanvas.Mouse = Mouse;
 			EditorCanvas.Storage = Storage;
