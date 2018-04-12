@@ -18,8 +18,8 @@ namespace WarUp.Logic.Editor.Input.Mouse
 		public StorageCore Storage { get; }
 		public EditorCanvas Editor { get; }
 
-		public MouseWaypointHandler WaypointHandler { get; }
-		public MouseSelectHandler SelectHandler { get; }
+		private MouseWaypointHandler WaypointHandler;
+		private MouseSelectHandler SelectHandler;
 		public FunctionType Type { get; private set; }
 		public BaseMouseFunction ActiveFunction { get; private set; }
 
