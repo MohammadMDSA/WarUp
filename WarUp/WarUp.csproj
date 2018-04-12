@@ -95,8 +95,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Input\Input.cs" />
+    <Compile Include="Logic\Editor\Input\Input.cs" />
     <Compile Include="Logic\LogicCore.cs" />
+    <Compile Include="Logic\Editor\EditorCore.cs" />
     <Compile Include="View\Canvases\EditorCanvas.xaml.cs">
       <DependentUpon>EditorCanvas.xaml</DependentUpon>
     </Compile>
@@ -108,11 +109,11 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Logic\Utils\File\SaveLoadGame.cs" />
-    <Compile Include="Logic\Input\Mouse\Functions\BaseMouseFunction.cs" />
-    <Compile Include="Logic\Input\Mouse\Functions\IMouseFunction.cs" />
-    <Compile Include="Logic\Input\Mouse\Functions\MouseWaypointHandler.cs" />
-    <Compile Include="Logic\Input\Mouse\Mouse.cs" />
-    <Compile Include="Logic\Input\Mouse\Functions\MouseSelectHandler.cs" />
+    <Compile Include="Logic\Editor\Input\Mouse\Functions\BaseMouseFunction.cs" />
+    <Compile Include="Logic\Editor\Input\Mouse\Functions\IMouseFunction.cs" />
+    <Compile Include="Logic\Editor\Input\Mouse\Functions\MouseWaypointHandler.cs" />
+    <Compile Include="Logic\Editor\Input\Mouse\Mouse.cs" />
+    <Compile Include="Logic\Editor\Input\Mouse\Functions\MouseSelectHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

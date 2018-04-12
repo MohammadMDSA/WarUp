@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace WarUp.Utils.Mouse.Functions
+namespace WarUp.Logic.Editor.Input.Mouse.Functions
 {
 	public abstract class BaseMouseFunction : IMouseFunction
 	{
-		public readonly Mouse Mouse;
+		public readonly EditorMouse Mouse;
 
-		public BaseMouseFunction(Mouse mouse)
+		public BaseMouseFunction(EditorMouse mouse)
 		{
 			this.Mouse = mouse;
 		}

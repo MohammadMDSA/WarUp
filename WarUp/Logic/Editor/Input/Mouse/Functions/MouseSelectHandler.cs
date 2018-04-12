@@ -10,7 +10,7 @@ using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace WarUp.Utils.Mouse.Functions
+namespace WarUp.Logic.Editor.Input.Mouse.Functions
 {
 	public class MouseSelectHandler : BaseMouseFunction
     {
@@ -19,7 +19,7 @@ namespace WarUp.Utils.Mouse.Functions
 		private Vector2 LastLeftPressPoint;
 		private Vector2 LastRightPressPoint;
 
-		public MouseSelectHandler(Mouse mouse) : base(mouse)
+		public MouseSelectHandler(EditorMouse mouse) : base(mouse)
 		{
 			Reset();
 		}

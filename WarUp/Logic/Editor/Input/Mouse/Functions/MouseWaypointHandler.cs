@@ -9,7 +9,7 @@ using WarUp.Core.Logics.MapUtils;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace WarUp.Utils.Mouse.Functions
+namespace WarUp.Logic.Editor.Input.Mouse.Functions
 {
 	public class MouseWaypointHandler : BaseMouseFunction
 	{
@@ -20,7 +20,7 @@ namespace WarUp.Utils.Mouse.Functions
 		private Waypoint LastOnTarget;
 		private bool IsNewAdded;
 
-		public MouseWaypointHandler(Mouse mouse) : base(mouse)
+		public MouseWaypointHandler(EditorMouse mouse) : base(mouse)
 		{
 			Reset();
 		}
