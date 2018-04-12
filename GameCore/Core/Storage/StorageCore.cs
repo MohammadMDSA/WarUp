@@ -1,8 +1,11 @@
-﻿using System;
+﻿using GameCore.Core.Utils;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using WarUp.Core.Graphics;
@@ -16,7 +19,7 @@ using WarUp.Core.Utils;
 namespace WarUp.Core.Storage
 {
 	[Serializable]
-	public class StorageCore
+	public class StorageCore : IClonable<StorageCore>
 	{
 		private HashSet<FrameworkObject> Objects;
 
@@ -81,7 +84,7 @@ namespace WarUp.Core.Storage
 
 		public void AddObject(FrameworkObject @object)
 		{
-			if (@object.Name == null ||@object.Name == string.Empty)
+			if (@object.Name == null || @object.Name == string.Empty)
 			{
 				@object.SetName(@object.SuggestName(this.GetNamesList()));
 			}
@@ -161,6 +164,18 @@ namespace WarUp.Core.Storage
 				result.Add(item.Name);
 			}
 			return result;
+		}
+
+		public StorageCore Clone()
+		{
+			using (var memoryStream = new MemoryStream())
+			{
+				var formatter = new BinaryFormatter();
+				formatter.Serialize(memoryStream, this);
+				memoryStream.Position = 0;
+
+				return (StorageCore)formatter.Deserialize(memoryStream);
+			}
 		}
 	}
 }

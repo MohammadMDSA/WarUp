@@ -109,6 +109,7 @@
     <Compile Include="Core\Graphics\IDrawable.cs" />
     <Compile Include="Core\Graphics\Renderer.cs" />
     <Compile Include="Core\Logics\Utils\INameSuggester.cs" />
+    <Compile Include="Core\Utils\IClonable.cs" />
     <Compile Include="Core\Utils\ITickable.cs" />
     <Compile Include="Core\Logics\FrameworkObject.cs" />
     <Compile Include="Core\Logics\Utils\ISelectable.cs" />
