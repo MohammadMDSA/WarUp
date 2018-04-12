@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using WarUp.Canvases;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
+using static WarUp.Logic.Editor.States.EditorStateManager;
 
 namespace WarUp.Logic.Editor.Input.Keyboard
 {
 	public class EditorKeyboard
 	{
 		public EditorCanvas Editor { get; }
+		public State State { get; private set; }
 
 		public EditorKeyboard(EditorCanvas editor)
 		{
@@ -27,6 +29,20 @@ namespace WarUp.Logic.Editor.Input.Keyboard
 		public void KeyUp(UIElement sender, KeyRoutedEventArgs e)
 		{
 
+		}
+
+		public void SetState(State state)
+		{
+			this.State = State;
+			switch (state)
+			{
+				case State.Select:
+					break;
+				case State.Waypoint:
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }

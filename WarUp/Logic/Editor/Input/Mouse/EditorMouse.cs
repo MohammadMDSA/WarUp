@@ -6,6 +6,7 @@ using WarUp.Core.Storage;
 using WarUp.Logic.Editor.Input.Mouse.Functions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
+using static WarUp.Logic.Editor.States.EditorStateManager;
 
 namespace WarUp.Logic.Editor.Input.Mouse
 {
@@ -20,7 +21,7 @@ namespace WarUp.Logic.Editor.Input.Mouse
 
 		private MouseWaypointHandler WaypointHandler;
 		private MouseSelectHandler SelectHandler;
-		public FunctionType Type { get; private set; }
+		public State State { get; private set; }
 		public BaseMouseFunction ActiveFunction { get; private set; }
 
 		public EditorMouse(StorageCore storage, EditorCanvas editor)
@@ -65,16 +66,16 @@ namespace WarUp.Logic.Editor.Input.Mouse
 			return SelectedObjects.AsReadOnly();
 		}
 
-		public bool SetFunctionType(FunctionType type)
+		public bool SetState(State state)
 		{
 			ActiveFunction.Reset();
-			this.Type = type;
-			switch (type)
+			this.State = State;
+			switch (state)
 			{
-				case FunctionType.Select:
+				case State.Select:
 					ActiveFunction = SelectHandler;
 					break;
-				case FunctionType.Waypoint:
+				case State.Waypoint:
 					ActiveFunction = WaypointHandler;
 					break;
 				default:
@@ -114,11 +115,6 @@ namespace WarUp.Logic.Editor.Input.Mouse
 			IsRightPressed = properties.IsRightButtonPressed;
 			IsLeftPressed = properties.IsLeftButtonPressed;
 		}
-
-		public enum FunctionType
-		{
-			Select = 0,
-			Waypoint
-		}
+		
 	}
 }
