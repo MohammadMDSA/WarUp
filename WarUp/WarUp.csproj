@@ -100,6 +100,7 @@
     <Compile Include="Logic\Editor\Input\Mouse\EditorMouse.cs" />
     <Compile Include="Logic\Editor\States\BaseEditorState.cs" />
     <Compile Include="Logic\Editor\States\EditorSelectState.cs" />
+    <Compile Include="Logic\Editor\States\EditorStateManager.cs" />
     <Compile Include="Logic\LogicCore.cs" />
     <Compile Include="Logic\Editor\EditorCore.cs" />
     <Compile Include="View\Canvases\EditorCanvas.xaml.cs">

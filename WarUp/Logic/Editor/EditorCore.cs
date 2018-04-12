@@ -8,6 +8,7 @@ using WarUp.Logic.Editor.Input.Mouse;
 using WarUp.Logic.Editor.Input;
 using WarUp.Core.Storage;
 using WarUp.Logic.Editor.Input.Keyboard;
+using WarUp.Logic.Editor.States;
 
 namespace WarUp.Logic.Editor
 {
@@ -17,6 +18,7 @@ namespace WarUp.Logic.Editor
 		public EditorMouse Mouse { get; }
 		public EditorKeyboard Keyboard { get; }
 		public StorageCore Storage { get; }
+		public EditorStateManager StateManager { get; }
 
 		public EditorCore(EditorCanvas editorCanvas)
 		{
@@ -24,10 +26,12 @@ namespace WarUp.Logic.Editor
 
 			this.Storage = new StorageCore();
 			EditorInput.Mouse = this.Mouse = new EditorMouse(Storage, EditorCanvas);
-			EditorInput.Keyboard = this.Keyboard = new EditorKeyboard();
+			EditorInput.Keyboard = this.Keyboard = new EditorKeyboard(EditorCanvas);
 
 			EditorCanvas.Mouse = Mouse;
 			EditorCanvas.Storage = Storage;
+
+			this.StateManager = new EditorStateManager(Mouse, Keyboard);
 		}
 
 	}
