@@ -96,6 +96,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\Editor\Input\Input.cs" />
+    <Compile Include="Logic\Editor\Input\Keyboard\EditorKeyboard.cs" />
+    <Compile Include="Logic\Editor\Input\Mouse\EditorMouse.cs" />
     <Compile Include="Logic\Editor\States\BaseEditorState.cs" />
     <Compile Include="Logic\Editor\States\EditorSelectState.cs" />
     <Compile Include="Logic\LogicCore.cs" />
@@ -114,7 +116,6 @@
     <Compile Include="Logic\Editor\Input\Mouse\Functions\BaseMouseFunction.cs" />
     <Compile Include="Logic\Editor\Input\Mouse\Functions\IMouseFunction.cs" />
     <Compile Include="Logic\Editor\Input\Mouse\Functions\MouseWaypointHandler.cs" />
-    <Compile Include="Logic\Editor\Input\Mouse\Mouse.cs" />
     <Compile Include="Logic\Editor\Input\Mouse\Functions\MouseSelectHandler.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +185,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Logic\Editor\Input\Keyboard\Functions\" />
     <Folder Include="View\Panels\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
