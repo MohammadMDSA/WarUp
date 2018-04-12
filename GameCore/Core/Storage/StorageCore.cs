@@ -90,9 +90,25 @@ namespace WarUp.Core.Storage
 			Objects.Add(@object);
 		}
 
+		public void AddObject(IEnumerable<FrameworkObject> objects)
+		{
+			foreach (var item in objects)
+			{
+				AddObject(item);
+			}
+		}
+
 		public void RemoveObject(FrameworkObject @object)
 		{
 			Objects.Add(@object);
+		}
+
+		public void RemoveObject(IEnumerable<FrameworkObject> objects)
+		{
+			foreach (var item in objects)
+			{
+				RemoveObject(item);
+			}
 		}
 
 		public void RemoveAll()
