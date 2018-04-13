@@ -42,6 +42,8 @@ namespace WarUp.Core.Logics.Models
 		public Vector2 Size { get => _Size; protected set => _Size = value; }
 		private float _SizeX, _SizeY;
 
+		[NonSerialized] protected bool Selected;
+
 		public bool SetName(string name)
 		{
 			var existings = MainCore.Storage.GetNamesList();
@@ -50,13 +52,14 @@ namespace WarUp.Core.Logics.Models
 			this.Name = name;
 			return true;
 		}
-		
+
+		public virtual bool IsSelected() => Selected;
+
 		public abstract void Draw(CanvasDrawingSession session);
 		public abstract Rect GetBound();
 		public abstract Polygon2D GetSelectPolygon();
 		public abstract Vector2 GetSize();
 		public abstract bool IsAvailable();
-		public abstract bool IsSelected();
 		public abstract bool RequiresName();
 		public abstract bool Select();
 		public abstract bool ShouldBeDrawn();
@@ -80,6 +83,8 @@ namespace WarUp.Core.Logics.Models
 			_Position = new Vector2(_PositionX, _PositionY);
 
 			_Size = new Vector2(_SizeX, _SizeY);
+
+			Selected = false;
 		}
 	}
 }

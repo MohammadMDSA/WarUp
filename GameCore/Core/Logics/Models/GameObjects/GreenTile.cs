@@ -23,7 +23,6 @@ namespace WarUp.Core.Logics.Models
 	[Serializable]
 	public class GreenTile : GameObject, IMovable
 	{
-		private bool Selected;
 		private float Speed;
 		private Vector2 UpperLeftEdge => Position - Size / 2;
 
@@ -49,9 +48,7 @@ namespace WarUp.Core.Logics.Models
 			if (!GetFirstEnableInstruction(out current)) return;
 			current.Tick();
 		}
-
-		public override bool IsSelected() => Selected;
-
+		
 		public override Polygon2D GetSelectPolygon()
 		{
 			var list = new List<Point2D>();

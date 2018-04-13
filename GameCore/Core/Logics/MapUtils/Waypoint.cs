@@ -18,11 +18,6 @@ namespace WarUp.Core.Logics.MapUtils
 	[Serializable]
 	public sealed class Waypoint : GameUtil
 	{
-		/// <summary>
-		/// Tells if waypoint is selected or not
-		/// </summary>
-		private bool Selected;
-
 		public WaypointRoute ParentRoute { get; set; }
 
 		public Waypoint(Vector2 position)
@@ -54,9 +49,7 @@ namespace WarUp.Core.Logics.MapUtils
 		{
 			return true;
 		}
-
-		public override bool IsSelected() => Selected;
-
+		
 		public override bool Select()
 		{
 			Selected = true;
