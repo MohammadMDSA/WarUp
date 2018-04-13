@@ -40,7 +40,7 @@ namespace WarUp.Logic
 				}
 				else
 				{
-					await Task.Delay(1000);
+					await Task.Delay(100);
 				}
 			}
 		}
