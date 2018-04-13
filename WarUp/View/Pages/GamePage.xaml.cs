@@ -1,12 +1,9 @@
 ﻿using Microsoft.Graphics.Canvas;
-using System.Threading.Tasks;
 using WarUp.Core.Logics.Models;
 using WarUp.Core.Storage;
 using WarUp.GraphicEngine;
 using WarUp.Logic;
 using WarUp.Logic.Editor;
-using WarUp.Logic.Editor.Input;
-using WarUp.Logic.Editor.Input.Mouse;
 using WarUp.Utils.File;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
@@ -73,6 +70,9 @@ namespace WarUp
 				GameResetButton.IsEnabled = true;
 				EditorCanvas.IsEnabled = false;
 
+				CanvasPanel.SelectedIndex = 1;
+				EditorLoading.IsLoading = true;
+
 				LogicCore.Start(EditorCore.Storage.Clone());
 			}
 			else
@@ -90,6 +90,7 @@ namespace WarUp
 			GameResetButton.IsEnabled = false;
 
 			EditorCanvas.IsEnabled = true;
+			EditorLoading.IsLoading = false;
 
 			LogicCore.Reset();
 
@@ -103,10 +104,12 @@ namespace WarUp
 			if (!view.IsFullScreenMode)
 			{
 				view.TryEnterFullScreenMode();
+				FullScreenSwitchButton.Icon = new SymbolIcon(Symbol.BackToWindow);
 			}
 			else
 			{
 				view.ExitFullScreenMode();
+				FullScreenSwitchButton.Icon = new SymbolIcon(Symbol.FullScreen);
 			}
 		}
 
@@ -140,7 +143,7 @@ namespace WarUp
 
 		private async void SaveButton_Click(object sender, RoutedEventArgs e)
 		{
-			await SaveLoadGame.Save(LogicCore.Storage, typeof(StorageCore));
+			await SaveLoadGame.Save(EditorCore.Storage, typeof(StorageCore));
 		}
 
 		private async void LoadButton_Click(object sender, RoutedEventArgs e)
