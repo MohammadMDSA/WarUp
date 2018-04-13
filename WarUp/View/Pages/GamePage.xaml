@@ -51,7 +51,7 @@
 					<Pivot x:Name="CanvasPanel">
 						<PivotItem Header="Editor">
 							<Grid>
-								<!--<canvases:EditorCanvas x:Name="EditorCanvas" SizeChanged="EditorCanvas_SizeChanged"/>-->
+								<canvases:EditorCanvas x:Name="EditorCanvas" SizeChanged="EditorCanvas_SizeChanged"/>
 								<controls:Loading x:Name="EditorLoading" IsLoading="False">
 									<StackPanel HorizontalAlignment="Center" Orientation="Vertical">
 										<ProgressRing IsActive="True"/>
