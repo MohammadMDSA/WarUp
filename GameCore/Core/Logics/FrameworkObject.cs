@@ -86,5 +86,10 @@ namespace WarUp.Core.Logics.Models
 
 			Selected = false;
 		}
+
+		public override string ToString()
+		{
+			return this.Name;
+		}
 	}
 }
